@@ -29,6 +29,7 @@ public class Product {
 	private boolean isPromotionMessageSent;
 	private String productDescription;
 	private int quantity;
+	private double discount;
 	
 	public int getProductId() {
 		return productId;
@@ -102,17 +103,23 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
 				+ productCategory + ", inventoryId=" + inventoryId + ", productPrice=" + productPrice + ", merchantId="
 				+ merchantId + ", promoId=" + promoId + ", productsSold=" + productsSold + ", productView="
 				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription="
-				+ productDescription + ", quantity=" + quantity + "]";
+				+ productDescription + ", quantity=" + quantity + ", discount=" + discount + "]";
 	}
 	public Product(int productId, String productName, ProductCategory productCategory, int inventoryId,
 			double productPrice, int merchantId, int promoId, int productsSold, int productView,
-			boolean isPromotionMessageSent, String productDescription, int quantity) {
+			boolean isPromotionMessageSent, String productDescription, int quantity, double discount) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -126,6 +133,7 @@ public class Product {
 		this.isPromotionMessageSent = isPromotionMessageSent;
 		this.productDescription = productDescription;
 		this.quantity = quantity;
+		this.discount = discount;
 	}
 	public Product() {
 		super();
