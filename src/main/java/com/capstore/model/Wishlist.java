@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -13,13 +14,13 @@ import javax.persistence.OneToOne;
 public class Wishlist {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int wishlistId;
 	
-	@OneToOne(mappedBy="Customer")
+	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@OneToMany(mappedBy="Product")
+	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
 	
 	public int getWishlistId() {

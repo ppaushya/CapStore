@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -13,10 +14,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Invoice {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int invoiceNo;
 	
-	@OneToOne(mappedBy="Order")
+	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
@@ -24,7 +25,7 @@ public class Invoice {
 	private double discountedPrice;
 	private double discount;
 	
-	@OneToOne(mappedBy="Coupon")
+	@OneToOne(targetEntity=Coupons.class)
 	private int couponId;
 	
 	public int getInvoiceNo() {

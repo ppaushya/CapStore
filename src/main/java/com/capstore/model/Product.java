@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -9,19 +10,19 @@ import javax.persistence.OneToOne;
 public class Product {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int productId;
 	private String productName;
 	private ProductCategory productCategory;
 	
-	@OneToOne(mappedBy="Inventory")
+	@OneToOne(targetEntity=Inventory.class)
 	private int inventoryId;
 	private double productPrice;
 	
-	@OneToOne(mappedBy="Merchant")
+	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	
-	@OneToOne(mappedBy="Promos")
+	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
 	private int productsSold;
 	private int productView;

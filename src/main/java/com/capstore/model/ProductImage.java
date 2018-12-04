@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -9,10 +10,10 @@ import javax.persistence.OneToOne;
 public class ProductImage {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int imageId;
 	
-	@OneToOne(mappedBy="Product")
+	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	private String imageUrl;
 	private ImageStatus imageStatus;
