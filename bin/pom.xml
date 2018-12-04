@@ -64,21 +64,21 @@
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
