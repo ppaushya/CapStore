@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -12,12 +14,13 @@ import javax.persistence.OneToOne;
 public class Cart {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 	
-	@OneToOne(mappedBy="Customer")
+	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@OneToMany(mappedBy="Product")
+	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
 	private int quantity;
 	

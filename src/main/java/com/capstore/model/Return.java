@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -13,13 +14,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Return {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int returnId;
 	
-	@OneToOne(mappedBy="Order")
+	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
-	@OneToOne(mappedBy="Product")
+	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")

@@ -3,19 +3,23 @@ package com.capstore.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Merchant {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int merchantId;
 	private String merchantName;
 	
 	@Column(unique=true)
 	private String emailId;
 	private String merchantContact;
+	
+	@OneToOne
 	private Address merchantAddress;
 	private double rating;
 	

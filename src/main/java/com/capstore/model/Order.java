@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -13,17 +14,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Order {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
 	private int orderId;
 	
-	@OneToOne(mappedBy="Customer")
+	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@OneToOne(mappedBy="Product")
+	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	
-	@OneToOne(mappedBy="Shipment")
+	@OneToOne(targetEntity=Shipment.class)
 	private int shipmentId;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages="com.capstore")
+@ComponentScan(basePackages= {"com.capstore"})
 public class CapStoreApplication {
 
 	public static void main(String[] args) {
