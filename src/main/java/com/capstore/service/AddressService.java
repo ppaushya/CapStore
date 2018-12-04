@@ -5,6 +5,10 @@ private void sysout() {
  System.out.println("Hiiii");
 
 }
+
+public void method1() {
+	System.out.println("Good Evening");
+}
 		
 	}
 
