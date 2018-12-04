@@ -27,6 +27,7 @@ public class Product {
 	private int productsSold;
 	private int productView;
 	private boolean isPromotionMessageSent;
+	private String productDescription;
 	private int quantity;
 	
 	public int getProductId() {
@@ -89,7 +90,12 @@ public class Product {
 	public void setPromotionMessageSent(boolean isPromotionMessageSent) {
 		this.isPromotionMessageSent = isPromotionMessageSent;
 	}
-	
+	public String getProductDescription() {
+		return productDescription;
+	}
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
 	public int getQuantity() {
 		return quantity;
 	}
@@ -101,12 +107,12 @@ public class Product {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
 				+ productCategory + ", inventoryId=" + inventoryId + ", productPrice=" + productPrice + ", merchantId="
 				+ merchantId + ", promoId=" + promoId + ", productsSold=" + productsSold + ", productView="
-				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", quantity=" + quantity + "]";
+				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription="
+				+ productDescription + ", quantity=" + quantity + "]";
 	}
-	
 	public Product(int productId, String productName, ProductCategory productCategory, int inventoryId,
 			double productPrice, int merchantId, int promoId, int productsSold, int productView,
-			boolean isPromotionMessageSent, int quantity) {
+			boolean isPromotionMessageSent, String productDescription, int quantity) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -118,6 +124,7 @@ public class Product {
 		this.productsSold = productsSold;
 		this.productView = productView;
 		this.isPromotionMessageSent = isPromotionMessageSent;
+		this.productDescription = productDescription;
 		this.quantity = quantity;
 	}
 	public Product() {
