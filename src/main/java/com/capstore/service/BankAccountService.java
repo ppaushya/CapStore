@@ -1,8 +1,39 @@
 package com.capstore.service;
 
-public class BankAccountService {
+import java.util.List;
 
-	public void print() {
-		System.out.println("Method 1");
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capstore.dao.IBankAccountDao;
+import com.capstore.model.BankAccount;
+
+@Service("bankAccountService")
+public class BankAccountService implements IBankAccountService {
+
+	@Autowired
+	private IBankAccountDao bankAccountDao;
+	
+	
+	@Override
+	public boolean addBankAccount(BankAccount bankAccount) {
+		bankAccountDao.save(bankAccount);
+		return true;
 	}
+
+
+	@Override
+	public List<BankAccount> getAllBankAccounts() {
+		
+		return bankAccountDao.findAll();
+	}
+
+
+	@Override
+	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword) {
+		
+		return bankAccountDao.getBankAccountFromUserNamePassword(userName, userPassword);
+	}
+
+
 }

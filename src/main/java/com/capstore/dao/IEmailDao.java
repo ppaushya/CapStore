@@ -1,6 +1,5 @@
 package com.capstore.dao;
 
-
 import java.util.List;
 
 import javax.transaction.Transactional;
