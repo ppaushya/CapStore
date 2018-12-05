@@ -12,7 +12,7 @@ public class Email {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
 	private String receiverEmailId;
-	private String senderEmailId;
+	private String senderEmailId;	
 	private String message;
 	private String imageUrl;
 	
