@@ -22,5 +22,15 @@ public class MerchantService implements IMerchantService{
 		merchantDao.deleteById(merchantId);
 		
 	}
+
+	@Override
+	public Merchant getMerchantByMail(String merchantMail) {
+		return merchantDao.getByEmailId(merchantMail);
+	}
+
+	@Override
+	public void updateMerchant(Merchant merchant) {
+		merchantDao.save(merchant);
+	}
 	
 }

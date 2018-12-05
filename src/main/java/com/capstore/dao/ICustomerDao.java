@@ -12,4 +12,7 @@ import com.capstore.model.Customer;
 public interface ICustomerDao extends JpaRepository<Customer,Integer> {
 
 
+	Customer getByEmailId(String customerEmail);
+
+
 }

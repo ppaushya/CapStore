@@ -8,4 +8,8 @@ public interface ICustomerService {
 
 	public boolean createCustomer(Customer customer);
 
+	public Customer getCustomerByEmail(String customerEmail);
+
+	public void updateCustomer(Customer customer);
+
 }

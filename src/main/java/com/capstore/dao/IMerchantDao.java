@@ -10,4 +10,6 @@ import com.capstore.model.Merchant;
 @Transactional
 public interface IMerchantDao extends JpaRepository<Merchant, Integer>{
 
+	Merchant getByEmailId(String merchantMail);
+
 }

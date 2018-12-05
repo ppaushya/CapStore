@@ -17,4 +17,14 @@ public class CustomerService implements ICustomerService{
 		customerDao.save(customer);
 		return true;
 	}
+
+	@Override
+	public Customer getCustomerByEmail(String customerEmail) {
+		return customerDao.getByEmailId(customerEmail);
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) {
+		customerDao.save(customer);
+	}
 }
