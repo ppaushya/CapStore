@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Promos {
 	
 	@Id
+	@Column(name="promoId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int promoId;
 	private String promoImageUrl;
