@@ -10,10 +10,11 @@ import javax.persistence.Id;
 public class Login {
 
 	@Id
+	@Column(name="serialNo")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
 	
-	@Column(unique=true)
+	@Column(unique=true,name="emailId")
 	private String emailId;
 	private String password;
 	private String userTypes;

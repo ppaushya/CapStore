@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +15,19 @@ import javax.persistence.OneToOne;
 public class Cart {
 	
 	@Id
+	@Column(name="cartId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 	
+	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
+	@Column(name="productList")
 	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
+	
+	@Column(name="quantity")
 	private int quantity;
 	
 	public int getCartId() {

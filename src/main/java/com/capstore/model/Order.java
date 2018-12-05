@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +15,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Order {
 	
 	@Id
+	@Column(name="serialNo")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
 	private int orderId;
 	
+	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
+	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	
+	@Column(name="shipmentId")
 	@OneToOne(targetEntity=Shipment.class)
 	private int shipmentId;
 	

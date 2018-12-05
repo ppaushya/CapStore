@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,20 +11,30 @@ import javax.persistence.OneToOne;
 public class Inventory {
 
 	@Id
+	@Column(name="inventoryId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int inventoryId;
 	
+	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
+	@Column(name="productName")
 	private String productName;
+	@Column(name="productCategory")
 	private String productCategory;
+	@Column(name="productPrice")
 	private double productPrice;
+	@Column(name="productDescription")
 	private String productDescription;
 	
+	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
+	@Column(name="status")
 	private String status;
+	@Column(name="inventoryType")
 	private String inventoryType;
+	@Column(name="inventoryQuantity")
 	private int inventoryQuantity;
 	
 	public int getInventoryId() {

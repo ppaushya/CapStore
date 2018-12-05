@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,12 +11,12 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int addressId;
-	private String addressLine1;
-	private String addressLine2;
-	private String city;
-	private String state;
-	private int pincode;
+	@Column(name="addressId")private int addressId;
+	@Column(name="addressLine1")private String addressLine1;
+	@Column(name="addressLine2")private String addressLine2;
+	@Column(name="city")private String city;
+	@Column(name="state")private String state;
+	@Column(name="pincode")private int pincode;
 	
 	public int getAddressId() {
 		return addressId;
