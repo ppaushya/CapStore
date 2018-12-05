@@ -16,14 +16,14 @@ public class Inventory {
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	private int productName;
-	private ProductCategory productCategory;
+	private String productCategory;
 	private double productPrice;
 	private String productDescription;
 	
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
 	private String status;
-	private InventoryType inventoryType;
+	private String inventoryType;
 	private int inventoryQuantity;
 	
 	public int getInventoryId() {
@@ -44,10 +44,10 @@ public class Inventory {
 	public void setProductName(int productName) {
 		this.productName = productName;
 	}
-	public ProductCategory getProductCategory() {
+	public String getProductCategory() {
 		return productCategory;
 	}
-	public void setProductCategory(ProductCategory productCategory) {
+	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
 	}
 	public double getProductPrice() {
@@ -74,10 +74,10 @@ public class Inventory {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public InventoryType getInventoryType() {
+	public String getInventoryType() {
 		return inventoryType;
 	}
-	public void setInventoryType(InventoryType inventoryType) {
+	public void setInventoryType(String inventoryType) {
 		this.inventoryType = inventoryType;
 	}
 	
@@ -94,8 +94,8 @@ public class Inventory {
 				+ ", productDescription=" + productDescription + ", promoId=" + promoId + ", status=" + status
 				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
 	}
-	public Inventory(int inventoryId, int merchantId, int productName, ProductCategory productCategory,
-			double productPrice, String productDescription, int promoId, String status, InventoryType inventoryType,int inventoryQuantity) {
+	public Inventory(int inventoryId, int merchantId, int productName, String productCategory,
+			double productPrice, String productDescription, int promoId, String status, String inventoryType,int inventoryQuantity) {
 		super();
 		this.inventoryId = inventoryId;
 		this.merchantId = merchantId;

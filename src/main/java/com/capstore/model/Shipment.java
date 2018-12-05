@@ -25,7 +25,7 @@ public class Shipment {
 	
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
-	private DeliveryStatus deliveryStatus;
+	private String deliveryStatus;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date deliveryDate;
@@ -57,10 +57,10 @@ public class Shipment {
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-	public DeliveryStatus getDeliveryStatus() {
+	public String getString() {
 		return deliveryStatus;
 	}
-	public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+	public void setString(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
 	public Date getDeliveryDate() {
@@ -81,7 +81,7 @@ public class Shipment {
 				+ ", productId=" + productId + ", deliveryDate=" + deliveryDate + ", dispatchDate=" + dispatchDate
 				+ "]";
 	}
-	public Shipment(int shipmentId, int orderId, int addressId, int productId, DeliveryStatus deliveryStatus,
+	public Shipment(int shipmentId, int orderId, int addressId, int productId, String deliveryStatus,
 			Date deliveryDate, Date dispatchDate) {
 		super();
 		this.shipmentId = shipmentId;

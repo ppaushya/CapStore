@@ -16,7 +16,7 @@ public class Login {
 	@Column(unique=true)
 	private String emailId;
 	private String password;
-	private UserTypes userTypes;
+	private String userTypes;
 	
 	public int getSerialNo() {
 		return serialNo;
@@ -36,10 +36,10 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserTypes getUserTypes() {
+	public String getUserTypes() {
 		return userTypes;
 	}
-	public void setUserTypes(UserTypes userTypes) {
+	public void setUserTypes(String userTypes) {
 		this.userTypes = userTypes;
 	}
 	@Override
@@ -47,7 +47,7 @@ public class Login {
 		return "Login [serialNo=" + serialNo + ", emailId=" + emailId + ", password=" + password + ", userTypes="
 				+ userTypes + "]";
 	}
-	public Login(int serialNo, String emailId, String password, UserTypes userTypes) {
+	public Login(int serialNo, String emailId, String password, String userTypes) {
 		super();
 		this.serialNo = serialNo;
 		this.emailId = emailId;
