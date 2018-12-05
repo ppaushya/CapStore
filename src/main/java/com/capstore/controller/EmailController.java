@@ -31,10 +31,10 @@ public class EmailController {
 	@PostMapping("/sendVerificationMail")
 	public ResponseEntity<Boolean> sendVerificationMail(@RequestBody Customer customer){
 		
-		customerService.addCustomer(customer);
+		//customerService.addCustomer(customer);
 		
 		Email mail=new Email();
-		mail.setEmailId(customer.getEmailId());
+		//mail.setEmailId(customer.getEmailId());
 		mail.setMessage("Verify by clicking this link");
 		mail.setImageUrl(null);
 		emailService.sendEmail(mail);

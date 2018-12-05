@@ -1,11 +1,12 @@
 package com.capstore.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +21,14 @@ import com.capstore.service.IProductService;
 public class ProductController {
 	
 	@Autowired
-	IProductService productService;
+	private IProductService productService;
 	
 
-	@PostMapping("/product")
-	public  ResponseEntity<Integer> bestseller(
-			@RequestBody Product product ){
+	@GetMapping("/product")
+	public  ResponseEntity<Integer> bestSeller(){
 		      
-		Product product1 = productService.bestSeller(product);
-		if(product1.isEmpty())
+		int product1 = productService.bestSeller();
+		if(product1==0)
 				return new ResponseEntity("Nothing fetched",HttpStatus.NOT_FOUND) ;
 		
 		return new ResponseEntity<Integer>(product1,HttpStatus.OK);
