@@ -11,4 +11,5 @@ import com.capstore.model.Feedback;
 @Transactional
 public interface IFeedbackDao extends JpaRepository<Feedback,Integer>  {
 
+
 }

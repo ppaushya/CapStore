@@ -1,5 +1,13 @@
 package com.capstore.service;
 
+import java.util.List;
+
+import com.capstore.model.Address;
+
 public interface IAddressService {
+	
+	public List<Address> getAllAddresses();
+	
+	public Address createAddress(Address address);
 
 }

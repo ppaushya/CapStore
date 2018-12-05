@@ -1,5 +1,15 @@
 package com.capstore.dao;
 
-public interface IAddressDao {
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.capstore.model.Address;
+import com.capstore.model.Shipment;
+
+@Repository("addressdao")
+@Transactional
+public interface IAddressDao extends JpaRepository<Address,Integer> {
 
 }
