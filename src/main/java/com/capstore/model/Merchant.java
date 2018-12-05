@@ -21,7 +21,6 @@ public class Merchant {
 	
 	@OneToOne
 	private Address merchantAddress;
-	private double rating;
 	private boolean isVerified;
 	
 	public int getMerchantId() {
@@ -54,12 +53,6 @@ public class Merchant {
 	public void setMerchantAddress(Address merchantAddress) {
 		this.merchantAddress = merchantAddress;
 	}
-	public double getRating() {
-		return rating;
-	}
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
 	public boolean isVerified() {
 		return isVerified;
 	}
@@ -69,18 +62,17 @@ public class Merchant {
 	@Override
 	public String toString() {
 		return "Merchant [merchantId=" + merchantId + ", merchantName=" + merchantName + ", emailId=" + emailId
-				+ ", merchantContact=" + merchantContact + ", merchantAddress=" + merchantAddress + ", rating=" + rating
-				+ ", isVerified=" + isVerified + "]";
+				+ ", merchantContact=" + merchantContact + ", merchantAddress=" + merchantAddress + ", isVerified="
+				+ isVerified + "]";
 	}
 	public Merchant(int merchantId, String merchantName, String emailId, String merchantContact,
-			Address merchantAddress, double rating, boolean isVerified) {
+			Address merchantAddress, boolean isVerified) {
 		super();
 		this.merchantId = merchantId;
 		this.merchantName = merchantName;
 		this.emailId = emailId;
 		this.merchantContact = merchantContact;
 		this.merchantAddress = merchantAddress;
-		this.rating = rating;
 		this.isVerified = isVerified;
 	}
 	public Merchant() {
