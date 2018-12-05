@@ -11,7 +11,7 @@ public class Email {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
-	private String emailId;
+	private String emailIds;
 	private String message;
 	private String imageUrl;
 	
@@ -22,10 +22,10 @@ public class Email {
 		this.serialNo = serialNo;
 	}
 	public String getEmailId() {
-		return emailId;
+		return emailIds;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmailId(String emailIds) {
+		this.emailIds = emailIds;
 	}
 	public String getMessage() {
 		return message;
@@ -41,13 +41,13 @@ public class Email {
 	}
 	@Override
 	public String toString() {
-		return "Email [serialNo=" + serialNo + ", emailId=" + emailId + ", message=" + message + ", imageUrl="
+		return "Email [serialNo=" + serialNo + ", emailId=" + emailIds + ", message=" + message + ", imageUrl="
 				+ imageUrl + "]";
 	}
-	public Email(int serialNo, String emailId, String message, String imageUrl) {
+	public Email(int serialNo, String emailIds, String message, String imageUrl) {
 		super();
 		this.serialNo = serialNo;
-		this.emailId = emailId;
+		this.emailIds = emailIds;
 		this.message = message;
 		this.imageUrl = imageUrl;
 	}
