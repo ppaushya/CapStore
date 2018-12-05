@@ -11,15 +11,17 @@ import javax.persistence.OneToOne;
 public class Merchant {
 	
 	@Id
+	@Column(name="merchantId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int merchantId;
 	private String merchantName;
 	
-	@Column(unique=true)
+	@Column(unique=true,name="emailId")
 	private String emailId;
 	private String merchantContact;
 	
 	@OneToOne
+//	@Column(name="merchantAddress")
 	private Address merchantAddress;
 	private boolean isVerified;
 	

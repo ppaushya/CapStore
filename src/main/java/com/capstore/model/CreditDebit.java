@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,12 +10,19 @@ import javax.persistence.Id;
 public class CreditDebit {
 	
 	@Id
+	@Column(name="cardNumber")
 	private String cardNumber;
+	@Column(name="cardHolderName")
 	private String cardHolderName;
+	@Column(name="expiryDate")
 	private Date expiryDate;
+	@Column(name="cvv")
 	private int cvv;
+	@Column(name="balance")
 	private double balance;
+	@Column(name="pinNumber")
 	private int pinNumber;
+	
 	
 	public String getCardNumber() {
 		return cardNumber;

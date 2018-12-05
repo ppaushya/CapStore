@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.capstore.model.Login;
 import com.capstore.service.ILoginService;
 
@@ -20,6 +21,7 @@ import com.capstore.service.ILoginService;
 @RequestMapping("/api/v1")
 public class LoginController {
 
+	
 	@Autowired
 	private ILoginService loginService;
 	
@@ -38,6 +40,6 @@ public class LoginController {
 		session.setAttribute("emailId", loginbean.getEmailId());
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	
 	}
-
+	
 	
 }

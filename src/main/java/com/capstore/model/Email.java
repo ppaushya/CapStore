@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,11 +10,16 @@ import javax.persistence.Id;
 public class Email {
 	
 	@Id
+	@Column(name="serialNo")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
+	@Column(name="receiverEmailId")
 	private String receiverEmailId;
-	private String senderEmailId;
+	@Column(name="senderEmailId")
+	private String senderEmailId;	
+	@Column(name="message")
 	private String message;
+	@Column(name="imageUrl")
 	private String imageUrl;
 	
 	public int getSerialNo() {

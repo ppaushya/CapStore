@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,13 +11,15 @@ import javax.persistence.OneToOne;
 public class ProductImage {
 	
 	@Id
+	@Column(name="imageId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int imageId;
 	
+//	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	private String imageUrl;
-	private ImageStatus imageStatus;
+	private String imageStatus;
 	
 	public int getImageId() {
 		return imageId;
@@ -36,18 +39,18 @@ public class ProductImage {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public ImageStatus getImageStatus() {
+	public String getString() {
 		return imageStatus;
 	}
-	public void setImageStatus(ImageStatus imageStatus) {
+	public void setString(String imageStatus) {
 		this.imageStatus = imageStatus;
 	}
 	@Override
 	public String toString() {
 		return "ProductImage [imageId=" + imageId + ", productId=" + productId + ", imageUrl=" + imageUrl
-				+ ", imageStatus=" + imageStatus + "]";
+				+ ", String=" + imageStatus + "]";
 	}
-	public ProductImage(int imageId, int productId, String imageUrl, ImageStatus imageStatus) {
+	public ProductImage(int imageId, int productId, String imageUrl, String String) {
 		super();
 		this.imageId = imageId;
 		this.productId = productId;

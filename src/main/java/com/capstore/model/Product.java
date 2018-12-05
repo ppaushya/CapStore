@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,18 +11,22 @@ import javax.persistence.OneToOne;
 public class Product {
 	
 	@Id
+	@Column(name="productId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int productId;
 	private String productName;
-	private ProductCategory productCategory;
+	private String productCategory;
 	
+//	@Column(name="inventoryId")
 	@OneToOne(targetEntity=Inventory.class)
 	private int inventoryId;
 	private double productPrice;
 	
+//	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	
+//	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
 	private int productsSold;
@@ -44,10 +49,10 @@ public class Product {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public ProductCategory getProductCategory() {
+	public String getString() {
 		return productCategory;
 	}
-	public void setProductCategory(ProductCategory productCategory) {
+	public void setString(String productCategory) {
 		this.productCategory = productCategory;
 	}
 	public int getInventoryId() {
@@ -118,13 +123,13 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
+		return "Product [productId=" + productId + ", productName=" + productName + ", String="
 				+ productCategory + ", inventoryId=" + inventoryId + ", productPrice=" + productPrice + ", merchantId="
 				+ merchantId + ", promoId=" + promoId + ", productsSold=" + productsSold + ", productView="
 				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription="
 				+ productDescription + ", quantity=" + quantity + ", discount=" + discount + ", brand=" + brand + "]";
 	}
-	public Product(int productId, String productName, ProductCategory productCategory, int inventoryId,
+	public Product(int productId, String productName, String productCategory, int inventoryId,
 			double productPrice, int merchantId, int promoId, int productsSold, int productView,
 			boolean isPromotionMessageSent, String productDescription, int quantity, double discount, String brand) {
 		super();

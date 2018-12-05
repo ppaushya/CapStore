@@ -11,9 +11,8 @@ import com.capstore.model.Login;
 
 @Service("loginService")
 public class LoginService implements ILoginService{
-
 	
-	@Autowired
+@Autowired
 	private ILoginDao loginDao;
 	
 	@Override
@@ -23,5 +22,4 @@ public class LoginService implements ILoginService{
 		System.out.println(login);
 		return login;
 	}
-
 }
