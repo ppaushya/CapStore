@@ -1,7 +1,15 @@
 package com.capstore.dao;
 
+import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ICustomerDao {
+import com.capstore.model.Customer;
+
+@Repository("customerDao")
+@Transactional
+public interface ICustomerDao extends JpaRepository<Customer,Integer> {
+
 
 }

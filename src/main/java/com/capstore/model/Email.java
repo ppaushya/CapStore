@@ -11,7 +11,8 @@ public class Email {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
-	private String emailIds;
+	private String receiverEmailId;
+	private String senderEmailId;	
 	private String message;
 	private String imageUrl;
 	
@@ -21,11 +22,17 @@ public class Email {
 	public void setSerialNo(int serialNo) {
 		this.serialNo = serialNo;
 	}
-	public String getEmailId() {
-		return emailIds;
+	public String getReceiverEmailId() {
+		return receiverEmailId;
 	}
-	public void setEmailId(String emailIds) {
-		this.emailIds = emailIds;
+	public void setReceiverEmailId(String receiverEmailId) {
+		this.receiverEmailId = receiverEmailId;
+	}
+	public String getSenderEmailId() {
+		return senderEmailId;
+	}
+	public void setSenderEmailId(String senderEmailId) {
+		this.senderEmailId = senderEmailId;
 	}
 	public String getMessage() {
 		return message;
@@ -41,13 +48,14 @@ public class Email {
 	}
 	@Override
 	public String toString() {
-		return "Email [serialNo=" + serialNo + ", emailId=" + emailIds + ", message=" + message + ", imageUrl="
-				+ imageUrl + "]";
+		return "Email [serialNo=" + serialNo + ", receiverEmailId=" + receiverEmailId + ", senderEmailId="
+				+ senderEmailId + ", message=" + message + ", imageUrl=" + imageUrl + "]";
 	}
-	public Email(int serialNo, String emailIds, String message, String imageUrl) {
+	public Email(int serialNo, String receiverEmailId, String senderEmailId, String message, String imageUrl) {
 		super();
 		this.serialNo = serialNo;
-		this.emailIds = emailIds;
+		this.receiverEmailId = receiverEmailId;
+		this.senderEmailId = senderEmailId;
 		this.message = message;
 		this.imageUrl = imageUrl;
 	}
