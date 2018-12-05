@@ -13,7 +13,7 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int productId;
 	private String productName;
-	private ProductCategory productCategory;
+	private String productCategory;
 	
 	@OneToOne(targetEntity=Inventory.class)
 	private int inventoryId;
@@ -30,6 +30,7 @@ public class Product {
 	private String productDescription;
 	private int quantity;
 	private double discount;
+	private String brand;
 	
 	public int getProductId() {
 		return productId;
@@ -43,10 +44,10 @@ public class Product {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public ProductCategory getProductCategory() {
+	public String getString() {
 		return productCategory;
 	}
-	public void setProductCategory(ProductCategory productCategory) {
+	public void setString(String productCategory) {
 		this.productCategory = productCategory;
 	}
 	public int getInventoryId() {
@@ -109,17 +110,23 @@ public class Product {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
+		return "Product [productId=" + productId + ", productName=" + productName + ", String="
 				+ productCategory + ", inventoryId=" + inventoryId + ", productPrice=" + productPrice + ", merchantId="
 				+ merchantId + ", promoId=" + promoId + ", productsSold=" + productsSold + ", productView="
 				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription="
-				+ productDescription + ", quantity=" + quantity + ", discount=" + discount + "]";
+				+ productDescription + ", quantity=" + quantity + ", discount=" + discount + ", brand=" + brand + "]";
 	}
-	public Product(int productId, String productName, ProductCategory productCategory, int inventoryId,
+	public Product(int productId, String productName, String productCategory, int inventoryId,
 			double productPrice, int merchantId, int promoId, int productsSold, int productView,
-			boolean isPromotionMessageSent, String productDescription, int quantity, double discount) {
+			boolean isPromotionMessageSent, String productDescription, int quantity, double discount, String brand) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -134,6 +141,7 @@ public class Product {
 		this.productDescription = productDescription;
 		this.quantity = quantity;
 		this.discount = discount;
+		this.brand = brand;
 	}
 	public Product() {
 		super();

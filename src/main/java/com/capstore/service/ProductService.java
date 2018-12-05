@@ -18,5 +18,16 @@ public class ProductService implements IProductService{
 	public List<Product> getAllProducts() {
 		return productDao.findAll();
 	}
+	
+	@Override
+	public int bestSeller() {
+		
+		Product product=productDao.findTop1ByOrderByproductsSoldDesc();
+		int prod=product.getProductId();
+		
+		return prod;
+		
+	     
+	}
 
 }

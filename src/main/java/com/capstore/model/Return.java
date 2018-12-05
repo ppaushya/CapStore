@@ -25,7 +25,7 @@ public class Return {
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date pickupDate;
-	private ReturnStatus returnStatus;
+	private String returnStatus;
 	
 	public int getReturnId() {
 		return returnId;
@@ -51,18 +51,18 @@ public class Return {
 	public void setPickupDate(Date pickupDate) {
 		this.pickupDate = pickupDate;
 	}
-	public ReturnStatus getReturnStatus() {
+	public String getString() {
 		return returnStatus;
 	}
-	public void setReturnStatus(ReturnStatus returnStatus) {
+	public void setString(String returnStatus) {
 		this.returnStatus = returnStatus;
 	}
 	@Override
 	public String toString() {
 		return "Return [returnId=" + returnId + ", orderId=" + orderId + ", productId=" + productId + ", pickupDate="
-				+ pickupDate + ", returnStatus=" + returnStatus + "]";
+				+ pickupDate + ", String=" + returnStatus + "]";
 	}
-	public Return(int returnId, int orderId, int productId, Date pickupDate, ReturnStatus returnStatus) {
+	public Return(int returnId, int orderId, int productId, Date pickupDate, String String) {
 		super();
 		this.returnId = returnId;
 		this.orderId = orderId;

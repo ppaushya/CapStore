@@ -9,8 +9,8 @@ import com.capstore.model.Product;
 
 @Repository("productDao")
 @Transactional
-public interface IProductDao extends JpaRepository<Product, Integer> {
-	
-	
+public interface IProductDao extends JpaRepository<Product,Integer> {
+
+	public Product findTop1ByOrderByproductsSoldDesc();
 
 }

@@ -29,5 +29,17 @@ public class ProductController {
 		else
 			return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
+	
+	@GetMapping("/product")
+	public  ResponseEntity<Integer> bestSeller(){
+		      
+		int product1 = productService.bestSeller();
+		if(product1==0)
+				return new ResponseEntity("Nothing fetched",HttpStatus.NOT_FOUND) ;
+		
+		return new ResponseEntity<Integer>(product1,HttpStatus.OK);
+		
+		
+	}
 
 }
