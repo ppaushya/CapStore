@@ -11,4 +11,5 @@ import com.capstore.model.Customer;
 @Transactional
 public interface ICustomerDao extends JpaRepository<Customer,Integer> {
 
+
 }

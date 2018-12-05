@@ -1,9 +1,11 @@
 package com.capstore.service;
 
+import java.util.List;
+
 import com.capstore.model.Customer;
 
 public interface ICustomerService {
 
-	void addCustomer(Customer customer);
+	public boolean createCustomer(Customer customer);
 
 }

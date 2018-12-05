@@ -10,11 +10,11 @@ import com.capstore.model.Customer;
 public class CustomerService implements ICustomerService{
 	
 	@Autowired
-	ICustomerDao customerDao;
+	private ICustomerDao customerDao;
 	
 	@Override
-	public void addCustomer(Customer customer) {
-		customer.setVerified(false);
+	public boolean createCustomer(Customer customer) {
 		customerDao.save(customer);
+		return true;
 	}
 }
