@@ -10,13 +10,19 @@ import javax.persistence.Id;
 public class Address {
 
 	@Id
+	@Column(name="addressId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="addressId")private int addressId;
-	@Column(name="addressLine1")private String addressLine1;
-	@Column(name="addressLine2")private String addressLine2;
-	@Column(name="city")private String city;
-	@Column(name="state")private String state;
-	@Column(name="pincode")private int pincode;
+	private int addressId;
+	@Column(name="addressLine1")
+	private String addressLine1;
+	@Column(name="addressLine2")
+	private String addressLine2;
+	@Column(name="city")
+	private String city;
+	@Column(name="state")
+	private String state;
+	@Column(name="pincode")
+	private int pincode;
 	
 	public int getAddressId() {
 		return addressId;

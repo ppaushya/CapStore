@@ -17,16 +17,16 @@ public class Product {
 	private String productName;
 	private String productCategory;
 	
-	@Column(name="inventoryId")
+//	@Column(name="inventoryId")
 	@OneToOne(targetEntity=Inventory.class)
 	private int inventoryId;
 	private double productPrice;
 	
-	@Column(name="merchantId")
+//	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	
-	@Column(name="promoId")
+//	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
 	private int productsSold;

@@ -19,11 +19,11 @@ public class Cart {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 	
-	@Column(name="customerId")
+//	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@Column(name="productList")
+//	@Column(name="productList")
 	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
 	

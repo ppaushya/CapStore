@@ -15,11 +15,11 @@ public class Feedback {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int feedbackId;
 	
-	@Column(name="customerId")
+//	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@Column(name="productId")
+//	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	@Column(name="ratingProduct")
@@ -29,7 +29,7 @@ public class Feedback {
 	@Column(name="comment")
 	private String comment;
 	
-	@Column(name="merchantId")
+//	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	

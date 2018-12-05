@@ -19,11 +19,11 @@ public class Wishlist {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int wishlistId;
 	
-	@Column(name="customerId")
+	
 	@OneToOne(targetEntity=Customer.class)
 	private int customerId;
 	
-	@Column(name="products")
+//	@Column(name="products")
 	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
 	

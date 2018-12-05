@@ -28,7 +28,7 @@ public class Customer {
 	private String emailId;
 	
 	@OneToMany
-	@Column(name="addresses")
+//	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	
 	@Column(name="isVerified")

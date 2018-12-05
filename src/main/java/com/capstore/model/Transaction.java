@@ -15,11 +15,11 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int transactionId;
 	
-	@Column(name="orderId")
+//	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
-	@Column(name="invoiceNo")
+//	@Column(name="invoiceNo")
 	@OneToOne(targetEntity=Invoice.class)
 	private int invoiceNo;
 	private String modeOfPayment;

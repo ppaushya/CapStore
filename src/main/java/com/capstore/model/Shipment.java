@@ -19,15 +19,15 @@ public class Shipment {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int shipmentId;
 	
-	@Column(name="orderId")
+//	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
-	@Column(name="addressId")
+	//@Column(name="addressId")
 	@OneToOne(targetEntity=Address.class)
 	private int addressId;
 	
-	@Column(name="productId")
+//	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	private String deliveryStatus;

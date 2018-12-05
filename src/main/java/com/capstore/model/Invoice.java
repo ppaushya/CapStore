@@ -19,7 +19,7 @@ public class Invoice {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int invoiceNo;
 	
-	@Column(name="orderId")
+//	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
@@ -28,7 +28,7 @@ public class Invoice {
 	private double discountedPrice;
 	private double discount;
 	
-	@Column(name="couponId")
+//	@Column(name="couponId")
 	@OneToOne(targetEntity=Coupons.class)
 	private int couponId;
 	

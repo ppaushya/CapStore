@@ -21,7 +21,7 @@ public class Merchant {
 	private String merchantContact;
 	
 	@OneToOne
-	@Column(name="merchantAddress")
+//	@Column(name="merchantAddress")
 	private Address merchantAddress;
 	private boolean isVerified;
 	

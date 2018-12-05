@@ -15,7 +15,7 @@ public class Inventory {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int inventoryId;
 	
-	@Column(name="merchantId")
+//	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
 	@Column(name="productName")
@@ -27,7 +27,7 @@ public class Inventory {
 	@Column(name="productDescription")
 	private String productDescription;
 	
-	@Column(name="promoId")
+//	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
 	@Column(name="status")

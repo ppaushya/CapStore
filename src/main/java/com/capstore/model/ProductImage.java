@@ -15,7 +15,7 @@ public class ProductImage {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int imageId;
 	
-	@Column(name="productId")
+//	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
 	private int productId;
 	private String imageUrl;
