@@ -5,11 +5,12 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.capstore.model.Address;
 import com.capstore.model.Shipment;
 
-@Repository("addressdao")
+@Repository("shipmentdao")
 @Transactional
-public interface IAddressDao extends JpaRepository<Address,Integer> {
+public interface IShipmentDao extends JpaRepository<Shipment,Integer> {
+	
+	//public Shipment insertshipment(Shipment shipment)
 
 }
