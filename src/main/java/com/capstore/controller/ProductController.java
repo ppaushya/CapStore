@@ -30,7 +30,7 @@ public class ProductController {
 			return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 	
-	@GetMapping("/product")
+	/*@GetMapping("/product")
 	public  ResponseEntity<Integer> bestSeller(){
 		      
 		int product1 = productService.bestSeller();
@@ -40,6 +40,6 @@ public class ProductController {
 		return new ResponseEntity<Integer>(product1,HttpStatus.OK);
 		
 		
-	}
+	}*/
 
 }

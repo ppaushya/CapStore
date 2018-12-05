@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.IProductDao;
 import com.capstore.model.Product;
 
-@Service("productService")
+@Service("productSenvice")
 public class ProductService implements IProductService{
 
 	@Autowired
@@ -19,7 +19,7 @@ public class ProductService implements IProductService{
 		return productDao.findAll();
 	}
 	
-	@Override
+	/*@Override
 	public int bestSeller() {
 		
 		Product product=productDao.findTop1ByOrderByproductsSoldDesc();
@@ -28,6 +28,6 @@ public class ProductService implements IProductService{
 		return prod;
 		
 	     
-	}
+	}*/
 
 }

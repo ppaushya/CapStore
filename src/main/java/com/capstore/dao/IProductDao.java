@@ -11,6 +11,6 @@ import com.capstore.model.Product;
 @Transactional
 public interface IProductDao extends JpaRepository<Product,Integer> {
 
-	public Product findTop1ByOrderByproductsSoldDesc();
+	//public Product findTop1ByOrderByproductsSoldDesc();
 
 }

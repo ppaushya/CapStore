@@ -15,7 +15,7 @@ public class Inventory {
 	
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
-	private int productName;
+	private String productName;
 	private String productCategory;
 	private double productPrice;
 	private String productDescription;
@@ -38,10 +38,10 @@ public class Inventory {
 	public void setMerchantId(int merchantId) {
 		this.merchantId = merchantId;
 	}
-	public int getProductName() {
+	public String getProductName() {
 		return productName;
 	}
-	public void setProductName(int productName) {
+	public void setProductName(String productName) {
 		this.productName = productName;
 	}
 	public String getProductCategory() {
@@ -94,7 +94,7 @@ public class Inventory {
 				+ ", productDescription=" + productDescription + ", promoId=" + promoId + ", status=" + status
 				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
 	}
-	public Inventory(int inventoryId, int merchantId, int productName, String productCategory,
+	public Inventory(int inventoryId, int merchantId, String productName, String productCategory,
 			double productPrice, String productDescription, int promoId, String status, String inventoryType,int inventoryQuantity) {
 		super();
 		this.inventoryId = inventoryId;
