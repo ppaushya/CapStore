@@ -12,11 +12,7 @@ import com.capstore.model.Customer;
 public interface ICustomerDao extends JpaRepository<Customer,Integer> {
 
 
-<<<<<<< HEAD
 	Customer getByEmailId(String customerEmail);
 
 
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
