@@ -14,6 +14,5 @@ public interface IEmailService {
 	public List<Customer> getCustomerList();
 
 	public void sendEmail(Email mail);
-
-
+  
 }
