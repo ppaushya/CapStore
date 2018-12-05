@@ -28,12 +28,13 @@ public class RegisterController {
 	private ICustomerService customerService;
 	
 	@PostMapping(value="/createcustomers")
-	public ResponseEntity<List<Customer>> createCustomer(@RequestBody Customer customer, HttpSession session){
+	public ResponseEntity<String> createCustomer(@RequestBody Customer customer, HttpSession session){
 		System.out.println(session.getAttribute("emailId"));
-        List<Customer> customers=customerService.createCustomer(customer);
-        
-        return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);		
-
+        boolean success=customerService.createCustomer(customer);
+        if(success)
+        return new ResponseEntity<String>("customer registered successfully", HttpStatus.OK);		
+        else
+        	return new ResponseEntity<String>("customer registration failed", HttpStatus.NO_CONTENT);		
 
 	}
 

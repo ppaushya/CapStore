@@ -6,6 +6,6 @@ import com.capstore.model.Customer;
 
 public interface ICustomerService {
 
-	List<Customer> createCustomer(Customer customer);
+public boolean createCustomer(Customer customer);
 
 }
