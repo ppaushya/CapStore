@@ -10,7 +10,7 @@ import com.capstore.model.Feedback;
 public class FeedbackService implements IFeedbackService{
 
 	@Autowired
-	IFeedbackDao feedbackDao;
+	private IFeedbackDao feedbackDao;
 	
 	@Override
 	public void submitFeedback(Feedback feedback) {
