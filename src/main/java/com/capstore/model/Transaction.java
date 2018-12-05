@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +11,18 @@ import javax.persistence.OneToOne;
 public class Transaction {
 	
 	@Id
+	@Column(name="transactionId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int transactionId;
 	
+//	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
 	private int orderId;
 	
+//	@Column(name="invoiceNo")
 	@OneToOne(targetEntity=Invoice.class)
 	private int invoiceNo;
-	private ModeOfPayment modeOfPayment;
+	private String modeOfPayment;
 	private String paymentModeNumber;
 	private String status;
 	
@@ -41,10 +45,10 @@ public class Transaction {
 	public void setInvoiceNo(int invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}
-	public ModeOfPayment getModeOfPayment() {
+	public String getModeOfPayment() {
 		return modeOfPayment;
 	}
-	public void setModeOfPayment(ModeOfPayment modeOfPayment) {
+	public void setModeOfPayment(String modeOfPayment) {
 		this.modeOfPayment = modeOfPayment;
 	}
 	public String getPaymentModeNumber() {
@@ -66,7 +70,7 @@ public class Transaction {
 				+ "]";
 	}
 	
-	public Transaction(int transactionId, int orderId, int invoiceNo, ModeOfPayment modeOfPayment,
+	public Transaction(int transactionId, int orderId, int invoiceNo, String modeOfPayment,
 			String paymentModeNumber, String status) {
 		super();
 		this.transactionId = transactionId;
