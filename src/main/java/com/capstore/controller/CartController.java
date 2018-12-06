@@ -28,11 +28,11 @@ public class CartController {
 	@Autowired
 	ICartService cartService;
 	
-	@DeleteMapping("/deleteCartProduct/{productId}")
-	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("productId") Integer productId )
+	@DeleteMapping("/deleteCartProduct/{cartId}")
+	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId )
 	{
 		
-		List<Cart> cartProducts = cartService.deleteCartProduct(productId);
+		List<Cart> cartProducts = cartService.deleteCartProduct(cartId);
 		if (cartProducts == null)
 			return new ResponseEntity("Sorry! Product is not available!", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);

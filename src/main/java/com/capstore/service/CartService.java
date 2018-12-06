@@ -16,8 +16,8 @@ public class CartService implements ICartService{
 	
 	
 	@Override
-	public List<Cart> deleteCartProduct(int productId) {
-		cartDao.deleteById(productId);
+	public List<Cart> deleteCartProduct(int cartId) {
+		cartDao.deleteById(cartId);
 		return cartDao.findAll();
 		
 	}
