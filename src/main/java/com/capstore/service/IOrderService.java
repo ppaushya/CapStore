@@ -9,7 +9,8 @@ public interface IOrderService {
 
 	public List<Product> displayCartProducts(int orderId);
 
-	public boolean placeOrder(Order order);
+	public boolean checkAvailabilityInInventory(Order order);
+	public boolean placeOrderAndUpdateInventory(Order order);
 	
 	public Order findOrderById(int orderId);
 
