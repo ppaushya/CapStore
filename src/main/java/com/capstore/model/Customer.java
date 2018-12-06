@@ -14,18 +14,24 @@ import javax.persistence.OneToMany;
 public class Customer {
 
 	@Id
+	@Column(name="customerId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int customerId;
+	@Column(name="firstName")
 	private String firstName;
+	@Column(name="lastName")
 	private String lastName;
+	@Column(name="mobileNumber")
 	private String mobileNumber;
 	
-	@Column(unique=true)
+	@Column(unique=true,name="emailId")
 	private String emailId;
 	
 	@OneToMany
+//	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	
+	@Column(name="isVerified")
 	private boolean isVerified;
 	
 	public int getCustomerId() {

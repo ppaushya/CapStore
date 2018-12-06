@@ -2,6 +2,7 @@ package com.capstore.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +14,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Coupons {
 	
 	@Id
+	@Column(name="couponId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int couponId;
+	@Column(name="couponImageUrl")
 	private String couponImageUrl;
+	@Column(name="maxDiscount")
 	private double maxDiscount;
+	@Column(name="couponCode")
 	private String couponCode;
+	@Column(name="discountPercentage")
 	private double discountPercentage;
 	
+	@Column(name="endDate")
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date endDate;
 	

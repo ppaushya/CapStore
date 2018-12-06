@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,20 +11,30 @@ import javax.persistence.OneToOne;
 public class Inventory {
 
 	@Id
+	@Column(name="inventoryId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int inventoryId;
 	
+//	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private int merchantId;
-	private int productName;
+	@Column(name="productName")
+	private String productName;
+	@Column(name="productCategory")
 	private String productCategory;
+	@Column(name="productPrice")
 	private double productPrice;
+	@Column(name="productDescription")
 	private String productDescription;
 	
+//	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private int promoId;
+	@Column(name="status")
 	private String status;
+	@Column(name="inventoryType")
 	private String inventoryType;
+	@Column(name="inventoryQuantity")
 	private int inventoryQuantity;
 	
 	public int getInventoryId() {
@@ -38,10 +49,10 @@ public class Inventory {
 	public void setMerchantId(int merchantId) {
 		this.merchantId = merchantId;
 	}
-	public int getProductName() {
+	public String getProductName() {
 		return productName;
 	}
-	public void setProductName(int productName) {
+	public void setProductName(String productName) {
 		this.productName = productName;
 	}
 	public String getProductCategory() {
@@ -94,7 +105,7 @@ public class Inventory {
 				+ ", productDescription=" + productDescription + ", promoId=" + promoId + ", status=" + status
 				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
 	}
-	public Inventory(int inventoryId, int merchantId, int productName, String productCategory,
+	public Inventory(int inventoryId, int merchantId, String productName, String productCategory,
 			double productPrice, String productDescription, int promoId, String status, String inventoryType,int inventoryQuantity) {
 		super();
 		this.inventoryId = inventoryId;

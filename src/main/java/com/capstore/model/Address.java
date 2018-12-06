@@ -1,20 +1,28 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Address {
 
 	@Id
+	@Column(name="addressId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int addressId;
+	@Column(name="addressLine1")
 	private String addressLine1;
+	@Column(name="addressLine2")
 	private String addressLine2;
+	@Column(name="city")
 	private String city;
+	@Column(name="state")
 	private String state;
+	@Column(name="pincode")
 	private int pincode;
 	
 	public int getAddressId() {

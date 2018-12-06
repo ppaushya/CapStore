@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,10 +10,15 @@ import javax.persistence.Id;
 public class BankAccount {
 	
 	@Id
+	@Column(name="accountNumber")
 	private String accountNumber;
+	@Column(name="customerName")
 	private String customerName;
+	@Column(name="userName")
 	private String userName;
+	@Column(name="userPassword")
 	private String userPassword;
+	@Column(name="balance")
 	private double balance;
 	
 	public String getAccountNumber() {

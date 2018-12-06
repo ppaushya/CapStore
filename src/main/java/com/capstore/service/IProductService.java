@@ -6,7 +6,8 @@ import com.capstore.model.Product;
 
 public interface IProductService {
 
-	public int bestSeller();
-
+	public List<Product> getAllProducts();
+	//public int bestSeller();
+	
 }
 */
