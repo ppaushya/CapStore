@@ -44,21 +44,23 @@ public class ValidationOfUserController {
 		
 		Email mail=new Email();
 		mail.setReceiverEmailId(customer.getEmailId());
-		mail.setMessage("Verify by clicking this link");
-		mail.setImageUrl(null);
+		mail.setMessage("Verify by clicking this link ");
+		mail.setImageUrl("http://localhost:4200/auth/sign-in");
 		emailService.sendEmail(mail);
 		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
 	
-	@RequestMapping("/emailVerificationDone")
-	public ResponseEntity<Boolean> emailVerificationDone(HttpSession session){
+	@PostMapping("/emailVerificationDone")
+	public ResponseEntity<Boolean> emailVerificationDone(@RequestBody Email email){
 		
-		String customerEmail=(String) session.getAttribute("emailId");
-		Customer customer=customerService.getCustomerByEmail(customerEmail);
+		
+		Customer customer=customerService.getCustomerByEmail(email.getReceiverEmailId());
 		
 		customer.setVerified(true);
 		customerService.updateCustomer(customer);
+		
+		System.out.println(customerService.getAllCustomers());
 		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
