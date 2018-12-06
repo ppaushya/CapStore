@@ -20,7 +20,7 @@ import com.capstore.service.ICreditDebitService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/api/creditdebit")
+@RequestMapping("/api/v1")
 public class CreditDebitController {
 	
 	@Autowired

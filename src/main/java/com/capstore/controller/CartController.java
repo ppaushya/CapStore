@@ -22,7 +22,7 @@ import com.capstore.service.ICartService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/api/v1")
 public class CartController {
 	
 	@Autowired
@@ -31,7 +31,6 @@ public class CartController {
 	@DeleteMapping("/deleteCartProduct/{productId}")
 	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("productId") Integer productId )
 	{
-		
 		List<Cart> cartProducts = cartService.deleteCartProduct(productId);
 		if (cartProducts == null)
 			return new ResponseEntity("Sorry! Product is not available!", HttpStatus.NOT_FOUND);
