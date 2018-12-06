@@ -1,5 +1,7 @@
 package com.capstore.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +75,15 @@ public class ValidationOfUserController {
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
 	
+	
+	@PostMapping("/youMail/email")
+	public ResponseEntity<List<Email>> sendVerificationToMail(@RequestBody Email email)
+	{
+		String emailId=email.getReceiverEmailId();
+		System.out.println(emailId);
+		List<Email> emails=emailService.getEmails(emailId);
+		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
+		
+	}
 
 }
