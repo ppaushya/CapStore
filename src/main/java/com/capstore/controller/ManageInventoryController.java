@@ -46,7 +46,7 @@ public class ManageInventoryController {
 	public ResponseEntity<List<Inventory>> addNewInventory(@RequestBody Inventory inventory){
 		
 		System.out.println(inventory);
-		 List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
+		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
 		
 		if(inventories.isEmpty())
 			 return new ResponseEntity("Sorry!! Inventory List not available!",HttpStatus.NOT_FOUND);
