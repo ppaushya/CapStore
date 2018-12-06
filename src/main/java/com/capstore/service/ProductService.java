@@ -33,8 +33,8 @@ public class ProductService implements IProductService{
 		for(Object[] object:productSales)	{
 			SalesAnalysis sales=new SalesAnalysis();
 			sales.setProductCategory((String)object[0]);
-			sales.setProductQuantity((Long)object[1]);
-			sales.setProductSales((Long)object[2]);
+			sales.setProductQuantity((Double)object[1]);
+			sales.setProductSales((Double)object[2]);
 			for(Object[] object1:bestSellerDetails)	{
 				if(((String)object[0]).equals((String)object1[0]))
 					sales.setMerchant(merchantService.getMerchantName((Integer)object1[1]));
