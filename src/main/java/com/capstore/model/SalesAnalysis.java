@@ -4,10 +4,10 @@ public class SalesAnalysis {
 
 	private String productCategory;
 	private String merchant;
-	private long productQuantity;
-	private long productSales;
+	private double productQuantity;
+	private double productSales;
 	private double salesPercent;
-	public SalesAnalysis(String productCategory, String merchant, long productQuantity, long productSales,
+	public SalesAnalysis(String productCategory, String merchant, double productQuantity, double productSales,
 			double salesPercent) {
 		super();
 		this.productCategory = productCategory;
@@ -31,16 +31,16 @@ public class SalesAnalysis {
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
-	public long getProductQuantity() {
+	public double getProductQuantity() {
 		return productQuantity;
 	}
-	public void setProductQuantity(long productQuantity) {
-		this.productQuantity = productQuantity;
+	public void setProductQuantity(Double object) {
+		this.productQuantity = object;
 	}
-	public long getProductSales() {
+	public double getProductSales() {
 		return productSales;
 	}
-	public void setProductSales(long productSales) {
+	public void setProductSales(double productSales) {
 		this.productSales = productSales;
 	}
 	public double getSalesPercent() {
@@ -54,6 +54,7 @@ public class SalesAnalysis {
 		return "SalesAnalysis [productCategory=" + productCategory + ", merchant=" + merchant + ", productQuantity="
 				+ productQuantity + ", productSales=" + productSales + ", salesPercent=" + salesPercent + "]";
 	}
+
 	
 	
 	
