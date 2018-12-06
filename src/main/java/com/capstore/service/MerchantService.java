@@ -47,4 +47,10 @@ public class MerchantService implements IMerchantService{
 
 	
 	
+	@Override
+	public String getMerchantName(int merchantId) {
+		Merchant merchant=merchantDao.findById(merchantId).get();
+		return merchant.getMerchantName();
+	}
+	
 }

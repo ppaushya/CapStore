@@ -14,5 +14,5 @@ public interface IMerchantService {
 	
 	public double getMerchantRating(int merchantId);
 	
-	
+	public String getMerchantName(int merchantId);
 }
