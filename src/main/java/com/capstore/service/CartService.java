@@ -22,7 +22,6 @@ public class CartService implements ICartService{
 		
 	}
 
-
 	@Override
 	public List<Cart> addCartProduct(Cart cartProduct) {
 	    cartDao.save(cartProduct);//System.out.println("vcb");
@@ -33,6 +32,12 @@ public class CartService implements ICartService{
 	@Override
 	public List<Cart> getCartProducts(int custId) {
 		return  cartDao.findCartByCustomerIdCustomerId(custId);
+	}
+
+	@Override
+	public void deleteCartAfterOrder(int custId) {
+		cartDao.deleteCartAfterOrder(custId);
+		
 	}
 
 }

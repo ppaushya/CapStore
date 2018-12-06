@@ -61,4 +61,13 @@ public class CartController {
      	 return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/deletecart")
+	public ResponseEntity<String> deleteCartAfterOrder(HttpSession session){
+		int customerId= Integer.parseInt(session.getAttribute("customerId").toString());
+		cartService.deleteCartAfterOrder(customerId);
+		return new ResponseEntity<String>("Cart Deleted Successfully!",HttpStatus.OK);
+		
+		
+	}
+	
 }
