@@ -23,11 +23,11 @@ public class Return {
 	
 //	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
-	private int orderId;
+	private Order order;
 	
 //	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
-	private int productId;
+	private Product product;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date pickupDate;
@@ -42,20 +42,29 @@ public class Return {
 		this.returnId = returnId;
 	}
 
-	public int getOrderId() {
-		return orderId;
+	public Return(int returnId, Order order, Product product, Date pickupDate, String returnStatus) {
+		super();
+		this.returnId = returnId;
+		this.order = order;
+		this.product = product;
+		this.pickupDate = pickupDate;
+		this.returnStatus = returnStatus;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public Order getOrder() {
+		return order;
 	}
 
-	public int getProductId() {
-		return productId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Date getPickupDate() {
@@ -76,18 +85,10 @@ public class Return {
 
 	@Override
 	public String toString() {
-		return "Return [returnId=" + returnId + ", orderId=" + orderId + ", productId=" + productId + ", pickupDate="
+		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
 				+ pickupDate + ", returnStatus=" + returnStatus + "]";
 	}
 
-	public Return(int returnId, int orderId, int productId, Date pickupDate, String returnStatus) {
-		super();
-		this.returnId = returnId;
-		this.orderId = orderId;
-		this.productId = productId;
-		this.pickupDate = pickupDate;
-		this.returnStatus = returnStatus;
-	}
 	
 
 }
