@@ -37,11 +37,38 @@ public class Return {
 	public int getReturnId() {
 		return returnId;
 	}
-
 	public void setReturnId(int returnId) {
 		this.returnId = returnId;
 	}
-
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public Date getPickupDate() {
+		return pickupDate;
+	}
+	public void setPickupDate(Date pickupDate) {
+		this.pickupDate = pickupDate;
+	}
+	public String getReturnStatus() {
+		return returnStatus;
+	}
+	public void setReturnStatus(String returnStatus) {
+		this.returnStatus = returnStatus;
+	}
+	@Override
+	public String toString() {
+		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
+				+ pickupDate + ", returnStatus=" + returnStatus + "]";
+	}
 	public Return(int returnId, Order order, Product product, Date pickupDate, String returnStatus) {
 		super();
 		this.returnId = returnId;
@@ -50,45 +77,4 @@ public class Return {
 		this.pickupDate = pickupDate;
 		this.returnStatus = returnStatus;
 	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Date getPickupDate() {
-		return pickupDate;
-	}
-
-	public void setPickupDate(Date pickupDate) {
-		this.pickupDate = pickupDate;
-	}
-
-	public String getReturnStatus() {
-		return returnStatus;
-	}
-
-	public void setReturnStatus(String returnStatus) {
-		this.returnStatus = returnStatus;
-	}
-
-	@Override
-	public String toString() {
-		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
-				+ pickupDate + ", returnStatus=" + returnStatus + "]";
-	}
-
-	
-
 }

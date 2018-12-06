@@ -33,7 +33,7 @@ public class Order {
 	
 //	@Column(name="shipmentId")
 	@OneToOne(targetEntity=Shipment.class)
-	private int shipmentId;
+	private Shipment shipmentId;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
@@ -56,10 +56,10 @@ public class Order {
 	public void setOrderedProducts(List<Product> orderedProducts) {
 		this.orderedProducts = orderedProducts;
 	}
-	public int getShipmentId() {
+	public Shipment getShipmentId() {
 		return shipmentId;
 	}
-	public void setShipmentId(int shipmentId) {
+	public void setShipmentId(Shipment shipmentId) {
 		this.shipmentId = shipmentId;
 	}
 	public Date getOrderDate() {
@@ -79,7 +79,7 @@ public class Order {
 		return "Order [orderId=" + orderId + ", customer=" + customer + ", orderedProducts=" + orderedProducts
 				+ ", shipmentId=" + shipmentId + ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
 	}
-	public Order(int orderId, Customer customer, List<Product> orderedProducts, int shipmentId, Date orderDate,
+	public Order(int orderId, Customer customer, List<Product> orderedProducts, Shipment shipmentId, Date orderDate,
 			int quantity) {
 		super();
 		this.orderId = orderId;
