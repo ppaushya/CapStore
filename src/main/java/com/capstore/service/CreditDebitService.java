@@ -37,6 +37,18 @@ public class CreditDebitService implements ICreditDebitService{
 		return null;
 	}
 
+	@Override
+	public void depositAmount(double amount, CreditDebit creditDebit) {
+		double finalAmount = creditDebit.getBalance() + amount;
+		creditDebitDao.updateAmount(finalAmount, creditDebit.getCardNumber());
+	}
+
+	@Override
+	public void withdrawAmount(double amount, CreditDebit creditDebit) {
+		double finalAmount = creditDebit.getBalance() - amount;
+		creditDebitDao.updateAmount(finalAmount, creditDebit.getCardNumber());
+	}
+
 	
 
 }

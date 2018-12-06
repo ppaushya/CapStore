@@ -26,7 +26,7 @@ public class StepDef {
 
 	@Given("^Feedback form$")
 	public void feedback_form() throws Throwable {
-		Feedback feedback= new Feedback(1, 1, 1, 5, 5, "Good!", 1);
+		//Feedback feedback= new Feedback(1, 1, 1, 5, 5, "Good!", 1);
 	}
 
 	@When("^'Submit' button is clicked$")

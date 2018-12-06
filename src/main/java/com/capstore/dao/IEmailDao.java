@@ -19,5 +19,7 @@ public interface IEmailDao extends JpaRepository<Email, Integer>{
 	@Query("from Customer")
 	public List<Customer> getCustomerList();
 
+	public List<Email> getByReceiverEmailId(String emailId);
+
 	
 }

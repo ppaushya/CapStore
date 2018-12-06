@@ -1,6 +1,7 @@
 package com.capstore.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,25 @@ public class ProductService implements IProductService{
 		
 	     
 	}*/
+
+	@Override
+	public Product getProduct(int productId) {
+		Optional<Product> optional = productDao.findById(productId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean updateProduct(Product product) {
+		productDao.save(product);
+		return true;
+	}
+
+	@Override
+	public List<Product> getProductsWithoutPromotionalEmailSent() {
+		return productDao.getProductsByIsPromotionMessageSent(false);
+	}
 
 }

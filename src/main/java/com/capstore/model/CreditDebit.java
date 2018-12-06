@@ -23,7 +23,6 @@ public class CreditDebit {
 	@Column(name="pinNumber")
 	private int pinNumber;
 	
-	
 	public String getCardNumber() {
 		return cardNumber;
 	}

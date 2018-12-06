@@ -2,7 +2,6 @@ package com.capstore.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +17,7 @@ public class Inventory {
 	
 //	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private Merchant merchantId;
+	private Merchant merchant;
 	@Column(name="productName")
 	private String productName;
 	@Column(name="productCategory")
@@ -30,7 +29,7 @@ public class Inventory {
 	
 //	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
-	private Promos promoId;
+	private Promos promo;
 	@Column(name="status")
 	private String status;
 	@Column(name="inventoryType")
@@ -43,12 +42,6 @@ public class Inventory {
 	}
 	public void setInventoryId(int inventoryId) {
 		this.inventoryId = inventoryId;
-	}
-	public Merchant getMerchantId() {
-		return merchantId;
-	}
-	public void setMerchantId(Merchant merchantId) {
-		this.merchantId = merchantId;
 	}
 	public String getProductName() {
 		return productName;
@@ -74,11 +67,17 @@ public class Inventory {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
-	public Promos getPromoId() {
-		return promoId;
+	public Merchant getMerchant() {
+		return merchant;
 	}
-	public void setPromoId(Promos promoId) {
-		this.promoId = promoId;
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	public Promos getPromo() {
+		return promo;
+	}
+	public void setPromo(Promos promo) {
+		this.promo = promo;
 	}
 	public String getStatus() {
 		return status;
@@ -101,24 +100,25 @@ public class Inventory {
 	}
 	@Override
 	public String toString() {
-		return "InventoryMerchant [inventoryId=" + inventoryId + ", merchantId=" + merchantId + ", productName="
-				+ productName + ", productCategory=" + productCategory + ", productPrice=" + productPrice
-				+ ", productDescription=" + productDescription + ", promoId=" + promoId + ", status=" + status
-				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
+		return "Inventory [inventoryId=" + inventoryId + ", merchant=" + merchant + ", productName=" + productName
+				+ ", productCategory=" + productCategory + ", productPrice=" + productPrice + ", productDescription="
+				+ productDescription + ", promo=" + promo + ", status=" + status + ", inventoryType=" + inventoryType
+				+ ", inventoryQuantity=" + inventoryQuantity + "]";
 	}
-	public Inventory(int inventoryId, Merchant merchantId, String productName, String productCategory,
-			double productPrice, String productDescription, Promos promoId, String status, String inventoryType,int inventoryQuantity) {
+	public Inventory(int inventoryId, Merchant merchant, String productName, String productCategory,
+			double productPrice, String productDescription, Promos promo, String status, String inventoryType,
+			int inventoryQuantity) {
 		super();
 		this.inventoryId = inventoryId;
-		this.merchantId = merchantId;
+		this.merchant = merchant;
 		this.productName = productName;
 		this.productCategory = productCategory;
 		this.productPrice = productPrice;
 		this.productDescription = productDescription;
-		this.promoId = promoId;
+		this.promo = promo;
 		this.status = status;
 		this.inventoryType = inventoryType;
-		this.inventoryQuantity=inventoryQuantity;
+		this.inventoryQuantity = inventoryQuantity;
 	}
 	public Inventory() {
 		super();

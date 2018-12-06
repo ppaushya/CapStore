@@ -17,11 +17,11 @@ public class Transaction {
 	
 //	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
-	private int orderId;
+	private Order order;
 	
 //	@Column(name="invoiceNo")
 	@OneToOne(targetEntity=Invoice.class)
-	private int invoiceNo;
+	private Invoice invoice;
 	private String modeOfPayment;
 	private String paymentModeNumber;
 	private String status;
@@ -32,18 +32,17 @@ public class Transaction {
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
-	public int getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
-	
-	public int getInvoiceNo() {
-		return invoiceNo;
+	public Invoice getInvoice() {
+		return invoice;
 	}
-	public void setInvoiceNo(int invoiceNo) {
-		this.invoiceNo = invoiceNo;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 	public String getModeOfPayment() {
 		return modeOfPayment;
@@ -65,17 +64,17 @@ public class Transaction {
 	}
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", orderId=" + orderId + ", invoiceNo=" + invoiceNo
+		return "Transaction [transactionId=" + transactionId + ", order=" + order + ", invoice=" + invoice
 				+ ", modeOfPayment=" + modeOfPayment + ", paymentModeNumber=" + paymentModeNumber + ", status=" + status
 				+ "]";
 	}
 	
-	public Transaction(int transactionId, int orderId, int invoiceNo, String modeOfPayment,
-			String paymentModeNumber, String status) {
+	public Transaction(int transactionId, Order order, Invoice invoice, String modeOfPayment, String paymentModeNumber,
+			String status) {
 		super();
 		this.transactionId = transactionId;
-		this.orderId = orderId;
-		this.invoiceNo = invoiceNo;
+		this.order = order;
+		this.invoice = invoice;
 		this.modeOfPayment = modeOfPayment;
 		this.paymentModeNumber = paymentModeNumber;
 		this.status = status;

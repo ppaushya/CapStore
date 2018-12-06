@@ -21,7 +21,7 @@ public class Invoice {
 	
 //	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
-	private int orderId;
+	private Order order;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date InvoiceDate;
@@ -30,19 +30,13 @@ public class Invoice {
 	
 //	@Column(name="couponId")
 	@OneToOne(targetEntity=Coupons.class)
-	private int couponId;
+	private Coupons coupon;
 	
 	public int getInvoiceNo() {
 		return invoiceNo;
 	}
 	public void setInvoiceNo(int invoiceNo) {
 		this.invoiceNo = invoiceNo;
-	}
-	public int getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
 	}
 	public Date getInvoiceDate() {
 		return InvoiceDate;
@@ -62,25 +56,32 @@ public class Invoice {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	public int getPromoId() {
-		return couponId;
+	public Order getOrder() {
+		return order;
 	}
-	public void setPromoId(int couponId) {
-		this.couponId = couponId;
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	public Coupons getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(Coupons coupon) {
+		this.coupon = coupon;
 	}
 	@Override
 	public String toString() {
-		return "Invoice [invoiceNo=" + invoiceNo + ", orderId=" + orderId + ", InvoiceDate=" + InvoiceDate
-				+ ", discountedPrice=" + discountedPrice + ", discount=" + discount + ", promoId=" + couponId + "]";
+		return "Invoice [invoiceNo=" + invoiceNo + ", order=" + order + ", InvoiceDate=" + InvoiceDate
+				+ ", discountedPrice=" + discountedPrice + ", discount=" + discount + ", coupon=" + coupon + "]";
 	}
-	public Invoice(int invoiceNo, int orderId, Date invoiceDate, double discountedPrice, double discount, int couponId) {
+	public Invoice(int invoiceNo, Order order, Date invoiceDate, double discountedPrice, double discount,
+			Coupons coupon) {
 		super();
 		this.invoiceNo = invoiceNo;
-		this.orderId = orderId;
+		this.order = order;
 		InvoiceDate = invoiceDate;
 		this.discountedPrice = discountedPrice;
 		this.discount = discount;
-		this.couponId = couponId;
+		this.coupon = coupon;
 	}
 	public Invoice() {
 		super();

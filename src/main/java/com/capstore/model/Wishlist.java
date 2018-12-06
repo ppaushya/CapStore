@@ -21,7 +21,7 @@ public class Wishlist {
 	
 	
 	@OneToOne(targetEntity=Customer.class)
-	private int customerId;
+	private Customer customer;
 	
 //	@Column(name="products")
 	@OneToMany(targetEntity=Product.class)
@@ -33,13 +33,13 @@ public class Wishlist {
 	public void setWishlistId(int wishlistId) {
 		this.wishlistId = wishlistId;
 	}
-	public int getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
 	
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -48,12 +48,13 @@ public class Wishlist {
 	}
 	@Override
 	public String toString() {
-		return "Wishlist [wishlistId=" + wishlistId + ", customerId=" + customerId + ", products=" + products + "]";
+		return "Wishlist [wishlistId=" + wishlistId + ", customer=" + customer + ", products=" + products + "]";
 	}
-	public Wishlist(int wishlistId, int customerId, List<Product> products) {
+	
+	public Wishlist(int wishlistId, Customer customer, List<Product> products) {
 		super();
 		this.wishlistId = wishlistId;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.products = products;
 	}
 	public Wishlist() {

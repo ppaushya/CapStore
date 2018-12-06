@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.BankAccount;
 import com.capstore.model.CreditDebit;
 import com.capstore.model.Login;
 import com.capstore.service.ICreditDebitService;
@@ -56,5 +57,19 @@ public class CreditDebitController {
 			return new ResponseEntity<CreditDebit>(creditDebit,HttpStatus.OK);
 		}
 	
+	@PostMapping("/depositAmount")
+	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
+		creditDebitService.depositAmount(amount, card);
+		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+	}
+	
+	@PostMapping("/withdrawAmount")
+	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
+		if (amount > card.getBalance()) {
+			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
+		}
+		creditDebitService.withdrawAmount(amount, card);
+		return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
+	}
 	
 }

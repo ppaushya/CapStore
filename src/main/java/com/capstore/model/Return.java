@@ -23,11 +23,11 @@ public class Return {
 	
 //	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
-	private int orderId;
+	private Order order;
 	
 //	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
-	private int productId;
+	private Product product;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date pickupDate;
@@ -37,57 +37,44 @@ public class Return {
 	public int getReturnId() {
 		return returnId;
 	}
-
 	public void setReturnId(int returnId) {
 		this.returnId = returnId;
 	}
-
-	public int getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
-
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
-
 	public Date getPickupDate() {
 		return pickupDate;
 	}
-
 	public void setPickupDate(Date pickupDate) {
 		this.pickupDate = pickupDate;
 	}
-
 	public String getReturnStatus() {
 		return returnStatus;
 	}
-
 	public void setReturnStatus(String returnStatus) {
 		this.returnStatus = returnStatus;
 	}
-
 	@Override
 	public String toString() {
-		return "Return [returnId=" + returnId + ", orderId=" + orderId + ", productId=" + productId + ", pickupDate="
+		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
 				+ pickupDate + ", returnStatus=" + returnStatus + "]";
 	}
-
-	public Return(int returnId, int orderId, int productId, Date pickupDate, String returnStatus) {
+	public Return(int returnId, Order order, Product product, Date pickupDate, String returnStatus) {
 		super();
 		this.returnId = returnId;
-		this.orderId = orderId;
-		this.productId = productId;
+		this.order = order;
+		this.product = product;
 		this.pickupDate = pickupDate;
 		this.returnStatus = returnStatus;
 	}
-	
-
 }
