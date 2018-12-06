@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.ILoginDao;
+import com.capstore.model.Customer;
 import com.capstore.model.Login;
 
 
@@ -21,5 +22,12 @@ public class LoginService implements ILoginService{
 		Login login=loginDao.getByEmailIdAndPassword( emailId, password);
 		System.out.println(login);
 		return login;
+	}
+
+	@Override
+	public Customer getCustomerId(String emailId) {
+		System.out.println( loginDao.getByEmailId(emailId));
+		return loginDao.getByEmailId(emailId);
+		
 	}
 }

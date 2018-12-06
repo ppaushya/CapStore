@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.ICartDao;
 import com.capstore.model.Cart;
 
-@Service("CartService")
+@Service("cartService")
 public class CartService implements ICartService{
 
 	@Autowired
@@ -20,6 +20,19 @@ public class CartService implements ICartService{
 		cartDao.deleteById(productId);
 		return cartDao.findAll();
 		
+	}
+
+
+	@Override
+	public List<Cart> addCartProduct(Cart cartProduct) {
+	    cartDao.save(cartProduct);System.out.println("vcb");
+ 		return  cartDao.findCartByCustomerIdCustomerId(cartProduct.getCustomerId());
+	}
+
+
+	@Override
+	public List<Cart> getCartProducts(int custId) {
+		return  cartDao.findCartByCustomerIdCustomerId(custId);
 	}
 
 }
