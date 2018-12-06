@@ -14,7 +14,7 @@ import com.capstore.model.BankAccount;
 @Transactional
 public interface IBankAccountDao extends JpaRepository<BankAccount, String>{
 	
-	@Query("from BankAccount where userName=? and userPassword=?")
+	@Query("from BankAccount where userName=:userName and userPassword=:userPassword")
 	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword);
 
 }
