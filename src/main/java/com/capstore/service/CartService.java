@@ -15,8 +15,8 @@ public class CartService implements ICartService {
 	ICartDao cartDao;
 
 	@Override
-	public List<Cart> deleteCartProduct(int productId) {
-		cartDao.deleteById(productId);
+	public List<Cart> deleteCartProduct(int cartId) {
+		cartDao.deleteById(cartId);
 		return cartDao.findAll();
 	}
 
@@ -30,6 +30,12 @@ public class CartService implements ICartService {
 	@Override
 	public List<Cart> getCartProducts(int custId) {
 		return cartDao.findCartByCustomerIdCustomerId(custId);
+	}
+
+	@Override
+	public void deleteCartAfterOrder(int custId) {
+		cartDao.deleteCartAfterOrder(custId);
+		
 	}
 
 }
