@@ -36,5 +36,14 @@ public class CustomerService implements ICustomerService{
 		return customerDao.findAll();
 	}
 
+	@Override
+	public Customer getCustomerByCustomerId(int customerId) {
+		Optional<Customer> optional = customerDao.findById(customerId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
 	
 }

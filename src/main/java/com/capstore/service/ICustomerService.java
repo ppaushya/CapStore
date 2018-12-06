@@ -1,7 +1,6 @@
 package com.capstore.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.capstore.model.Customer;
 
@@ -11,7 +10,7 @@ public interface ICustomerService {
 
 	public Customer getCustomerByEmail(String customerEmail);
 	public List<Customer> getAllCustomers();
-
+	public Customer getCustomerByCustomerId(int customerId);
 	public void updateCustomer(Customer customer);
 	
 	
