@@ -12,7 +12,7 @@ public interface IInventoryMerchantService {
 
     public List<Inventory> addNewInventory(Inventory inventory);
 
-	public List<Inventory> deleteInventory(Integer inventoryId);
+	public List<Inventory> deleteInventory(int inventoryId);
 
 	public List<Inventory> updateInventory(Inventory inventory);
 }

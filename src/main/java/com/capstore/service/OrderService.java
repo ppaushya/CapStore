@@ -3,6 +3,7 @@ package com.capstore.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,24 @@ public class OrderService implements IOrderService{
 	private IProductService productService;
 	
 	@Override
-	public List<Order> displayCart() {		//display the cart items
-		return orderDao.findAll();
+	public List<Product> displayCartProducts(int orderId) {
+		//display the cart items
+		Order order = findOrderById(orderId);
+		return order.getOrderedProducts();
 	}
 
 	@Override
-	public boolean placeOrder(Order order) {
+	public Order findOrderById(int orderId) {
+		Optional<Order> optional = orderDao.findById(orderId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean checkAvailabilityInInventory(Order order) {
 		List<Product> products=order.getOrderedProducts();
-		Map<Product, Product> inventoryProductsMap = new HashMap<>();
 		
 		//check if product is in sufficient quantity
 		for(Product orderProduct:products) {
@@ -35,7 +46,7 @@ public class OrderService implements IOrderService{
 			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
 			
 			//save orderProduct and inventoryProduct in map
-			inventoryProductsMap.put(orderProduct, inventoryProduct);
+			//inventoryProductsMap.put(orderProduct, inventoryProduct);
 			
 			//check quantity
 			int orderedQuantity = orderProduct.getQuantity();
@@ -43,6 +54,21 @@ public class OrderService implements IOrderService{
 			if(orderedQuantity>availableQuantity) {
 				return false;
 			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean placeOrderAndUpdateInventory(Order order) {
+		List<Product> products=order.getOrderedProducts();
+		Map<Product, Product> inventoryProductsMap = new HashMap<>();
+		
+		for(Product orderProduct:products) {
+			//fetch product from inventory
+			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
+			
+			//save orderProduct and inventoryProduct in map
+			inventoryProductsMap.put(orderProduct, inventoryProduct);
 		}
 		
 		//update quantity in inventory
@@ -60,7 +86,7 @@ public class OrderService implements IOrderService{
 			inventoryProduct.setQuantity(availableQuantity-orderedQuantity);
 			productService.updateProduct(inventoryProduct);
 		}
-		
+				
 		return true;
 	}
 }

@@ -58,7 +58,7 @@ public class ManageInventoryController {
 
 	
 	@DeleteMapping(value="/inventories/{inventoryId}")
-    public ResponseEntity<List<Inventory>>deleteInventory(@PathVariable("inventoryId")Integer inventoryId){
+    public ResponseEntity<List<Inventory>>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
 	   List<Inventory> inventories=inventoryMerchantService.deleteInventory(inventoryId);
 	
