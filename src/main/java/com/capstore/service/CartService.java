@@ -22,6 +22,17 @@ public class CartService implements ICartService{
 		
 	}
 
+	@Override
+	public List<Cart> addCartProduct(Cart cartProduct) {
+	    cartDao.save(cartProduct);//System.out.println("vcb");
+ 		return  cartDao.findCartByCustomerIdCustomerId(cartProduct.getCustomer().getCustomerId());
+	}
+
+
+	@Override
+	public List<Cart> getCartProducts(int custId) {
+		return  cartDao.findCartByCustomerIdCustomerId(custId);
+	}
 
 	@Override
 	public void deleteCartAfterOrder(int custId) {

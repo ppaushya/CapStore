@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.capstore.model.Customer;
 import com.capstore.model.Login;
 import com.capstore.service.ILoginService;
 
@@ -38,6 +38,9 @@ public class LoginController {
 			return new ResponseEntity("hdjysfgfh",HttpStatus.NOT_FOUND);	
 		}
 		session.setAttribute("emailId", loginbean.getEmailId());
+		Customer customer=loginService.getCustomerId(loginbean.getEmailId());
+		session.setAttribute("customerId",customer.getCustomerId() );
+		
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	
 	}
 	
