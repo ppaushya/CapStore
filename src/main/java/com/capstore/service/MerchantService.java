@@ -33,4 +33,10 @@ public class MerchantService implements IMerchantService{
 		merchantDao.save(merchant);
 	}
 	
+	@Override
+	public String getMerchantName(int merchantId) {
+		Merchant merchant=merchantDao.findById(merchantId).get();
+		return merchant.getMerchantName();
+	}
+	
 }

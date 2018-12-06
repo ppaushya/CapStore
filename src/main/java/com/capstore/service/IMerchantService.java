@@ -11,5 +11,5 @@ public interface IMerchantService {
 	Merchant getMerchantByMail(String merchantMail);
 
 	void updateMerchant(Merchant merchant);
-	
+	public String getMerchantName(int merchantId);
 }
