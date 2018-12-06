@@ -19,16 +19,16 @@ public class Product {
 	
 //	@Column(name="inventoryId")
 	@OneToOne(targetEntity=Inventory.class)
-	private int inventoryId;
+	private Inventory inventory;
 	private double productPrice;
 	
 //	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private int merchantId;
+	private Merchant merchant;
 	
 //	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
-	private int promoId;
+	private Promos promo;
 	private int productsSold;
 	private int productView;
 	private boolean isPromotionMessageSent;
@@ -55,29 +55,35 @@ public class Product {
 	public void setString(String productCategory) {
 		this.productCategory = productCategory;
 	}
-	public int getInventoryId() {
-		return inventoryId;
-	}
-	public void setInventoryId(int inventoryId) {
-		this.inventoryId = inventoryId;
-	}
 	public double getProductPrice() {
 		return productPrice;
 	}
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-	public int getMerchantId() {
-		return merchantId;
+	public String getProductCategory() {
+		return productCategory;
 	}
-	public void setMerchantId(int merchantId) {
-		this.merchantId = merchantId;
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
 	}
-	public int getPromoId() {
-		return promoId;
+	public Inventory getInventory() {
+		return inventory;
 	}
-	public void setPromoId(int promoId) {
-		this.promoId = promoId;
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	public Merchant getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	public Promos getPromo() {
+		return promo;
+	}
+	public void setPromo(Promos promo) {
+		this.promo = promo;
 	}
 	public int getProductsSold() {
 		return productsSold;
@@ -123,23 +129,23 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", String="
-				+ productCategory + ", inventoryId=" + inventoryId + ", productPrice=" + productPrice + ", merchantId="
-				+ merchantId + ", promoId=" + promoId + ", productsSold=" + productsSold + ", productView="
-				+ productView + ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription="
-				+ productDescription + ", quantity=" + quantity + ", discount=" + discount + ", brand=" + brand + "]";
+		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
+				+ productCategory + ", inventory=" + inventory + ", productPrice=" + productPrice + ", merchant="
+				+ merchant + ", promo=" + promo + ", productsSold=" + productsSold + ", productView=" + productView
+				+ ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription=" + productDescription
+				+ ", quantity=" + quantity + ", discount=" + discount + ", brand=" + brand + "]";
 	}
-	public Product(int productId, String productName, String productCategory, int inventoryId,
-			double productPrice, int merchantId, int promoId, int productsSold, int productView,
-			boolean isPromotionMessageSent, String productDescription, int quantity, double discount, String brand) {
+	public Product(int productId, String productName, String productCategory, Inventory inventory, double productPrice,
+			Merchant merchant, Promos promo, int productsSold, int productView, boolean isPromotionMessageSent,
+			String productDescription, int quantity, double discount, String brand) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productCategory = productCategory;
-		this.inventoryId = inventoryId;
+		this.inventory = inventory;
 		this.productPrice = productPrice;
-		this.merchantId = merchantId;
-		this.promoId = promoId;
+		this.merchant = merchant;
+		this.promo = promo;
 		this.productsSold = productsSold;
 		this.productView = productView;
 		this.isPromotionMessageSent = isPromotionMessageSent;

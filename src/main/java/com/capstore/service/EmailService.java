@@ -32,4 +32,10 @@ public class EmailService implements IEmailService{
 	public void sendEmail(Email mail) {
 		emailDao.save(mail);
 	}
+	
+	@Override
+	public List<Email> getEmails(String emailId) {
+		// TODO Auto-generated method stub
+		return emailDao.getByReceiverEmailId(emailId);
+	}
 }

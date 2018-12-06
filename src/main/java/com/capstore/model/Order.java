@@ -25,7 +25,7 @@ public class Order {
 	
 //	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
-	private int customerId;
+	private Customer customer;
 	
 //	@Column(name="productId")
 	@OneToMany(targetEntity=Product.class)
@@ -33,7 +33,7 @@ public class Order {
 	
 //	@Column(name="shipmentId")
 	@OneToOne(targetEntity=Shipment.class)
-	private int shipmentId;
+	private Shipment shipmentId;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
@@ -44,11 +44,11 @@ public class Order {
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	public List<Product> getOrderedProducts() {
 		return orderedProducts;
@@ -56,10 +56,10 @@ public class Order {
 	public void setOrderedProducts(List<Product> orderedProducts) {
 		this.orderedProducts = orderedProducts;
 	}
-	public int getShipmentId() {
+	public Shipment getShipmentId() {
 		return shipmentId;
 	}
-	public void setShipmentId(int shipmentId) {
+	public void setShipmentId(Shipment shipmentId) {
 		this.shipmentId = shipmentId;
 	}
 	public Date getOrderDate() {
@@ -76,14 +76,14 @@ public class Order {
 	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customerId=" + customerId + ", orderedProducts=" + orderedProducts
+		return "Order [orderId=" + orderId + ", customer=" + customer + ", orderedProducts=" + orderedProducts
 				+ ", shipmentId=" + shipmentId + ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
 	}
-	public Order(int orderId, int customerId, List<Product> orderedProducts, int shipmentId, Date orderDate,
+	public Order(int orderId, Customer customer, List<Product> orderedProducts, Shipment shipmentId, Date orderDate,
 			int quantity) {
 		super();
 		this.orderId = orderId;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.orderedProducts = orderedProducts;
 		this.shipmentId = shipmentId;
 		this.orderDate = orderDate;

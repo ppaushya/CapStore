@@ -21,7 +21,7 @@ public class Cart {
 	
 //	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
-	private int customerId;
+	private Customer customer;
 	
 //	@Column(name="productList")
 	@OneToMany(targetEntity=Product.class)
@@ -36,11 +36,11 @@ public class Cart {
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	public List<Product> getProducts() {
 		return products;
@@ -56,13 +56,13 @@ public class Cart {
 	}
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", customerId=" + customerId + ", products=" + products + ", quantity="
-				+ quantity + "]";
+		return "Cart [cartId=" + cartId + ", customer=" + customer + ", products=" + products + ", quantity=" + quantity
+				+ "]";
 	}
-	public Cart(int cartId, int customerId, List<Product> products, int quantity) {
+	public Cart(int cartId, Customer customer, List<Product> products, int quantity) {
 		super();
 		this.cartId = cartId;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.products = products;
 		this.quantity = quantity;
 	}

@@ -21,15 +21,15 @@ public class Shipment {
 	
 //	@Column(name="orderId")
 	@OneToOne(targetEntity=Order.class)
-	private int orderId;
+	private Order order;
 	
 	//@Column(name="addressId")
 	@OneToOne(targetEntity=Address.class)
-	private int addressId;
+	private Address address;
 	
 //	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
-	private int productId;
+	private Product product;
 	private String deliveryStatus;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
@@ -44,23 +44,29 @@ public class Shipment {
 	public void setShipmentId(int shipmentId) {
 		this.shipmentId = shipmentId;
 	}
-	public int getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
-	public int getAddressId() {
-		return addressId;
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public String getDeliveryStatus() {
+		return deliveryStatus;
+	}
+	public void setDeliveryStatus(String deliveryStatus) {
+		this.deliveryStatus = deliveryStatus;
 	}
 	public String getString() {
 		return deliveryStatus;
@@ -82,17 +88,17 @@ public class Shipment {
 	}
 	@Override
 	public String toString() {
-		return "Shipment [shipmentId=" + shipmentId + ", orderId=" + orderId + ", addressId=" + addressId
-				+ ", productId=" + productId + ", deliveryDate=" + deliveryDate + ", dispatchDate=" + dispatchDate
-				+ "]";
+		return "Shipment [shipmentId=" + shipmentId + ", order=" + order + ", address=" + address + ", product="
+				+ product + ", deliveryStatus=" + deliveryStatus + ", deliveryDate=" + deliveryDate + ", dispatchDate="
+				+ dispatchDate + "]";
 	}
-	public Shipment(int shipmentId, int orderId, int addressId, int productId, String deliveryStatus,
+	public Shipment(int shipmentId, Order order, Address address, Product product, String deliveryStatus,
 			Date deliveryDate, Date dispatchDate) {
 		super();
 		this.shipmentId = shipmentId;
-		this.orderId = orderId;
-		this.addressId = addressId;
-		this.productId = productId;
+		this.order = order;
+		this.address = address;
+		this.product = product;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
 		this.dispatchDate = dispatchDate;

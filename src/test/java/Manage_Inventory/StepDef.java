@@ -1,14 +1,31 @@
 package Manage_Inventory;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import com.capstore.model.Inventory;
 import com.capstore.model.Product;
 
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class StepDef {
 
+	
+	
+	private WebDriver webdriver;
+	private WebElement element;
+
+	@Before
+	public void setUp() {
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\papurohi\\Desktop\\chromedriver.exe" );
+		webdriver=new ChromeDriver();
+
+	}
+	
 	@Given("^Details of product$")
 	public void details_of_product() throws Throwable {
 		
