@@ -14,7 +14,7 @@ import com.capstore.model.Cart;
 @Transactional
 public interface ICartDao extends JpaRepository<Cart, Integer> {
     
-	@Query("from Cart  where customerId=:custId")
+	@Query("from Cart  where customer_customer_id=:custId")
 	public List<Cart> findCartByCustomerIdCustomerId(@Param("custId") Integer custId);
 		
 	
