@@ -28,9 +28,17 @@ public class OrderService implements IOrderService{
 	}
 
 	@Override
-	public boolean placeOrder(Order order) {
+	public Order findOrderById(int orderId) {
+		Optional<Order> optional = orderDao.findById(orderId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean checkAvailabilityInInventory(Order order) {
 		List<Product> products=order.getOrderedProducts();
-		Map<Product, Product> inventoryProductsMap = new HashMap<>();
 		
 		//check if product is in sufficient quantity
 		for(Product orderProduct:products) {
@@ -38,7 +46,7 @@ public class OrderService implements IOrderService{
 			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
 			
 			//save orderProduct and inventoryProduct in map
-			inventoryProductsMap.put(orderProduct, inventoryProduct);
+			//inventoryProductsMap.put(orderProduct, inventoryProduct);
 			
 			//check quantity
 			int orderedQuantity = orderProduct.getQuantity();
@@ -46,6 +54,21 @@ public class OrderService implements IOrderService{
 			if(orderedQuantity>availableQuantity) {
 				return false;
 			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean placeOrderAndUpdateInventory(Order order) {
+		List<Product> products=order.getOrderedProducts();
+		Map<Product, Product> inventoryProductsMap = new HashMap<>();
+		
+		for(Product orderProduct:products) {
+			//fetch product from inventory
+			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
+			
+			//save orderProduct and inventoryProduct in map
+			inventoryProductsMap.put(orderProduct, inventoryProduct);
 		}
 		
 		//update quantity in inventory
@@ -63,16 +86,7 @@ public class OrderService implements IOrderService{
 			inventoryProduct.setQuantity(availableQuantity-orderedQuantity);
 			productService.updateProduct(inventoryProduct);
 		}
-		
+				
 		return true;
-	}
-
-	@Override
-	public Order findOrderById(int orderId) {
-		Optional<Order> optional = orderDao.findById(orderId);
-		if(optional.isPresent()) {
-			return optional.get();
-		}
-		return null;
 	}
 }
