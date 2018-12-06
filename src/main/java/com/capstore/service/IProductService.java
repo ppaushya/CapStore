@@ -1,4 +1,4 @@
-/*package com.capstore.service;
+package com.capstore.service;
 
 import java.util.List;
 
@@ -10,4 +10,3 @@ public interface IProductService {
 	//public int bestSeller();
 	
 }
-*/
