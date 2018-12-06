@@ -22,7 +22,7 @@ import com.capstore.service.ICartService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/api/v1")
 public class CartController {
 	
 	@Autowired

@@ -25,7 +25,7 @@ public class CartService implements ICartService{
 
 	@Override
 	public List<Cart> addCartProduct(Cart cartProduct) {
-	    cartDao.save(cartProduct);System.out.println("vcb");
+	    cartDao.save(cartProduct);//System.out.println("vcb");
  		return  cartDao.findCartByCustomerIdCustomerId(cartProduct.getCustomer().getCustomerId());
 	}
 
