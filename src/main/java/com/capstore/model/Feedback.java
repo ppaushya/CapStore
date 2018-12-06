@@ -17,11 +17,11 @@ public class Feedback {
 	
 //	@Column(name="customerId")
 	@OneToOne(targetEntity=Customer.class)
-	private int customerId;
+	private Customer customer;
 	
 //	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
-	private int productId;
+	private Product product;
 	@Column(name="ratingProduct")
 	private double ratingProduct;
 	@Column(name="ratingMerchant")
@@ -31,27 +31,20 @@ public class Feedback {
 	
 //	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private int merchantId;
+	private Merchant merchant;
 	
 	public int getFeedbackId() {
 		return feedbackId;
 	}
 	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
+	}	
+	public Product getProduct() {
+		return product;
 	}
-	public int getCustomerId() {
-		return customerId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-	
 	public double getRatingProduct() {
 		return ratingProduct;
 	}
@@ -70,29 +63,34 @@ public class Feedback {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public int getMerchantId() {
-		return merchantId;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setMerchantId(int merchantId) {
-		this.merchantId = merchantId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public Merchant getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 	@Override
 	public String toString() {
-		return "Feedback [feedbackId=" + feedbackId + ", customerId=" + customerId + ", productId=" + productId
+		return "Feedback [feedbackId=" + feedbackId + ", customer=" + customer + ", product=" + product
 				+ ", ratingProduct=" + ratingProduct + ", ratingMerchant=" + ratingMerchant + ", comment=" + comment
-				+ ", merchantId=" + merchantId + "]";
+				+ ", merchant=" + merchant + "]";
 	}
-	
-	public Feedback(int feedbackId, int customerId, int productId, double ratingProduct, double ratingMerchant,
-			String comment, int merchantId) {
+	public Feedback(int feedbackId, Customer customer, Product product, double ratingProduct, double ratingMerchant,
+			String comment, Merchant merchant) {
 		super();
 		this.feedbackId = feedbackId;
-		this.customerId = customerId;
-		this.productId = productId;
+		this.customer = customer;
+		this.product = product;
 		this.ratingProduct = ratingProduct;
 		this.ratingMerchant = ratingMerchant;
 		this.comment = comment;
-		this.merchantId = merchantId;
+		this.merchant = merchant;
 	}
 	public Feedback() {
 		super();

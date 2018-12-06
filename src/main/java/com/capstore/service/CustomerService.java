@@ -1,5 +1,7 @@
 package com.capstore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,10 @@ public class CustomerService implements ICustomerService{
 	@Override
 	public void updateCustomer(Customer customer) {
 		customerDao.save(customer);
+	}
+
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerDao.findAll();
 	}
 }
