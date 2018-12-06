@@ -21,7 +21,7 @@ import com.capstore.service.IInventoryMerchantService;
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/v1")
-public class Manage_InventoryController {
+public class ManageInventoryController {
 	
 	@Autowired
 	IInventoryMerchantService inventoryMerchantService;
