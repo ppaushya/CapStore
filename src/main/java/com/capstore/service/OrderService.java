@@ -3,6 +3,7 @@ package com.capstore.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ public class OrderService implements IOrderService{
 	private IProductService productService;
 	
 	@Override
-	public List<Order> displayCart() {		//display the cart items
-		return orderDao.findAll();
+	public List<Product> displayCartProducts(int orderId) {
+		//display the cart items
+		Order order = findOrderById(orderId);
+		return order.getOrderedProducts();
 	}
 
 	@Override
@@ -62,5 +65,14 @@ public class OrderService implements IOrderService{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Order findOrderById(int orderId) {
+		Optional<Order> optional = orderDao.findById(orderId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
 	}
 }
