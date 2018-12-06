@@ -30,6 +30,9 @@ public class Cart {
 	@Column(name="quantity")
 	private int quantity;
 	
+	
+	
+	
 	public int getCartId() {
 		return cartId;
 	}

@@ -2,6 +2,8 @@ package com.capstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,15 @@ public class CartController {
 //		if (cartProducts == null)
 //			return new ResponseEntity("Sorry! Pilot Id not available!", HttpStatus.NOT_FOUND);
 //		return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
+	}	
+	
+	
+	@DeleteMapping("/deletecart")
+	public ResponseEntity<String> deleteCartAfterOrder(HttpSession session){
+		int customerId= Integer.parseInt(session.getAttribute("customerId").toString());
+		cartService.deleteCartAfterOrder(customerId);
+		return new ResponseEntity<String>("Cart Deleted Successfully!",HttpStatus.OK);
+		
 		
 	}
 	
