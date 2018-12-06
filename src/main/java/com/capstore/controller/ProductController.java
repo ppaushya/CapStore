@@ -1,4 +1,4 @@
-package com.capstore.controller;
+/*package com.capstore.controller;
 
 
 
@@ -15,26 +15,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstore.model.Product;
 import com.capstore.service.IProductService;
 
-@CrossOrigin(origins="*")
-@RestController
-@RequestMapping("/api/v1")
-public class ProductController {
-	
-	@Autowired
-	private IProductService productService;
-	
-
-	@GetMapping("/product")
-	public  ResponseEntity<Integer> bestSeller(){
-		      
-		int product1 = productService.bestSeller();
-		if(product1==0)
-				return new ResponseEntity("Nothing fetched",HttpStatus.NOT_FOUND) ;
-		
-		return new ResponseEntity<Integer>(product1,HttpStatus.OK);
-		
-		
-	}
-	
-
-}
+//@CrossOrigin(origins="*")
+//@RestController
+//@RequestMapping("/api/v1")
+//public class ProductController {
+//	
+//	@Autowired
+//	private IProductService productService;
+//	
+//
+//	@GetMapping("/product")
+//	public  ResponseEntity<Integer> bestSeller(){
+//		      
+//		int product1 = productService.bestSeller();
+//		if(product1==0)
+//				return new ResponseEntity("Nothing fetched",HttpStatus.NOT_FOUND) ;
+//		
+//		return new ResponseEntity<Integer>(product1,HttpStatus.OK);
+//		
+//		
+//	}
+//	
+//
+//}
+*/
