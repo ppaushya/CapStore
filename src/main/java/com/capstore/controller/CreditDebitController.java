@@ -57,13 +57,13 @@ public class CreditDebitController {
 			return new ResponseEntity<CreditDebit>(creditDebit,HttpStatus.OK);
 		}
 	
-	@PostMapping("/depositAmount")
+	@PostMapping("/depositAmount1")
 	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		creditDebitService.depositAmount(amount, card);
 		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
 	}
 	
-	@PostMapping("/withdrawAmount")
+	@PostMapping("/withdrawAmount1")
 	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		if (amount > card.getBalance()) {
 			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
