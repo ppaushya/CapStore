@@ -17,7 +17,7 @@ public interface IProductDao extends JpaRepository<Product,Integer> {
 	//public Product findTop1ByOrderByproductsSoldDesc();
 	public List<Product> getProductsByIsPromotionMessageSent(boolean isSent);
 
-	@Query("SELECT productCategory, SUM(quantity), SUM(productsSold) FROM"
+	@Query("SELECT productCategory, SUM(quantity*productPrice), SUM(productsSold*productPrice) FROM"
 			+ " Product group by productCategory")
 	public List<Object[]> getProductSold();
 	

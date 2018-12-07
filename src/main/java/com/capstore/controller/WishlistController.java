@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.Customer;
+import com.capstore.model.Product;
 import com.capstore.model.Wishlist;
 import com.capstore.service.IWishlistService;
 
@@ -24,34 +26,32 @@ public class WishlistController {
 	private IWishlistService wishlistService;
 	
 	@PostMapping("/addingtowishlist")
-	public ResponseEntity<Wishlist> addToWishlist(@RequestBody Wishlist wishlist){
-		Wishlist mywishlist=wishlistService.addToWishlist(wishlist);
+	public ResponseEntity<Boolean> addToWishlist(@RequestBody Customer customer, 
+			@RequestBody Product product){
+		Boolean success = wishlistService.addToWishlist(customer.getCustomerId() , product.getProductId());
 		
-		return new ResponseEntity<Wishlist>(mywishlist,HttpStatus.OK);
+		return new ResponseEntity<Boolean>(success,HttpStatus.OK);
 	}
 	
 	@GetMapping("/viewWishlist")
-	public ResponseEntity<List<Wishlist>> viewWishlist(){
+	public ResponseEntity<List<Product>> wishListForSpecificCustomer(@RequestBody Customer customer){
 	
-		List<Wishlist> mywishlist=wishlistService.viewWishlist();
+		List<Product> products=wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
 		
-		return new ResponseEntity<List<Wishlist>>(mywishlist,HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
 	}
 	
 	@PostMapping("/deleteFromWishlist")
-	public ResponseEntity<List<Wishlist>> deleteFromWishlist(@RequestBody Wishlist wishlist){
+	public ResponseEntity<Wishlist> deleteFromWishlist(@RequestBody Customer customer, 
+			@RequestBody Product product){
 		
+		Wishlist wishlist=wishlistService.deleteFromWishlist(customer.getCustomerId(), product.getProductId());
 		
-		List<Wishlist> mywishlist=wishlistService.deleteFromWishlist(wishlist);
-		
-		
-		return new ResponseEntity<List<Wishlist>>(mywishlist,HttpStatus.OK);
+		return new ResponseEntity<Wishlist>(wishlist,HttpStatus.OK);
 	}
-	
 	
 	public ResponseEntity<Wishlist> addTocart(@RequestBody Wishlist wishlist){
 		
 		return null;
-	}
-	
+	}	
 }

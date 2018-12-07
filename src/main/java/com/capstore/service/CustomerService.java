@@ -1,6 +1,7 @@
 package com.capstore.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,15 @@ public class CustomerService implements ICustomerService{
 	public List<Customer> getAllCustomers() {
 		return customerDao.findAll();
 	}
+
+	@Override
+	public Customer getCustomerByCustomerId(int customerId) {
+		Optional<Customer> optional = customerDao.findById(customerId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
+	
 }

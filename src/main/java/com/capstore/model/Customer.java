@@ -34,6 +34,9 @@ public class Customer {
 	@Column(name="isVerified")
 	private boolean isVerified;
 	
+	
+	
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -78,13 +81,13 @@ public class Customer {
 		this.isVerified = isVerified;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", addresses=" + addresses
 				+ ", isVerified=" + isVerified + "]";
 	}
-	
 	public Customer(int customerId, String firstName, String lastName, String mobileNumber, String emailId,
 			List<Address> addresses, boolean isVerified) {
 		super();
