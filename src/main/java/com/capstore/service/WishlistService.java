@@ -18,7 +18,8 @@ public class WishlistService implements IWishlistService{
 	@Autowired
 	private IWishlistDao wishlistDao;
 	
-	
+	@Autowired
+	private ICartService cartDao;
 
 	@Override
 	public boolean addToWishlist(Customer customer, Product product) {
@@ -99,5 +100,13 @@ public class WishlistService implements IWishlistService{
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean moveFromWishlistToCart(Customer customer, Product product) {
+		
+		Wishlist myWishlist = deleteFromWishlist(customer, product);
+		
+		return false;
 	}
 }
