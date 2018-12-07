@@ -20,7 +20,7 @@ public class ShipmentService implements IShipmentService {
 	}
 
 	@Override
-	public Shipment getShipment(int shipmentId) {//Team-6
+	public Shipment getShipment(int shipmentId) {// Team-6
 		Optional<Shipment> optional = shipmentdao.findById(shipmentId);
 		if (optional.isPresent()) {
 			return optional.get();
@@ -29,7 +29,7 @@ public class ShipmentService implements IShipmentService {
 	}
 
 	@Override
-	public String getShipmentDeliveryStatus(int shipmentId) {//Team-6
+	public String getShipmentDeliveryStatus(int shipmentId) {// Team-6
 		Shipment shipment = getShipment(shipmentId);
 		if (shipment != null) {
 			return shipment.getDeliveryStatus();
@@ -38,7 +38,7 @@ public class ShipmentService implements IShipmentService {
 	}
 
 	@Override
-	public boolean updateShipmentDeliveryStatus(int shipmentId, String status) {//Team-6
+	public boolean updateShipmentDeliveryStatus(int shipmentId, String status) {// Team-6
 		Shipment shipment = getShipment(shipmentId);
 		if (shipment != null) {
 			shipment.setDeliveryStatus(status);
