@@ -31,7 +31,6 @@ public class CartController {
 	@DeleteMapping("/deleteCartProduct/{cartId}")
 	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId )
 	{
-		
 		List<Cart> cartProducts = cartService.deleteCartProduct(cartId);
 		if (cartProducts == null)
 			return new ResponseEntity("Sorry! Product is not available!", HttpStatus.NOT_FOUND);

@@ -22,7 +22,6 @@ import com.capstore.service.IWishlistService;
 @RequestMapping("/api/v1")
 public class WishlistController {
 
-
 	@Autowired
 	private IWishlistService wishlistService;
 	

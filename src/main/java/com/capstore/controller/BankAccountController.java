@@ -18,7 +18,7 @@ import com.capstore.service.IBankAccountService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/bankaccount")
+@RequestMapping("/api/v1")
 public class BankAccountController {
 
 	@Autowired
