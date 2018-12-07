@@ -20,13 +20,13 @@ public class SendPromoService implements ISendPromoService{
 	ICustomerService customerService;
 	
 	@Override
-	public boolean sendPromotionalEmailToUser(Email email) {
+	public boolean sendPromotionalEmailToUser(Email email) { //Team 6
 		emailService.sendEmailToCustomer(email);
-		return false;
+		return true;
 	}
 
 	@Override
-	public boolean sendPromotionalEmailsToAllCustomer() {
+	public boolean sendPromotionalEmailsToAllCustomer() { //Team 6
 		List<Customer> customers = customerService.getAllCustomers();
 		Email email = getPromotionalEmail();
 		
@@ -40,7 +40,7 @@ public class SendPromoService implements ISendPromoService{
 	}
 
 	@Override
-	public Email getPromotionalEmail() {
+	public Email getPromotionalEmail() { //Team 6
 		//get all products without email sent
 		List<Product> productsWithoutEmailSent = productService.getProductsWithoutPromotionalEmailSent();
 		
@@ -53,7 +53,7 @@ public class SendPromoService implements ISendPromoService{
 		return email;
 	}
 	
-	private String getEmailContentFromProductList(List<Product> products) {
+	private String getEmailContentFromProductList(List<Product> products) { //Team 6
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("\r\n" + 
 				"                                                                                                                                  \r\n" + 
