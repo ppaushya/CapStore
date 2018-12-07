@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Customer;
+import com.capstore.model.Email;
 import com.capstore.model.Login;
 import com.capstore.service.ILoginService;
 
@@ -46,10 +47,16 @@ public class LoginController {
 	}
 	
 	@PostMapping("/forgotPassword")
-	public ResponseEntity<String> forgotPassword(@RequestBody String emailId){
+	public ResponseEntity<Boolean> forgotPassword(@RequestBody String emailId){
+		String password="capStore123";
 		
 		
-		return null;
+		Email mail=new Email();
+		mail.setReceiverEmailId(emailId);
+		mail.setMessage("Your password is capStore123");
+		mail.setImageUrl("");
+		//emailService.sendEmail(mail);
+		return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		
 		
 	}
