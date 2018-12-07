@@ -24,7 +24,7 @@ public class BankAccountController {
 	@Autowired
 	private IBankAccountService bankAccountService;
 
-	@PostMapping("/addbankaccount")
+	@PostMapping("/bankaccount")
 	public ResponseEntity<String> addBankAccount(@RequestBody BankAccount bankAccount) {
 		if (bankAccountService.addBankAccount(bankAccount)) {
 			return new ResponseEntity("Bank Account added successfully!", HttpStatus.OK);
@@ -33,7 +33,7 @@ public class BankAccountController {
 		}
 	}
 
-	@GetMapping("/getallbankaccounts")
+	@GetMapping("/bankaccount")
 	public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
 		List<BankAccount> bankAccounts = bankAccountService.getAllBankAccounts();
 		if (bankAccounts.isEmpty()) {
@@ -43,7 +43,7 @@ public class BankAccountController {
 		}
 	}
 
-	@PostMapping("/getbankaccfromusernameandpass")
+	@PostMapping("/bankaccount/credential")
 	public ResponseEntity<BankAccount> getBankAccountFromUserNamePassword(@RequestBody String userName,
 			@RequestBody String userPassword) {
 		List<BankAccount> bankAccounts = bankAccountService.getBankAccountFromUserNamePassword(userName, userPassword);
@@ -55,13 +55,13 @@ public class BankAccountController {
 		return new ResponseEntity<BankAccount>(userAccount, HttpStatus.OK);
 	}
 
-	@PostMapping("/depositAmount")
+	@PostMapping("/bankaccount/deposit")
 	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @RequestBody double amount) {
 		bankAccountService.depositAmount(amount, account);
 		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
 	}
 
-	@PostMapping("/withdrawAmount")
+	@PostMapping("/bankaccount/withdraw")
 	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @RequestBody double amount) {
 		if (amount > account.getBalance()) {
 			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
