@@ -1,6 +1,6 @@
 package com.capstore.model;
 
-public interface DeliveryStatus {
+public interface IDeliveryStatus {
 
 	public static final String ORDERED = "ordered";
 	public static final String DISPATCHED = "dispatched";

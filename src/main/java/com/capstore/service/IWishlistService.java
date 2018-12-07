@@ -13,4 +13,6 @@ public interface IWishlistService {
 	public Wishlist deleteFromWishlist(Customer customer, Product product);
 	
 	public List<Product> wishListForSpecificCustomer(Customer customer);
+	
+	public boolean moveFromWishlistToCart(Customer customer, Product product);
 }

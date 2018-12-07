@@ -34,9 +34,6 @@ public class Customer {
 	@Column(name="isVerified")
 	private boolean isVerified;
 	
-	
-	
-	
 	public int getCustomerId() {
 		return customerId;
 	}
