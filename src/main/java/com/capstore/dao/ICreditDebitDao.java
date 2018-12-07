@@ -10,8 +10,8 @@ import com.capstore.model.CreditDebit;
 
 @Repository("creditDebitDao")
 @Transactional
-public interface ICreditDebitDao  extends JpaRepository<CreditDebit, String>{
+public interface ICreditDebitDao  extends JpaRepository<CreditDebit, Long>{
 		
-	@Query("update CreditDebit cd set cd.balance=:finalBal where cardNumber=:cardNumber")
-	public void updateAmount(double finalBal, String cardNumber);
+	/*@Query("update CreditDebit cd set cd.balance=:finalBal where cardNumber=:cardNumber")
+	public void updateAmount(double finalBal, String cardNumber);*/
 }

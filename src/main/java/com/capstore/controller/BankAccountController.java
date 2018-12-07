@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,18 +56,21 @@ public class BankAccountController {
 		return new ResponseEntity<BankAccount>(userAccount, HttpStatus.OK);
 	}
 
-	@PostMapping("/bankaccount/deposit")
-	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @RequestBody double amount) {
-		bankAccountService.depositAmount(amount, account);
-		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+	@PutMapping("/bankaccount/deposit/{amount}")
+	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if(bankAccountService.depositAmount(amount, account)) {
+			return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
+		}
 	}
 
-	@PostMapping("/bankaccount/withdraw")
-	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @RequestBody double amount) {
-		if (amount > account.getBalance()) {
-			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
+	@PutMapping("/bankaccount/withdraw/{amount}")
+	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if(bankAccountService.withdrawAmount(amount, account)) {
+			return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
 		}
-		bankAccountService.withdrawAmount(amount, account);
-		return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
 	}
 }

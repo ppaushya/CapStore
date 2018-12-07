@@ -9,9 +9,9 @@ public interface ICreditDebitService {
 
 	public boolean saveCard(CreditDebit creditDebit);
 	public List<CreditDebit> getAllCards();
-	public CreditDebit getCreditDebitFromCardNumber(String cardNumber);
-	public void depositAmount(double amount, CreditDebit creditDebit);
+	public CreditDebit getCardFromCardNumber(long cardNumber);
+	public boolean depositAmount(double amount, CreditDebit creditDebit);
 
-	public void withdrawAmount(double amount, CreditDebit creditDebit);
+	public boolean withdrawAmount(double amount, CreditDebit creditDebit);
 	
 }
