@@ -3,11 +3,13 @@ package com.capstore.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Product;
 
+@Service("sendPromoService")
 public class SendPromoService implements ISendPromoService{
 
 	@Autowired
