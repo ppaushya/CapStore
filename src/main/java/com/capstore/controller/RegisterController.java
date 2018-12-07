@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,15 @@ public class RegisterController {
         else
         	return new ResponseEntity<String>("customer registration failed", HttpStatus.NO_CONTENT);		
 
+	}
+	
+	@GetMapping("/customers")
+	public ResponseEntity<List<Customer>> getAllCustomers()	{
+		List<Customer> customers=customerService.getAllCustomers();
+		
+		if(customers.isEmpty())
+			return new ResponseEntity("Sorry! No customers available!",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
 	}
 
 }

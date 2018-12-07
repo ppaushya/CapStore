@@ -31,13 +31,13 @@ public class ProductController {
 			return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 	
-	@GetMapping("/products/salesAnalysis")
+	/*@GetMapping("/products/salesAnalysis")
 	public ResponseEntity<List<SalesAnalysis>> getSalesAnalysis(){
-		List<SalesAnalysis> salesAnalysis=productService.getSalesAnalysis();
+		//List<SalesAnalysis> salesAnalysis=productService.getSalesAnalysis();
 		if(salesAnalysis.isEmpty())
 			return new ResponseEntity("Sorry! No Sales is done!", HttpStatus.NOT_FOUND);
 		else
 			return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis, HttpStatus.OK);
-	}
+	}*/
 
 }

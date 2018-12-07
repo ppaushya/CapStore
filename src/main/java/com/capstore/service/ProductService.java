@@ -24,7 +24,7 @@ public class ProductService implements IProductService{
 		return productDao.findAll();
 	}
 	
-	@Override
+	/*@Override
 	public List<SalesAnalysis> getSalesAnalysis() {
 		double salesPercentage=0.00;
 		List<Object[]> bestSellerDetails=productDao.getBestSellerId();
@@ -46,7 +46,7 @@ public class ProductService implements IProductService{
 		}
 		return salesAnalysis;
 	}
-
+*/
 	@Override
 	public Product getProduct(int productId) {
 		Optional<Product> optional = productDao.findById(productId);
