@@ -10,7 +10,8 @@ public interface ICustomerService {
 
 	public Customer getCustomerByEmail(String customerEmail);
 	public List<Customer> getAllCustomers();
-
+	public Customer getCustomerByCustomerId(int customerId);
 	public void updateCustomer(Customer customer);
-
+	
+	
 }

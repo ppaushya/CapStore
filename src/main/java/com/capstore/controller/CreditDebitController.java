@@ -20,13 +20,13 @@ import com.capstore.service.ICreditDebitService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/api/creditdebit")
+@RequestMapping("/api/v1")
 public class CreditDebitController {
 	
 	@Autowired
 	private ICreditDebitService creditDebitService;
 
-	@PostMapping("/saveCard")
+	@PostMapping("/card")
 	public ResponseEntity<String> saveCard(@RequestBody CreditDebit card ){
 		if(creditDebitService.saveCard(card))	{
 		
@@ -36,7 +36,7 @@ public class CreditDebitController {
 			return new ResponseEntity("sorry!card insertion failed",HttpStatus.NOT_FOUND);	
 	}
 	
-	@GetMapping("/getcards")
+	@GetMapping("/card")
 	public ResponseEntity<List<CreditDebit>> getCard(){
 		
 		List<CreditDebit> cards=creditDebitService.getAllCards();
@@ -48,7 +48,7 @@ public class CreditDebitController {
 		}
 	}
 	
-	@GetMapping("/getcardfromcardnumber/{cardNumber}")
+	@GetMapping("/card/number/{cardNumber}")
 		public ResponseEntity<CreditDebit> getCardFromCardNumber(@PathVariable String cardNumber){
 			CreditDebit creditDebit=creditDebitService.getCreditDebitFromCardNumber(cardNumber);
 			if(creditDebit==null) {
@@ -57,13 +57,13 @@ public class CreditDebitController {
 			return new ResponseEntity<CreditDebit>(creditDebit,HttpStatus.OK);
 		}
 	
-	@PostMapping("/depositAmount")
+	@PostMapping("/card/deposit")
 	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		creditDebitService.depositAmount(amount, card);
 		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
 	}
 	
-	@PostMapping("/withdrawAmount")
+	@PostMapping("/card/withdraw")
 	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		if (amount > card.getBalance()) {
 			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);

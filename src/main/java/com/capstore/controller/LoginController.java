@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.capstore.model.Customer;
+import com.capstore.model.Email;
 import com.capstore.model.Login;
 import com.capstore.service.ILoginService;
 
@@ -30,15 +31,34 @@ public class LoginController {
 	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
 		
 		//(@RequestBody Login login,
+		System.out.println("dfsgsdfgtsdfgt");
 		
 		Login loginbean=loginService.getLogin(login.getEmailId(),login.getPassword());
 		
 		if(loginbean==null)
 		{
-			return new ResponseEntity("hdjysfgfh",HttpStatus.NOT_FOUND);	
+			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
 		session.setAttribute("emailId", loginbean.getEmailId());
+		Customer customer=loginService.getCustomerId(loginbean.getEmailId());
+		session.setAttribute("customerId",customer.getCustomerId() );
+		
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	
+	}
+	
+	@PostMapping("/forgotPassword")
+	public ResponseEntity<Boolean> forgotPassword(@RequestBody String emailId){
+		String password="capStore123";
+		
+		
+		Email mail=new Email();
+		mail.setReceiverEmailId(emailId);
+		mail.setMessage("Your password is capStore123");
+		mail.setImageUrl("");
+		//emailService.sendEmail(mail);
+		return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		
+		
 	}
 	
 	

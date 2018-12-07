@@ -9,13 +9,12 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.ICreditDebitDao;
 import com.capstore.model.CreditDebit;
 
-
 @Service("creditDebitService")
-public class CreditDebitService implements ICreditDebitService{
+public class CreditDebitService implements ICreditDebitService {
 
 	@Autowired
 	private ICreditDebitDao creditDebitDao;
-	
+
 	@Override
 	public boolean saveCard(CreditDebit creditDebit) {
 		creditDebitDao.save(creditDebit);
@@ -24,14 +23,13 @@ public class CreditDebitService implements ICreditDebitService{
 
 	@Override
 	public List<CreditDebit> getAllCards() {
-		
 		return creditDebitDao.findAll();
 	}
 
 	@Override
 	public CreditDebit getCreditDebitFromCardNumber(String cardNumber) {
-		Optional<CreditDebit> optional=creditDebitDao.findById(cardNumber);
-		if(optional.isPresent()) {
+		Optional<CreditDebit> optional = creditDebitDao.findById(cardNumber);
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
@@ -48,7 +46,5 @@ public class CreditDebitService implements ICreditDebitService{
 		double finalAmount = creditDebit.getBalance() - amount;
 		creditDebitDao.updateAmount(finalAmount, creditDebit.getCardNumber());
 	}
-
-	
 
 }

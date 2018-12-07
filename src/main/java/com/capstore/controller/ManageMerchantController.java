@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Merchant;
+import com.capstore.service.FeedbackService;
 import com.capstore.service.IMerchantService;
 
 @CrossOrigin(origins="*")
@@ -22,6 +23,8 @@ public class ManageMerchantController {
 
 	@Autowired
 	IMerchantService merchantService;
+	
+	public FeedbackService feedbackService;
 	
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
@@ -36,6 +39,16 @@ public class ManageMerchantController {
 		merchantService.deleteMerchant(merchantId);
 		return new ResponseEntity<>(true,HttpStatus.OK);
 	}
+	
+	@GetMapping("/merchants/{merchantId}")
+	public ResponseEntity<Double> getMerchantRating(@PathVariable int merchantId) {
+		
+		double avgMerchantRating=merchantService.getMerchantRating(merchantId);
+		
+		return new ResponseEntity<Double>(avgMerchantRating,HttpStatus.OK);
+		
+	}
+	
 	
 	
 }

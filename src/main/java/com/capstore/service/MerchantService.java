@@ -11,6 +11,9 @@ public class MerchantService implements IMerchantService{
 
 	@Autowired
 	IMerchantDao merchantDao;
+	
+	@Autowired
+	public FeedbackService feedbackService;
 
 	@Override
 	public void addMerchant(Merchant merchant) {
@@ -31,6 +34,24 @@ public class MerchantService implements IMerchantService{
 	@Override
 	public void updateMerchant(Merchant merchant) {
 		merchantDao.save(merchant);
+	}
+
+	@Override
+	public double getMerchantRating(int merchantId) {
+		
+		return feedbackService.calculateMerchantRating(merchantId);
+	}
+
+	
+
+	
+
+	
+	
+	@Override
+	public String getMerchantName(int merchantId) {
+		Merchant merchant=merchantDao.findById(merchantId).get();
+		return merchant.getMerchantName();
 	}
 	
 }

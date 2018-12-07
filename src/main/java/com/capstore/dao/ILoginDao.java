@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.capstore.model.Customer;
 import com.capstore.model.Login;
 
 @Repository("loginDao")
@@ -13,4 +14,6 @@ import com.capstore.model.Login;
 public interface ILoginDao extends JpaRepository<Login,Integer>{
 	/*@Query("from Login where emailId=:emailId and password=:password")*/
 	public Login getByEmailIdAndPassword(String emailId, String password);
+
+	public Customer getByEmailId(String emailId);
 }
