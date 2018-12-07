@@ -43,7 +43,7 @@ public class ManageMerchantController {
 	@GetMapping("/merchants/{merchantId}")
 	public ResponseEntity<Double> getMerchantRating(@PathVariable int merchantId) {
 		
-		double avgMerchantRating=feedbackService.calculateMerchantRating(merchantId);
+		double avgMerchantRating=merchantService.getMerchantRating(merchantId);
 		
 		return new ResponseEntity<Double>(avgMerchantRating,HttpStatus.OK);
 		

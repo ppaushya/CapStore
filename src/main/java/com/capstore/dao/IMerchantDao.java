@@ -14,7 +14,7 @@ public interface IMerchantDao extends JpaRepository<Merchant, Integer>{
 
 	public Merchant getByEmailId(String merchantMail);
 	
-	public double getMerchantRating(int merchantId);
+	//public double getMerchantRating(int merchantId);
 	
 	 
 

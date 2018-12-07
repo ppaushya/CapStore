@@ -34,7 +34,7 @@ public class CartService implements ICartService {
 
 	@Override
 	public void deleteCartAfterOrder(int custId) {
-		cartDao.deleteCartAfterOrder(custId);
+		//cartDao.deleteCartAfterOrder(custId);
 		
 	}
 
