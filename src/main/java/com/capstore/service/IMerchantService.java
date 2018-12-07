@@ -4,12 +4,15 @@ import com.capstore.model.Merchant;
 
 public interface IMerchantService {
 
-	void addMerchant(Merchant merchant);
+	public void addMerchant(Merchant merchant);
 
-	void deleteMerchant(Integer merchantId);
+	public void deleteMerchant(Integer merchantId);
 
-	Merchant getMerchantByMail(String merchantMail);
+	public Merchant getMerchantByMail(String merchantMail);
 
-	void updateMerchant(Merchant merchant);
+	public void updateMerchant(Merchant merchant);
 	
+	public double getMerchantRating(int merchantId);
+	
+	public String getMerchantName(int merchantId);
 }

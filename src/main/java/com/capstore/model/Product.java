@@ -20,6 +20,7 @@ public class Product {
 //	@Column(name="inventoryId")
 	@OneToOne(targetEntity=Inventory.class)
 	private Inventory inventory;
+	
 	private double productPrice;
 	
 //	@Column(name="merchantId")
