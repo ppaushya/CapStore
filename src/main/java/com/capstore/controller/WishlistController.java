@@ -28,7 +28,7 @@ public class WishlistController {
 	@PostMapping("/addingtowishlist")
 	public ResponseEntity<Boolean> addToWishlist(@RequestBody Customer customer, 
 			@RequestBody Product product){
-		Boolean success = wishlistService.addToWishlist(customer.getCustomerId() , product.getProductId());
+		Boolean success = wishlistService.addToWishlist(customer, product);
 		
 		return new ResponseEntity<Boolean>(success,HttpStatus.OK);
 	}
@@ -36,7 +36,7 @@ public class WishlistController {
 	@GetMapping("/viewWishlist")
 	public ResponseEntity<List<Product>> wishListForSpecificCustomer(@RequestBody Customer customer){
 	
-		List<Product> products=wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
+		List<Product> products=wishlistService.wishListForSpecificCustomer(customer);
 		
 		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
 	}
@@ -45,7 +45,7 @@ public class WishlistController {
 	public ResponseEntity<Wishlist> deleteFromWishlist(@RequestBody Customer customer, 
 			@RequestBody Product product){
 		
-		Wishlist wishlist=wishlistService.deleteFromWishlist(customer.getCustomerId(), product.getProductId());
+		Wishlist wishlist=wishlistService.deleteFromWishlist(customer, product);
 		
 		return new ResponseEntity<Wishlist>(wishlist,HttpStatus.OK);
 	}

@@ -21,13 +21,13 @@ public class OrderService implements IOrderService {
 	private IProductService productService;
 
 	@Override
-	public List<Product> displayCartProducts(int orderId) { // display the cart items
+	public List<Product> displayCartProducts(int orderId) {		//display the cart items
 		Order order = findOrderById(orderId);
 		return order.getOrderedProducts();
 	}
 
 	@Override
-	public Order findOrderById(int orderId) {
+	public Order findOrderById(int orderId) {		//finding the order
 		Optional<Order> optional = orderDao.findById(orderId);
 		if (optional.isPresent()) {
 			return optional.get();
@@ -36,7 +36,7 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public boolean checkAvailabilityInInventory(Order order) {
+	public boolean checkAvailabilityInInventory(Order order) {//checking availability of ordered products
 		List<Product> products = order.getOrderedProducts();
 
 		// check if product is in sufficient quantity

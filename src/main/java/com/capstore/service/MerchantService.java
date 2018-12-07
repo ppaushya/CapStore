@@ -12,6 +12,7 @@ public class MerchantService implements IMerchantService{
 	@Autowired
 	IMerchantDao merchantDao;
 	
+	@Autowired
 	public FeedbackService feedbackService;
 
 	@Override
