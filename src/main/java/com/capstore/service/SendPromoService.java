@@ -9,8 +9,6 @@ import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Product;
 
-
-
 @Service("sendPromoService")
 public class SendPromoService implements ISendPromoService{
 
