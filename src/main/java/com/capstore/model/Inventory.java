@@ -26,6 +26,7 @@ public class Inventory {
 	private double productPrice;
 	@Column(name="productDescription")
 	private String productDescription;
+	private String productBrand;
 	
 //	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
@@ -91,7 +92,12 @@ public class Inventory {
 	public void setInventoryType(String inventoryType) {
 		this.inventoryType = inventoryType;
 	}
-	
+	public String getProductBrand() {
+		return productBrand;
+	}
+	public void setProductBrand(String productBrand) {
+		this.productBrand = productBrand;
+	}
 	public int getInventoryQuantity() {
 		return inventoryQuantity;
 	}
@@ -102,12 +108,12 @@ public class Inventory {
 	public String toString() {
 		return "Inventory [inventoryId=" + inventoryId + ", merchant=" + merchant + ", productName=" + productName
 				+ ", productCategory=" + productCategory + ", productPrice=" + productPrice + ", productDescription="
-				+ productDescription + ", promo=" + promo + ", status=" + status + ", inventoryType=" + inventoryType
-				+ ", inventoryQuantity=" + inventoryQuantity + "]";
+				+ productDescription + ", productBrand=" + productBrand + ", promo=" + promo + ", status=" + status
+				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
 	}
 	public Inventory(int inventoryId, Merchant merchant, String productName, String productCategory,
-			double productPrice, String productDescription, Promos promo, String status, String inventoryType,
-			int inventoryQuantity) {
+			double productPrice, String productDescription, String productBrand, Promos promo, String status,
+			String inventoryType, int inventoryQuantity) {
 		super();
 		this.inventoryId = inventoryId;
 		this.merchant = merchant;
@@ -115,6 +121,7 @@ public class Inventory {
 		this.productCategory = productCategory;
 		this.productPrice = productPrice;
 		this.productDescription = productDescription;
+		this.productBrand = productBrand;
 		this.promo = promo;
 		this.status = status;
 		this.inventoryType = inventoryType;

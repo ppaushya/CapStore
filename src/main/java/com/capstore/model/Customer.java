@@ -23,9 +23,9 @@ public class Customer {
 	private String lastName;
 	@Column(name="mobileNumber")
 	private String mobileNumber;
-	
 	@Column(unique=true,name="emailId")
 	private String emailId;
+	private String password;
 	
 	@OneToMany
 //	@Column(name="addresses")
@@ -77,22 +77,27 @@ public class Customer {
 	public void setVerified(boolean isVerified) {
 		this.isVerified = isVerified;
 	}
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", addresses=" + addresses
-				+ ", isVerified=" + isVerified + "]";
+				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", password=" + password + ", addresses="
+				+ addresses + ", isVerified=" + isVerified + "]";
 	}
 	public Customer(int customerId, String firstName, String lastName, String mobileNumber, String emailId,
-			List<Address> addresses, boolean isVerified) {
+			String password, List<Address> addresses, boolean isVerified) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.emailId = emailId;
+		this.password = password;
 		this.addresses = addresses;
 		this.isVerified = isVerified;
 	}

@@ -19,14 +19,16 @@ public class SendPromoController {
 	@Autowired
 	private ISendPromoService sendPromoService;
 	
-@PostMapping("/sendpromoemail")
-public ResponseEntity<String> sendPromoEmails(){
-	if(sendPromoService.sendPromotionalEmailsToAllCustomer()) {
-		return new ResponseEntity<String>("Promo emails sent successfully!",HttpStatus.OK);
-    		
+	@PostMapping("/sendpromoemail")
+	public ResponseEntity<String> sendPromoEmails(){
+		if(sendPromoService.checkIfPromotionalEmailsRequiredToBeSent()) {
+			if(sendPromoService.sendPromotionalEmailsToAllCustomer()) {
+				return new ResponseEntity<String>("Promotional emails sent successfully!",HttpStatus.OK);	
+			}
+		}
+		return new ResponseEntity<String>("No more Promotional emails to be sent!",HttpStatus.NOT_FOUND);
+		
 	}
-	return new ResponseEntity<String>("Promo emails not sent!",HttpStatus.NOT_FOUND);
-}
 	
 	
 }
