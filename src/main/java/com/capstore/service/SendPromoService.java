@@ -27,6 +27,15 @@ public class SendPromoService implements ISendPromoService{
 		emailService.sendEmailToCustomer(email);
 		return true;
 	}
+	
+	@Override
+	public boolean checkIfPromotionalEmailsRequiredToBeSent() { //Team 6
+		List<Product> productsWithoutEmailSent = productService.getProductsWithoutPromotionalEmailSent();
+		if(productsWithoutEmailSent.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public boolean sendPromotionalEmailsToAllCustomer() { //Team 6
@@ -113,4 +122,5 @@ public class SendPromoService implements ISendPromoService{
 		stringBuilder.append("\nHave a nice day");
 		return stringBuilder.toString();
 	}
+
 }

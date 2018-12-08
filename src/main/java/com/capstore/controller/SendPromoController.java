@@ -21,11 +21,13 @@ public class SendPromoController {
 	
 	@PostMapping("/sendpromoemail")
 	public ResponseEntity<String> sendPromoEmails(){
-		if(sendPromoService.sendPromotionalEmailsToAllCustomer()) {
-			return new ResponseEntity<String>("Promotional emails sent successfully!",HttpStatus.OK);
-	    		
+		if(sendPromoService.checkIfPromotionalEmailsRequiredToBeSent()) {
+			if(sendPromoService.sendPromotionalEmailsToAllCustomer()) {
+				return new ResponseEntity<String>("Promotional emails sent successfully!",HttpStatus.OK);	
+			}
 		}
 		return new ResponseEntity<String>("No more Promotional emails to be sent!",HttpStatus.NOT_FOUND);
+		
 	}
 	
 	
