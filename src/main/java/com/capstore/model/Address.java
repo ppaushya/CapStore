@@ -23,7 +23,7 @@ public class Address {
 	@Column(name="state")
 	private String state;
 	@Column(name="pincode")
-	private int pincode;
+	private String pincode;
 	
 	public int getAddressId() {
 		return addressId;
@@ -55,10 +55,10 @@ public class Address {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public int getPincode() {
+	public String getPincode() {
 		return pincode;
 	}
-	public void setPincode(int pincode) {
+	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
 	@Override
@@ -66,7 +66,7 @@ public class Address {
 		return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
 				+ ", city=" + city + ", state=" + state + ", pincode=" + pincode + "]";
 	}
-	public Address(int addressId, String addressLine1, String addressLine2, String city, String state, int pincode) {
+	public Address(int addressId, String addressLine1, String addressLine2, String city, String state, String pincode) {
 		super();
 		this.addressId = addressId;
 		this.addressLine1 = addressLine1;

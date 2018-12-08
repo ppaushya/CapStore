@@ -19,19 +19,14 @@ public class Cart {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 	
-
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
-	
 
 	@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
 	
 	@Column(name="quantity")
 	private int quantity;
-	
-	
-	
 	
 	public int getCartId() {
 		return cartId;

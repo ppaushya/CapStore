@@ -11,7 +11,7 @@ public class CreditDebit {
 	
 	@Id
 	@Column(name="cardNumber")
-	private String cardNumber;
+	private long cardNumber;
 	@Column(name="cardHolderName")
 	private String cardHolderName;
 	@Column(name="expiryDate")
@@ -23,10 +23,10 @@ public class CreditDebit {
 	@Column(name="pinNumber")
 	private int pinNumber;
 	
-	public String getCardNumber() {
+	public long getCardNumber() {
 		return cardNumber;
 	}
-	public void setCardNumber(String cardNumber) {
+	public void setCardNumber(long cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 	public String getCardHolderName() {
@@ -64,7 +64,7 @@ public class CreditDebit {
 		return "Credit_Debit [cardNumber=" + cardNumber + ", cardHolderName=" + cardHolderName + ", expiryDate="
 				+ expiryDate + ", cvv=" + cvv + ", balance=" + balance + ", pinNumber=" + pinNumber + "]";
 	}
-	public CreditDebit(String cardNumber, String cardHolderName, Date expiryDate, int cvv, double balance,
+	public CreditDebit(long cardNumber, String cardHolderName, Date expiryDate, int cvv, double balance,
 			int pinNumber) {
 		super();
 		this.cardNumber = cardNumber;

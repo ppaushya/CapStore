@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class ShipmentController {
 		return new ResponseEntity<Shipment>(shipment1, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/shipment/{shipmentId}")
+	@GetMapping(value = "/shipment/{shipmentId}")
 	public ResponseEntity<Shipment> getShipment(@PathVariable("shipmentId") Integer shipmentId) {
 		Shipment shipment = shipmentService.getShipment(shipmentId);
 		if (shipment == null)
@@ -48,7 +49,7 @@ public class ShipmentController {
 		if (shipmentDeliveryStatus != null) {
 			return new ResponseEntity<String>(shipmentDeliveryStatus, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Sorry, shipment is not available!", HttpStatus.OK);
+			return new ResponseEntity<String>("Sorry, shipment is not available!", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -60,7 +61,7 @@ public class ShipmentController {
 		if (shipmentService.updateShipmentDeliveryStatus(shipmentId, status)) {
 			return new ResponseEntity("status of shipment updated", HttpStatus.OK);
 		} else {
-			return new ResponseEntity("status of shipment can't be updated", HttpStatus.OK);
+			return new ResponseEntity("status of shipment can't be updated", HttpStatus.NOT_FOUND);
 		}
 	}
 }

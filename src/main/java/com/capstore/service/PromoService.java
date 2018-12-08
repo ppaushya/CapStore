@@ -1,5 +1,22 @@
 package com.capstore.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capstore.dao.IPromoDao;
+import com.capstore.model.Promos;
+
+@Service("/promoService")
 public class PromoService implements IPromoService{
+
+	@Autowired
+	 IPromoDao promoDao;
+	
+	@Override
+	public void addPromo(Promos promo) {
+		promoDao.save(promo);
+	
+		
+	}
 
 }

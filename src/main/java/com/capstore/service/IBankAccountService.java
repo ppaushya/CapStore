@@ -9,10 +9,11 @@ public interface IBankAccountService {
 	public boolean addBankAccount(BankAccount bankAccount);
 
 	public List<BankAccount> getAllBankAccounts();
+	public BankAccount getBankAccount(long accountNumber);
 
 	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword);
 
-	public void depositAmount(double amount, BankAccount bankAccount);
+	public boolean depositAmount(double amount, BankAccount bankAccount);
 
-	public void withdrawAmount(double amount, BankAccount bankAccount);
+	public boolean withdrawAmount(double amount, BankAccount bankAccount);
 }

@@ -12,12 +12,12 @@ import com.capstore.model.BankAccount;
 
 @Repository("bankAccountDao")
 @Transactional
-public interface IBankAccountDao extends JpaRepository<BankAccount, String> {
+public interface IBankAccountDao extends JpaRepository<BankAccount, Long> {
 
 	@Query("from BankAccount where userName=:userName and userPassword=:userPassword")
 	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword);
 
-	@Query("update BankAccount b set b.balance=:finalBal where accountNumber=:accountNumber")
-	public void updateAmount(double finalBal, String accountNumber);
+	/*@Query("update BankAccount b set b.balance=:finalBal where accountNumber=:accountNumber")
+	public void updateAmount(double finalBal, String accountNumber);*/
 
 }

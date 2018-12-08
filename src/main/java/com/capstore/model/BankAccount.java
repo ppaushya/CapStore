@@ -11,7 +11,7 @@ public class BankAccount {
 	
 	@Id
 	@Column(name="accountNumber")
-	private String accountNumber;
+	private long accountNumber;
 	@Column(name="customerName")
 	private String customerName;
 	@Column(name="userName")
@@ -21,10 +21,10 @@ public class BankAccount {
 	@Column(name="balance")
 	private double balance;
 	
-	public String getAccountNumber() {
+	public long getAccountNumber() {
 		return accountNumber;
 	}
-	public void setAccountNumber(String accountNumber) {
+	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 	public String getCustomerName() {
@@ -56,7 +56,7 @@ public class BankAccount {
 		return "BankAccount [accountNumber=" + accountNumber + ", customerName=" + customerName + ", userName="
 				+ userName + ", userPassword=" + userPassword + ", balance=" + balance + "]";
 	}
-	public BankAccount(String accountNumber, String customerName, String userName, String userPassword,
+	public BankAccount(long accountNumber, String customerName, String userName, String userPassword,
 			double balance) {
 		super();
 		this.accountNumber = accountNumber;

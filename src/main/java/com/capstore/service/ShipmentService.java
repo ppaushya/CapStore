@@ -42,6 +42,7 @@ public class ShipmentService implements IShipmentService {
 		Shipment shipment = getShipment(shipmentId);
 		if (shipment != null) {
 			shipment.setDeliveryStatus(status);
+			shipmentdao.save(shipment);
 			return true;
 		}
 		return false;
