@@ -1,5 +1,8 @@
 package com.capstore.controller;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +50,27 @@ public class LoginController {
 	}
 	
 	@PostMapping("/forgotPassword")
-	public ResponseEntity<Boolean> forgotPassword(@RequestBody String emailId){
-		String password="capStore123";
+	public ResponseEntity<Boolean> forgotPassword(@RequestBody Login login){
 		
 		
+		boolean flag=loginService.setPasswordByEmail(login);
+
+		if(flag)
+		{
 		Email mail=new Email();
-		mail.setReceiverEmailId(emailId);
-		mail.setMessage("Your password is capStore123");
+		mail.setReceiverEmailId(login.getEmailId());
+		mail.setMessage("Your new password is capstore123");
 		mail.setImageUrl("");
+		return  new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}
+		
+		else
+		{
+			return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		}
 		//emailService.sendEmail(mail);
-		return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		
+		
 		
 		
 	}

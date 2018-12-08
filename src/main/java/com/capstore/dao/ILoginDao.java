@@ -15,5 +15,6 @@ public interface ILoginDao extends JpaRepository<Login,Integer>{
 	/*@Query("from Login where emailId=:emailId and password=:password")*/
 	public Login getByEmailIdAndPassword(String emailId, String password);
 
-	public Customer getByEmailId(String emailId);
+	public Login getByEmailId(String emailId);
+	
 }
