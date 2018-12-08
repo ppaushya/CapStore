@@ -64,7 +64,7 @@ public class Merchant {
 	public void setVerified(boolean isVerified) {
 		this.isVerified = isVerified;
 	}
-<<<<<<< HEAD
+
 	public String getMerchantPassword() {
 		return merchantPassword;
 	}
@@ -72,33 +72,24 @@ public class Merchant {
 		this.merchantPassword = merchantPassword;
 	}
 	
-=======
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
+
 	@Override
 	public String toString() {
 		return "Merchant [merchantId=" + merchantId + ", merchantName=" + merchantName + ", emailId=" + emailId
-<<<<<<< HEAD
 				+ ", merchantPassword=" + merchantPassword + ", merchantContact=" + merchantContact
-				+ ", merchantAddress=" + merchantAddress + ", isVerified=" + isVerified + "]";
-=======
+				+ ", merchantAddress=" + merchantAddress + ", isVerified=" + isVerified + "]"
 				+ ", merchantContact=" + merchantContact + ", password=" + password + ", merchantAddress="
 				+ merchantAddress + ", isVerified=" + isVerified + "]";
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 	}
-<<<<<<< HEAD
 	
-	public Merchant(int merchantId, String merchantName, String emailId, String merchantPassword,
-			String merchantContact, Address merchantAddress, boolean isVerified) {
-=======
 	public Merchant(int merchantId, String merchantName, String emailId, String merchantContact, String password,
 			Address merchantAddress, boolean isVerified) {
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 		super();
 		this.merchantId = merchantId;
 		this.merchantName = merchantName;
