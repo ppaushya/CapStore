@@ -2,6 +2,7 @@ package com.capstore.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +34,15 @@ public class SendPromoService implements ISendPromoService{
 		
 		//get all products without email sent
 		List<Product> productsWithoutEmailSent = productService.getProductsWithoutPromotionalEmailSent();
+		if(productsWithoutEmailSent.isEmpty()) {
+			return false;
+		}
 				
 		Email email = getNewProductEmail(productsWithoutEmailSent);
 		
 		for(Customer customer : customers) {
-			Email customerEmail = email;
+			Email customerEmail = new Email();
+			BeanUtils.copyProperties(email,customerEmail);
 			customerEmail.setReceiverEmailId(customer.getEmailId());
 			sendPromotionalEmailToUser(customerEmail);
 		}
@@ -69,7 +74,7 @@ public class SendPromoService implements ISendPromoService{
 	private String getEmailContentFromProductList(List<Product> products) { //Team 6
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(getHeadingForEmail());
-		stringBuilder.append("We have added following new products in our inventory. Let's have a look...!\n\n");
+		stringBuilder.append("\nWe have added following new products in our inventory. Let's have a look...!\n\n");
 		stringBuilder.append("ProductName"+"\t"+
 				"Brand"+"\t"+
 				"Discount"+"\n");
@@ -78,7 +83,7 @@ public class SendPromoService implements ISendPromoService{
 					product.getBrand()+"\t"+
 					product.getDiscount()+"\n");
 		}
-		stringBuilder.append("Hope you find them useful :)");
+		stringBuilder.append("Hope you find them useful :)\n");
 		stringBuilder.append(getFooterForEmail());
 		
 		return stringBuilder.toString();
@@ -99,13 +104,13 @@ public class SendPromoService implements ISendPromoService{
 				"   8888     ,88' .888888888. `88888.  8 8888        `8b.  ;8.`8888     8 8888    ` 8888     ,88'   8 8888   `8b.   8 8888         \r\n" + 
 				"    `8888888P'  .8'       `8. `88888. 8 8888         `Y8888P ,88P'     8 8888       `8888888P'     8 8888     `88. 8 888888888888 \r\n" + 
 				"");
-		stringBuilder.append("Greeting from CapStore\n\n");
+		stringBuilder.append("\n\n\nGreeting from CapStore\n\n");
 		return stringBuilder.toString();
 	}
 	
 	private String getFooterForEmail() {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("Have a nice day");
+		stringBuilder.append("\nHave a nice day");
 		return stringBuilder.toString();
 	}
 }
