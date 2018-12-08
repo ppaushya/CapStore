@@ -8,4 +8,9 @@ public interface ILoginService {
 	public Login getLogin(String emailId, String password);
 
 	public Customer getCustomerId(String emailId);
+	
+
+
+	public boolean setPasswordByEmail(Login login);
+	
 }
