@@ -1,5 +1,6 @@
 package com.capstore.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,8 @@ public interface ICustomerDao extends JpaRepository<Customer,Integer> {
 
 	Customer getByEmailId(String customerEmail);
 	
+	
+//	public List<Customer> getAllCustomers();
 
 
 

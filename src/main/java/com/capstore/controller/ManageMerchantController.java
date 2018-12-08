@@ -24,7 +24,8 @@ public class ManageMerchantController {
 	@Autowired
 	IMerchantService merchantService;
 	
-	public FeedbackService feedbackService;
+	
+	//public FeedbackService feedbackService;
 	
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
