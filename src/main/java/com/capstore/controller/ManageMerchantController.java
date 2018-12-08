@@ -57,7 +57,7 @@ public class ManageMerchantController {
 
 		String merchantMail=(String) session.getAttribute("emailId");
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
-		if(merchant.getPassword().equals(pasword)) {
+		if(merchant.getMerchantPassword().equals(pasword)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
 		else {
@@ -74,7 +74,7 @@ public class ManageMerchantController {
 
 		String merchantMail=(String) session.getAttribute("emailId");
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
-		merchant.setPassword(password);
+		merchant.setMerchantPassword(password);
 		merchantService.updateMerchant(merchant);
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
