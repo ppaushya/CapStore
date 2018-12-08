@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,7 +17,7 @@ public class Promos {
 	@Column(name="promoId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int promoId;
-	private String promoImageUrl;
+	/*private String promoImageUrl;*/
 	private String promoCode;
 	private int discount;
 	
@@ -43,13 +42,6 @@ public class Promos {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
-	public String getPromoImageUrl() {
-		return promoImageUrl;
-	}
-	public void setPromoImageUrl(String promoImageUrl) {
-		this.promoImageUrl = promoImageUrl;
-	}
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -58,14 +50,12 @@ public class Promos {
 	}
 	@Override
 	public String toString() {
-		return "Promos [promoId=" + promoId + ", promoImageUrl=" + promoImageUrl + ", promoCode=" + promoCode
-				+ ", discount=" + discount + ", endDate=" + endDate + "]";
+		return "Promos [promoId=" + promoId + ", promoCode=" + promoCode + ", discount=" + discount + ", endDate="
+				+ endDate + "]";
 	}
-	
-	public Promos(int promoId, String promoImageUrl, String promoCode, int discount, Date endDate) {
+	public Promos(int promoId, String promoCode, int discount, Date endDate) {
 		super();
 		this.promoId = promoId;
-		this.promoImageUrl = promoImageUrl;
 		this.promoCode = promoCode;
 		this.discount = discount;
 		this.endDate = endDate;
