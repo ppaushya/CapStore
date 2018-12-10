@@ -34,7 +34,6 @@ public class LoginController {
 	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
 		
 		//(@RequestBody Login login,
-		System.out.println("dfsgsdfgtsdfgt");
 		
 		Login loginbean=loginService.getLogin(login.getEmailId(),login.getPassword());
 		
@@ -43,6 +42,7 @@ public class LoginController {
 			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
 		session.setAttribute("emailId", loginbean.getEmailId());
+		System.out.println(session.getAttribute("emailId"));
 		/*Customer customer=loginService.getCustomerId(loginbean.getEmailId());
 		session.setAttribute("customerId",customer.getCustomerId() );*/
 		
