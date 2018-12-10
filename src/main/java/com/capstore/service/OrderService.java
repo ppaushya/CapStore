@@ -103,6 +103,12 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
+	public List<Order> getOrdersForCustomer(int custId) { // to get orders for a customer
+		
+		return orderDao.getOrdersForCustomer(custId) ;
+	}
+	
+	@Override
 	public boolean deleteOrder(int orderId) {
 		orderDao.deleteById(orderId);
 		return true;
