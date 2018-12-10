@@ -29,9 +29,6 @@ public class Order {
 	@OneToOne(targetEntity=Product.class)
 	private Cart cart;
 	
-	@OneToOne(targetEntity=Shipment.class)
-	private Shipment shipment;
-	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
 	
@@ -63,14 +60,6 @@ public class Order {
 		this.cart = cart;
 	}
 
-	public Shipment getShipment() {
-		return shipment;
-	}
-
-	public void setShipment(Shipment shipment) {
-		this.shipment = shipment;
-	}
-
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -89,19 +78,20 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", shipment=" + shipment
-				+ ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
+		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", orderDate=" + orderDate
+				+ ", quantity=" + quantity + "]";
 	}
 
-	public Order(int orderId, Customer customer, Cart cart, Shipment shipment, Date orderDate, int quantity) {
+	public Order(int orderId, Customer customer, Cart cart, Date orderDate, int quantity) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
 		this.cart = cart;
-		this.shipment = shipment;
 		this.orderDate = orderDate;
 		this.quantity = quantity;
 	}
+
+	
 
 	
 	
