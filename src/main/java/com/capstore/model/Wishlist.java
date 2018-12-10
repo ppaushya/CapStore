@@ -20,7 +20,6 @@ public class Wishlist {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int wishlistId;
 	
-	
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 	
@@ -34,7 +33,6 @@ public class Wishlist {
 	public void setWishlistId(int wishlistId) {
 		this.wishlistId = wishlistId;
 	}
-	
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -51,7 +49,6 @@ public class Wishlist {
 	public String toString() {
 		return "Wishlist [wishlistId=" + wishlistId + ", customer=" + customer + ", products=" + products + "]";
 	}
-	
 	public Wishlist(int wishlistId, Customer customer, List<Product> products) {
 		super();
 		this.wishlistId = wishlistId;
