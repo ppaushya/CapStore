@@ -75,17 +75,17 @@ public class ValidationOfUserController {
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
 	
-	//merchant validation!!
-	@RequestMapping("/merchantVerification/{merchantMail}")
-	public ResponseEntity<Boolean> merchantVerification(@PathVariable("merchantMail") String merchantMail){
-		
-		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
-		
-		merchant.setVerified(true);
-		merchantService.updateMerchant(merchant);
-		
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
+//	//merchant validation!!
+//	@RequestMapping("/merchantVerification/{merchantMail}")
+//	public ResponseEntity<Boolean> merchantVerification(@PathVariable("merchantMail") String merchantMail){
+//		
+//		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+//		
+//		merchant.setVerified(true);
+//		merchantService.updateMerchant(merchant);
+//		
+//		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+//	}
 	
 	
 	@PostMapping("/youMail/email")
