@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class CreditDebitController {
 	@Autowired
 	private ICreditDebitService creditDebitService;
 
-	@PostMapping("/saveCard")
+	@PostMapping("/card")
 	public ResponseEntity<String> saveCard(@RequestBody CreditDebit card ){
 		if(creditDebitService.saveCard(card))	{
 		
@@ -36,7 +37,7 @@ public class CreditDebitController {
 			return new ResponseEntity("sorry!card insertion failed",HttpStatus.NOT_FOUND);	
 	}
 	
-	@GetMapping("/getcards")
+	@GetMapping("/card")
 	public ResponseEntity<List<CreditDebit>> getCard(){
 		
 		List<CreditDebit> cards=creditDebitService.getAllCards();
@@ -48,28 +49,31 @@ public class CreditDebitController {
 		}
 	}
 	
-	@GetMapping("/getcardfromcardnumber/{cardNumber}")
-		public ResponseEntity<CreditDebit> getCardFromCardNumber(@PathVariable String cardNumber){
-			CreditDebit creditDebit=creditDebitService.getCreditDebitFromCardNumber(cardNumber);
+	@GetMapping("/card/number/{cardNumber}")
+		public ResponseEntity<CreditDebit> getCardFromCardNumber(@PathVariable Long cardNumber){
+			CreditDebit creditDebit=creditDebitService.getCardFromCardNumber(cardNumber);
 			if(creditDebit==null) {
 				return new ResponseEntity("Sorry! Card does not exist!",HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<CreditDebit>(creditDebit,HttpStatus.OK);
 		}
 	
-	@PostMapping("/depositAmount")
-	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
-		creditDebitService.depositAmount(amount, card);
-		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+	@PutMapping("/card/deposit/{amount}")
+	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @PathVariable double amount) {
+		if(creditDebitService.depositAmount(amount, card)) {
+			return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
+		}
 	}
 	
-	@PostMapping("/withdrawAmount")
-	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
-		if (amount > card.getBalance()) {
-			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
+	@PutMapping("/card/withdraw/{amount}")
+	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @PathVariable double amount) {
+		if(creditDebitService.withdrawAmount(amount, card)) {
+			return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
 		}
-		creditDebitService.withdrawAmount(amount, card);
-		return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
 	}
 	
 }

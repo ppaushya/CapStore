@@ -45,5 +45,11 @@ public class CustomerService implements ICustomerService{
 		return null;
 	}
 
+	@Override
+	public List<Customer> deleteCustomer(int customerId) {
+		customerDao.deleteById(customerId);
+		return customerDao.findAll();
+	}
+
 	
 }

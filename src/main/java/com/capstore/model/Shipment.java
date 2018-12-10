@@ -13,85 +13,102 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Shipment {
-	
+
 	@Id
-	@Column(name="shipmentId")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "shipmentId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int shipmentId;
-	
+
 //	@Column(name="orderId")
-	@OneToOne(targetEntity=Order.class)
+	@OneToOne(targetEntity = Order.class)
 	private Order order;
-	
-	//@Column(name="addressId")
-	@OneToOne(targetEntity=Address.class)
+
+	// @Column(name="addressId")
+	@OneToOne(targetEntity = Address.class)
 	private Address address;
-	
+
 //	@Column(name="productId")
-	@OneToOne(targetEntity=Product.class)
+	@OneToOne(targetEntity = Product.class)
 	private Product product;
 	private String deliveryStatus;
-	
-	@JsonFormat(pattern="dd-MM-yyyy")
+
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date deliveryDate;
-	
-	@JsonFormat(pattern="dd-MM-yyyy")
+
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dispatchDate;
-	
+
 	public int getShipmentId() {
 		return shipmentId;
 	}
+
 	public void setShipmentId(int shipmentId) {
 		this.shipmentId = shipmentId;
 	}
+
 	public Order getOrder() {
 		return order;
 	}
+
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+
 	public Address getAddress() {
 		return address;
 	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
 	public Product getProduct() {
 		return product;
 	}
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public String getDeliveryStatus() {
 		return deliveryStatus;
 	}
+
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
+
 	public String getString() {
 		return deliveryStatus;
 	}
+
 	public void setString(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
+
 	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
+
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
+
 	public Date getDispatchDate() {
 		return dispatchDate;
 	}
+
 	public void setDispatchDate(Date dispatchDate) {
 		this.dispatchDate = dispatchDate;
 	}
+
 	@Override
 	public String toString() {
 		return "Shipment [shipmentId=" + shipmentId + ", order=" + order + ", address=" + address + ", product="
 				+ product + ", deliveryStatus=" + deliveryStatus + ", deliveryDate=" + deliveryDate + ", dispatchDate="
 				+ dispatchDate + "]";
 	}
+
 	public Shipment(int shipmentId, Order order, Address address, Product product, String deliveryStatus,
 			Date deliveryDate, Date dispatchDate) {
 		super();
@@ -103,6 +120,7 @@ public class Shipment {
 		this.deliveryDate = deliveryDate;
 		this.dispatchDate = dispatchDate;
 	}
+
 	public Shipment() {
 		super();
 	}

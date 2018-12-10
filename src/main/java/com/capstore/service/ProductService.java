@@ -24,7 +24,7 @@ public class ProductService implements IProductService{
 		return productDao.findAll();
 	}
 	
-	@Override
+	/*@Override
 	public List<SalesAnalysis> getSalesAnalysis() {
 		double salesPercentage=0.00;
 		List<Object[]> bestSellerDetails=productDao.getBestSellerId();
@@ -32,12 +32,12 @@ public class ProductService implements IProductService{
 		List<SalesAnalysis> salesAnalysis=new ArrayList<>();
 		for(Object[] object:productSales)	{
 			SalesAnalysis sales=new SalesAnalysis();
-			sales.setProductCategory((String)object[0]);
+			sales.setProductCategory(((String)object[0]).toUpperCase());
 			sales.setProductQuantity((Double)object[1]);
 			sales.setProductSales((Double)object[2]);
 			for(Object[] object1:bestSellerDetails)	{
 				if(((String)object[0]).equals((String)object1[0]))
-					sales.setMerchant(merchantService.getMerchantName((Integer)object1[1]));
+					sales.setMerchant(merchantService.getMerchantName((Integer)object1[1]).toUpperCase());
 			}
 			salesPercentage=(sales.getProductSales()*100)/sales.getProductQuantity();
 			sales.setSalesPercent(salesPercentage);
@@ -46,7 +46,7 @@ public class ProductService implements IProductService{
 		}
 		return salesAnalysis;
 	}
-
+*/
 	@Override
 	public Product getProduct(int productId) {
 		Optional<Product> optional = productDao.findById(productId);

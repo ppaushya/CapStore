@@ -25,9 +25,9 @@ public class CreditDebitService implements ICreditDebitService {
 	public List<CreditDebit> getAllCards() {
 		return creditDebitDao.findAll();
 	}
-
+	
 	@Override
-	public CreditDebit getCreditDebitFromCardNumber(String cardNumber) {
+	public CreditDebit getCardFromCardNumber(long cardNumber) {
 		Optional<CreditDebit> optional = creditDebitDao.findById(cardNumber);
 		if (optional.isPresent()) {
 			return optional.get();
@@ -36,15 +36,31 @@ public class CreditDebitService implements ICreditDebitService {
 	}
 
 	@Override
-	public void depositAmount(double amount, CreditDebit creditDebit) {
-		double finalAmount = creditDebit.getBalance() + amount;
-		creditDebitDao.updateAmount(finalAmount, creditDebit.getCardNumber());
+	public boolean depositAmount(double amount, CreditDebit creditDebit) {
+		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
+		if(card!=null) {
+			double finalAmount = card.getBalance() + amount;
+			card.setBalance(finalAmount);
+			creditDebitDao.save(card);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public void withdrawAmount(double amount, CreditDebit creditDebit) {
-		double finalAmount = creditDebit.getBalance() - amount;
-		creditDebitDao.updateAmount(finalAmount, creditDebit.getCardNumber());
+	public boolean withdrawAmount(double amount, CreditDebit creditDebit) {
+		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
+		if(card!=null) {
+			double balance = card.getBalance();
+			if (amount > balance) {
+				return false;
+			}
+			double finalAmount = balance - amount;
+			card.setBalance(finalAmount);
+			creditDebitDao.save(card);
+			return true;
+		}
+		return false;
 	}
 
 }
