@@ -15,8 +15,8 @@ public class InvoiceService implements IInvoiceService{
 	
 	@Override
 	public Invoice insertinvoice(Invoice invoice) {
-		// TODO Auto-generated method stub
 		return invoicedao.save(invoice);
 	}
 
+	
 }
