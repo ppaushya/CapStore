@@ -15,15 +15,11 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int transactionId;
 	
-//	@Column(name="orderId")
-	@OneToOne(targetEntity=Order.class)
-	private Order order;
-	
 //	@Column(name="invoiceNo")
 	@OneToOne(targetEntity=Invoice.class)
 	private Invoice invoice;
 	private String modeOfPayment;
-	private String paymentModeNumber;
+	private long paymentModeNumber;
 	private String status;
 	
 	public int getTransactionId() {
@@ -31,12 +27,6 @@ public class Transaction {
 	}
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
-	}
-	public Order getOrder() {
-		return order;
-	}
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 	public Invoice getInvoice() {
 		return invoice;
@@ -50,10 +40,10 @@ public class Transaction {
 	public void setModeOfPayment(String modeOfPayment) {
 		this.modeOfPayment = modeOfPayment;
 	}
-	public String getPaymentModeNumber() {
+	public long getPaymentModeNumber() {
 		return paymentModeNumber;
 	}
-	public void setPaymentModeNumber(String paymentModeNumber) {
+	public void setPaymentModeNumber(long paymentModeNumber) {
 		this.paymentModeNumber = paymentModeNumber;
 	}
 	public String getStatus() {
@@ -64,16 +54,13 @@ public class Transaction {
 	}
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", order=" + order + ", invoice=" + invoice
-				+ ", modeOfPayment=" + modeOfPayment + ", paymentModeNumber=" + paymentModeNumber + ", status=" + status
-				+ "]";
+		return "Transaction [transactionId=" + transactionId + ", invoice=" + invoice + ", modeOfPayment="
+				+ modeOfPayment + ", paymentModeNumber=" + paymentModeNumber + ", status=" + status + "]";
 	}
-	
-	public Transaction(int transactionId, Order order, Invoice invoice, String modeOfPayment, String paymentModeNumber,
+	public Transaction(int transactionId, Invoice invoice, String modeOfPayment, long paymentModeNumber,
 			String status) {
 		super();
 		this.transactionId = transactionId;
-		this.order = order;
 		this.invoice = invoice;
 		this.modeOfPayment = modeOfPayment;
 		this.paymentModeNumber = paymentModeNumber;
