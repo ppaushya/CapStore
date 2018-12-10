@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,7 @@ public class BankAccountController {
 	@Autowired
 	private IBankAccountService bankAccountService;
 
-	@PostMapping("/addbankaccount")
+	@PostMapping("/bankaccount")
 	public ResponseEntity<String> addBankAccount(@RequestBody BankAccount bankAccount) {
 		if (bankAccountService.addBankAccount(bankAccount)) {
 			return new ResponseEntity("Bank Account added successfully!", HttpStatus.OK);
@@ -32,7 +34,7 @@ public class BankAccountController {
 		}
 	}
 
-	@GetMapping("/getallbankaccounts")
+	@GetMapping("/bankaccount")
 	public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
 		List<BankAccount> bankAccounts = bankAccountService.getAllBankAccounts();
 		if (bankAccounts.isEmpty()) {
@@ -42,7 +44,7 @@ public class BankAccountController {
 		}
 	}
 
-	@PostMapping("/getbankaccfromusernameandpass")
+	@PostMapping("/bankaccount/credential")
 	public ResponseEntity<BankAccount> getBankAccountFromUserNamePassword(@RequestBody String userName,
 			@RequestBody String userPassword) {
 		List<BankAccount> bankAccounts = bankAccountService.getBankAccountFromUserNamePassword(userName, userPassword);
@@ -54,18 +56,21 @@ public class BankAccountController {
 		return new ResponseEntity<BankAccount>(userAccount, HttpStatus.OK);
 	}
 
-	@PostMapping("/depositAmount")
-	public ResponseEntity<String> depositAmount(@RequestBody double amount, @RequestBody BankAccount account) {
-		bankAccountService.depositAmount(amount, account);
-		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+	@PutMapping("/bankaccount/deposit/{amount}")
+	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if(bankAccountService.depositAmount(amount, account)) {
+			return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
+		}
 	}
 
-	@PostMapping("/withdrawAmount")
-	public ResponseEntity<String> withdrawAmount(@RequestBody double amount, @RequestBody BankAccount account) {
-		if (amount > account.getBalance()) {
-			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
+	@PutMapping("/bankaccount/withdraw/{amount}")
+	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if(bankAccountService.withdrawAmount(amount, account)) {
+			return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
 		}
-		bankAccountService.withdrawAmount(amount, account);
-		return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
 	}
 }

@@ -19,37 +19,29 @@ public class WishlistService implements IWishlistService{
 	private IWishlistDao wishlistDao;
 	
 	@Autowired
-	private ICustomerService customerService;
-	
-	@Autowired
-	private IProductService productService;
-
+	private ICartService cartDao;
 
 	@Override
-	public boolean addToWishlist(int customerId, int productId) {
+	public boolean addToWishlist(Customer customer, Product product) {
 		
 		boolean isWishListPresent=false;
-		Product productToAdd = productService.getProduct(productId);
-		Customer customer = customerService.getCustomerByCustomerId(customerId);
-
+		
 		List<Wishlist> wishLists =  wishlistDao.findAll();
 		Iterator<Wishlist> WishListIterator = wishLists.iterator();
 		
 		while (WishListIterator.hasNext()) {
 			Wishlist myWishList = WishListIterator.next();
-			if(myWishList.getCustomer().getCustomerId() == customerId) {
+			if(myWishList.getCustomer().equals(customer)) {
 				List<Product> products = myWishList.getProducts();
 				Iterator<Product> productIterator = products.iterator();
-				
+				isWishListPresent = true;
 				while(productIterator.hasNext()) {
 					Product myProduct = productIterator.next();
-					if(myProduct.getProductId() == productId) {
-						isWishListPresent = true;
+					if(myProduct.equals(product)) {
 						return true;
 					}
 				}
-				products.add(productToAdd);
-				isWishListPresent = true;
+				products.add(product);
 				return true;
 			}
 		}
@@ -57,7 +49,7 @@ public class WishlistService implements IWishlistService{
 			Wishlist requiredWishlist = new Wishlist();
 			
 			List<Product> products = new ArrayList<>();
-			products.add(productToAdd);
+			products.add(product);
 			
 			requiredWishlist.setCustomer(customer);
 			requiredWishlist.setProducts(products);
@@ -69,20 +61,20 @@ public class WishlistService implements IWishlistService{
 	}
 
 	@Override
-	public Wishlist deleteFromWishlist(int productId, int customerId) {
+	public Wishlist deleteFromWishlist(Customer customer, Product product) {
 
 		List<Wishlist> wishLists =  wishlistDao.findAll();
 		Iterator<Wishlist> WishListIterator = wishLists.iterator();
 		
 		while (WishListIterator.hasNext()) {
 			Wishlist myWishList = WishListIterator.next();
-			if(myWishList.getCustomer().getCustomerId() == customerId) {
+			if(myWishList.getCustomer().equals(customer)) {
 				List<Product> products = myWishList.getProducts();
 				Iterator<Product> productIterator = products.iterator();
 				
 				while(productIterator.hasNext()) {
 					Product myProduct = productIterator.next();
-					if(myProduct.getProductId() == productId) {
+					if(myProduct.equals(product)) {
 						products.remove(myProduct);
 					}
 				}
@@ -97,16 +89,24 @@ public class WishlistService implements IWishlistService{
 	}
 
 	@Override
-	public List<Product> wishListForSpecificCustomer(int customerId) {
+	public List<Product> wishListForSpecificCustomer(Customer customer) {
 		
 		List<Wishlist> wishLists =  wishlistDao.findAll();
 		
 		for(Wishlist myWishList: wishLists) {
-			if(myWishList.getCustomer().getCustomerId() == customerId) {
+			if(myWishList.getCustomer().equals(customer)) {
 				
 				return myWishList.getProducts(); 
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean moveFromWishlistToCart(Customer customer, Product product) {
+		
+		Wishlist myWishlist = deleteFromWishlist(customer, product);
+		
+		return false;
 	}
 }

@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,19 +24,16 @@ public class Customer {
 	private String lastName;
 	@Column(name="mobileNumber")
 	private String mobileNumber;
-	
 	@Column(unique=true,name="emailId")
 	private String emailId;
+	private String password;
 	
-	@OneToMany
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 //	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	
 	@Column(name="isVerified")
 	private boolean isVerified;
-	
-	
-	
 	
 	public int getCustomerId() {
 		return customerId;
@@ -80,22 +78,27 @@ public class Customer {
 	public void setVerified(boolean isVerified) {
 		this.isVerified = isVerified;
 	}
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", addresses=" + addresses
-				+ ", isVerified=" + isVerified + "]";
+				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", password=" + password + ", addresses="
+				+ addresses + ", isVerified=" + isVerified + "]";
 	}
 	public Customer(int customerId, String firstName, String lastName, String mobileNumber, String emailId,
-			List<Address> addresses, boolean isVerified) {
+			String password, List<Address> addresses, boolean isVerified) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.emailId = emailId;
+		this.password = password;
 		this.addresses = addresses;
 		this.isVerified = isVerified;
 	}

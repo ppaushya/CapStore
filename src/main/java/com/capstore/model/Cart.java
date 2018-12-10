@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,57 +20,61 @@ public class Cart {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
 	
-
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
-	
 
-	@OneToMany(targetEntity=Product.class)
-	private List<Product> products = new ArrayList<>();
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
+	private List<CartProduct> cartProducts = new ArrayList<>();
 	
-	@Column(name="quantity")
-	private int quantity;
-	
-	
-	
-	
+	private int minimumAmount;
+
 	public int getCartId() {
 		return cartId;
 	}
+
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Product> getProducts() {
-		return products;
+
+	public List<CartProduct> getCartProducts() {
+		return cartProducts;
 	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
+
+	public void setCartProducts(List<CartProduct> cartProducts) {
+		this.cartProducts = cartProducts;
 	}
-	public int getQuantity() {
-		return quantity;
+
+	public int getMinimumAmount() {
+		return minimumAmount;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+
+	public void setMinimumAmount(int minimumAmount) {
+		this.minimumAmount = minimumAmount;
 	}
+
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", customer=" + customer + ", products=" + products + ", quantity=" + quantity
-				+ "]";
+		return "Cart [cartId=" + cartId + ", customer=" + customer + ", cartProducts=" + cartProducts
+				+ ", minimumAmount=" + minimumAmount + "]";
 	}
-	public Cart(int cartId, Customer customer, List<Product> products, int quantity) {
+
+	public Cart(int cartId, Customer customer, List<CartProduct> cartProducts, int minimumAmount) {
 		super();
 		this.cartId = cartId;
 		this.customer = customer;
-		this.products = products;
-		this.quantity = quantity;
+		this.cartProducts = cartProducts;
+		this.minimumAmount = minimumAmount;
 	}
-	public Cart() {
-		super();
-	}
+	
+	
+	
+	
 }

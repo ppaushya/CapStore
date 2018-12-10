@@ -23,11 +23,10 @@ public class Product {
 	
 	private double productPrice;
 	
-//	@Column(name="merchantId")
+/*	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private Merchant merchant;
+	private Merchant merchant;*/
 	
-//	@Column(name="promoId")
 	@OneToOne(targetEntity=Promos.class)
 	private Promos promo;
 	private int productsSold;
@@ -73,12 +72,6 @@ public class Product {
 	}
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
-	}
-	public Merchant getMerchant() {
-		return merchant;
-	}
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
 	}
 	public Promos getPromo() {
 		return promo;
@@ -131,21 +124,20 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
-				+ productCategory + ", inventory=" + inventory + ", productPrice=" + productPrice + ", merchant="
-				+ merchant + ", promo=" + promo + ", productsSold=" + productsSold + ", productView=" + productView
-				+ ", isPromotionMessageSent=" + isPromotionMessageSent + ", productDescription=" + productDescription
-				+ ", quantity=" + quantity + ", discount=" + discount + ", brand=" + brand + "]";
+				+ productCategory + ", inventory=" + inventory + ", productPrice=" + productPrice + ", promo=" + promo
+				+ ", productsSold=" + productsSold + ", productView=" + productView + ", isPromotionMessageSent="
+				+ isPromotionMessageSent + ", productDescription=" + productDescription + ", quantity=" + quantity
+				+ ", discount=" + discount + ", brand=" + brand + "]";
 	}
 	public Product(int productId, String productName, String productCategory, Inventory inventory, double productPrice,
-			Merchant merchant, Promos promo, int productsSold, int productView, boolean isPromotionMessageSent,
-			String productDescription, int quantity, double discount, String brand) {
+			Promos promo, int productsSold, int productView, boolean isPromotionMessageSent, String productDescription,
+			int quantity, double discount, String brand) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productCategory = productCategory;
 		this.inventory = inventory;
 		this.productPrice = productPrice;
-		this.merchant = merchant;
 		this.promo = promo;
 		this.productsSold = productsSold;
 		this.productView = productView;

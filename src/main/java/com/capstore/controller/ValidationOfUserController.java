@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,68 +17,101 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
+import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
+import com.capstore.service.LoginService;
 
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/v1")
 public class ValidationOfUserController {
-	
+
 	@Autowired
 	IEmailService emailService;
-	
+
 	@Autowired
 	IMerchantService merchantService;
-	
+
 	@Autowired
 	ICustomerService customerService;
-	
+
+	@Autowired
+	ILoginService loginService;
+
 	//customer validation!!
 	@PostMapping("/sendVerificationMail")
 	public ResponseEntity<Boolean> sendVerificationMail(@RequestBody Customer customer){
 		
-		customerService.createCustomer(customer);
+			try
+			{
+
+//			if(loginService.getLoginByEmailId(customer.getEmailId())) {
+
+				customerService.createCustomer(customer);
+				Email mail=new Email();
+				mail.setReceiverEmailId(customer.getEmailId());
+				mail.setMessage("Verify by clicking this link ");
+				mail.setImageUrl("http://localhost:4200/auth/sign-in");
+				emailService.sendEmail(mail);
+				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+			/*}
+			else
+			{
+				
+			}*/
+			}
+			catch(Exception e)
+			{
+				return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+			}
+
+			
 		
-		Email mail=new Email();
-		mail.setReceiverEmailId(customer.getEmailId());
-		mail.setMessage("Verify by clicking this link ");
-		mail.setImageUrl("http://localhost:4200/auth/sign-in");
-		emailService.sendEmail(mail);
-		
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+
 	}
-	
+
+
 	@PostMapping("/emailVerificationDone")
 	public ResponseEntity<Boolean> emailVerificationDone(@RequestBody Email email){
-		
-		
+
+
 		Customer customer=customerService.getCustomerByEmail(email.getReceiverEmailId());
-		
+
 		customer.setVerified(true);
 		customerService.updateCustomer(customer);
-		
+
+
+		Login login=new Login();
+		login.setEmailId(customer.getEmailId());
+		login.setPassword(customer.getPassword());
+		login.setUserTypes("CUSTOMER");
+
 		System.out.println(customerService.getAllCustomers());
-		
+
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
-	
-	//merchant validation!!
-	@RequestMapping("/merchantVerification/{merchantMail}")
-	public ResponseEntity<Boolean> merchantVerification(@PathVariable("merchantMail") String merchantMail){
-		
-		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
-		
-		merchant.setVerified(true);
-		merchantService.updateMerchant(merchant);
-		
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
-	
-	
+
+		//merchant validation!!
+		@RequestMapping("/merchantVerification/{merchantMail}")
+		public ResponseEntity<Boolean> merchantVerification(@PathVariable("merchantMail") String merchantMail){
+			
+			Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+			
+			merchant.setVerified(true);
+			merchantService.updateMerchant(merchant);
+			Login login=new Login();
+			login.setEmailId(merchant.getEmailId());
+			login.setPassword(merchant.getMerchantPassword());
+			login.setUserTypes("Merchant");
+			
+			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}
+
+
 	@PostMapping("/youMail/email")
 	public ResponseEntity<List<Email>> sendVerificationToMail(@RequestBody Email email)
 	{
@@ -85,7 +119,7 @@ public class ValidationOfUserController {
 		System.out.println(emailId);
 		List<Email> emails=emailService.getEmails(emailId);
 		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
-		
+
 	}
 
 }

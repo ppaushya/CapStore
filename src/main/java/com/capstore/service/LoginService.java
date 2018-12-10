@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstore.dao.ICustomerDao;
 import com.capstore.dao.ILoginDao;
 import com.capstore.model.Customer;
 import com.capstore.model.Login;
@@ -16,6 +17,8 @@ public class LoginService implements ILoginService{
 @Autowired
 	private ILoginDao loginDao;
 	
+@Autowired
+	private ICustomerDao customerDao;
 	@Override
 	public Login getLogin(String emailId, String password) {
 		// TODO Auto-generated method stub
@@ -26,8 +29,41 @@ public class LoginService implements ILoginService{
 
 	@Override
 	public Customer getCustomerId(String emailId) {
-		System.out.println( loginDao.getByEmailId(emailId));
-		return loginDao.getByEmailId(emailId);
 		
+		return customerDao.getByEmailId(emailId);
+		
+	}
+	
+
+
+
+	@Override
+	public boolean setPasswordByEmail(Login login) {
+		  Login login1=loginDao.getByEmailId(login.getEmailId());
+		   System.out.println(login1);
+		   if(login1==null)
+		   {
+			   return false;
+		   }
+		   else
+		   {
+		   login1.setPassword(login.getPassword());
+			
+		   loginDao.save(login1);
+		   return true;
+		   }
+		
+	}
+
+	@Override
+	public boolean getLoginByEmailId(String emailId) {
+		// TODO Auto-generated method stub
+		
+		if(loginDao.getByEmailId(emailId)!=null)
+			
+		{
+			return true;
+		}
+		return false;
 	}
 }

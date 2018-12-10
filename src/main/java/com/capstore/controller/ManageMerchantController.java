@@ -1,5 +1,7 @@
 package com.capstore.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,32 +25,80 @@ public class ManageMerchantController {
 
 	@Autowired
 	IMerchantService merchantService;
-	
+
 	public FeedbackService feedbackService;
-	
+
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
 			@RequestBody Merchant merchant){
+		try {
 		merchantService.addMerchant(merchant);
 		return new ResponseEntity<>(true, HttpStatus.OK);
-	}
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(false, HttpStatus.OK);
+		}
+		
 	
+	}
+
 	@DeleteMapping("/merchants/{merchantId}")
 	public ResponseEntity<Boolean> deleteMerchant(@PathVariable Integer merchantId){
-		
+
 		merchantService.deleteMerchant(merchantId);
 		return new ResponseEntity<>(true,HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/merchants/{merchantId}")
 	public ResponseEntity<Double> getMerchantRating(@PathVariable int merchantId) {
-		
-		double avgMerchantRating=feedbackService.calculateMerchantRating(merchantId);
-		
+
+		double avgMerchantRating=merchantService.getMerchantRating(merchantId);
+
 		return new ResponseEntity<Double>(avgMerchantRating,HttpStatus.OK);
-		
+
 	}
-	
-	
-	
+
+	@PostMapping("/passwordMatch")
+	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session) {
+
+
+		String merchantMail=(String) session.getAttribute("emailId");
+		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		if(merchant.getMerchantPassword().equals(pasword)) {
+			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		}
+
+
+
+	}
+
+	@PostMapping("/passwordChange")
+	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session) {
+
+
+		String merchantMail=(String) session.getAttribute("emailId");
+		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		merchant.setMerchantPassword(password);
+		merchantService.updateMerchant(merchant);
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+
+
+
+
+	}
+
+	@GetMapping("/destroySession")
+	public ResponseEntity<Boolean> destroySession(HttpSession session) {
+		session.invalidate();
+
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	}
+
+
+
+
 }

@@ -8,7 +8,7 @@ import com.capstore.model.SalesAnalysis;
 public interface IProductService {
 
 	public List<Product> getAllProducts();
-	public List<SalesAnalysis> getSalesAnalysis();
+	//public List<SalesAnalysis> getSalesAnalysis();
 	
 	public Product getProduct(int productId);
 

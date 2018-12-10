@@ -47,7 +47,7 @@ public class OrderController {
 		if (orderService.checkAvailabilityInInventory(order)) {
 			return new ResponseEntity("All products are available!", HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Sorry, Order is not available!", HttpStatus.OK);
+			return new ResponseEntity("Sorry, Order is not available!", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class OrderController {
 		if (orderService.placeOrder(order)) {
 			return new ResponseEntity("Order placed!", HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Error occured while placing order", HttpStatus.OK);
+			return new ResponseEntity("Error occured while placing order", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class OrderController {
 		if (orderService.deliverOrderAndUpdateInventory(order)) {
 			return new ResponseEntity("Inventory updated", HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Error occured while updating inventory", HttpStatus.OK);
+			return new ResponseEntity("Error occured while updating inventory", HttpStatus.NOT_FOUND);
 		}
 	}
 }
