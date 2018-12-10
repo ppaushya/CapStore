@@ -66,4 +66,7 @@ public class Order {
 		this.cart = cart;
 		this.orderDate = orderDate;
 	}
+	public Order() {
+		super();
+	}
 }

@@ -68,6 +68,9 @@ public class CartProduct {
 		this.quantity = quantity;
 	}
 	
-	
+	public CartProduct()
+	{
+		
+	}
 
 }
