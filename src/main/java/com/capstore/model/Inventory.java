@@ -18,8 +18,10 @@ public class Inventory {
 //	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
 	private Merchant merchant;
+	
 	@Column(name="productName")
 	private String productName;
+	
 	@Column(name="productCategory")
 	private String productCategory;
 	@Column(name="productPrice")

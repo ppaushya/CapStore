@@ -38,7 +38,6 @@ public class LoginController {
 	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
 		
 		//(@RequestBody Login login,
-		System.out.println("dfsgsdfgtsdfgt");
 		
 		Login loginbean=loginService.getLogin(login.getEmailId(),login.getPassword());
 		

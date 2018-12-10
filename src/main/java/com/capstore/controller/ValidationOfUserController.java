@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.Address;
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Login;
@@ -30,6 +31,8 @@ import com.capstore.service.LoginService;
 @RequestMapping("/api/v1")
 public class ValidationOfUserController {
 
+	
+	Address address=new Address();
 	@Autowired
 	IEmailService emailService;
 
@@ -41,34 +44,46 @@ public class ValidationOfUserController {
 
 	@Autowired
 	ILoginService loginService;
+	
+	
+	@PostMapping("/addAddress")
+	public ResponseEntity<Boolean> AddAddress(@RequestBody Address address){
+	
+		this.address=address;
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		
+	}
 
 	//customer validation!!
 	@PostMapping("/sendVerificationMail")
 	public ResponseEntity<Boolean> sendVerificationMail(@RequestBody Customer customer){
 		
-			try
+		/*	try
 			{
-
+*/
 //			if(loginService.getLoginByEmailId(customer.getEmailId())) {
 
+				customer.getAddresses().add(this.address);
 				customerService.createCustomer(customer);
+				
 				Email mail=new Email();
 				mail.setReceiverEmailId(customer.getEmailId());
+				mail.setSenderEmailId("admin@capstore.com");
 				mail.setMessage("Verify by clicking this link ");
-				mail.setImageUrl("http://localhost:4200/auth/sign-in");
+				mail.setLink("//localhost:4200/auth/sign-in");
 				emailService.sendEmail(mail);
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 			/*}
 			else
 			{
 				
-			}*/
+			}
 			}
 			catch(Exception e)
 			{
 				return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 			}
-
+*/
 			
 		
 
@@ -103,6 +118,10 @@ public class ValidationOfUserController {
 			
 			merchant.setVerified(true);
 			merchantService.updateMerchant(merchant);
+			Login login=new Login();
+			login.setEmailId(merchant.getEmailId());
+			login.setPassword(merchant.getMerchantPassword());
+			login.setUserTypes("Merchant");
 			
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
