@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.capstore.model.CartProduct;
 import com.capstore.model.Order;
+import com.capstore.model.Product;
 
 public interface IOrderService {
 
-	public List<CartProduct> displayCartProducts(int orderId);
+	public List<Product> displayCartProducts(int orderId);
 
 	public boolean checkAvailabilityInInventory(Order order);
 	public boolean placeOrder(Order order);
