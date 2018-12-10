@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Cart;
+import com.capstore.model.CartProduct;
+import com.capstore.model.Product;
 import com.capstore.service.ICartService;
 
 @CrossOrigin(origins="*")
@@ -31,40 +33,28 @@ public class CartController {
 	@DeleteMapping("/deleteCartProduct/{cartId}")
 	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId )
 	{
-		List<Cart> cartProducts = cartService.deleteCartProduct(cartId);
-		if (cartProducts == null)
-			return new ResponseEntity("Sorry! Product is not available!", HttpStatus.NOT_FOUND);
-		return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
+		return null;
 	}
 	
-	@PostMapping("/addProductToCart")
-	public ResponseEntity<List<Cart>> addProductToCart(@RequestBody Cart cartProduct,HttpSession session)
+	@PostMapping("/addProductToCart/{custId}")
+	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,@PathVariable("custId") Integer custId,HttpSession session)
 	{
+		Cart cart=cartService.addProductToCart(cartProduct,custId);
+		if(cart==null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 		
-		List<Cart> cartProducts=cartService.addCartProduct(cartProduct);
-		if (cartProducts.isEmpty())
-			return new ResponseEntity("Sorry!Product Cannot be added into cart!", HttpStatus.NOT_FOUND);
-     	 return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
+		
 		
 	}
 	
 	@GetMapping("/getCartProducts/{customerId}")
 	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session,@PathVariable("customerId") Integer custId)
 	{
-		//int custId=(int) session.getAttribute("customerId");
-		List<Cart> cartProducts=cartService.getCartProducts(custId);
-		if (cartProducts.isEmpty())
-			return new ResponseEntity("Sorry! No products found in cart!", HttpStatus.NOT_FOUND);
-     	 return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
+		return null;
+		
 	}
 	
-	@DeleteMapping("/deletecart")
-	public ResponseEntity<String> deleteCartAfterOrder(HttpSession session){
-		int customerId= Integer.parseInt(session.getAttribute("customerId").toString());
-		cartService.deleteCartAfterOrder(customerId);
-		return new ResponseEntity<String>("Cart Deleted Successfully!",HttpStatus.OK);
-		
-		
-	}
+	
 	
 }

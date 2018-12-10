@@ -72,8 +72,6 @@ public class Merchant {
 	public void setMerchantPassword(String merchantPassword) {
 		this.merchantPassword = merchantPassword;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Merchant [merchantId=" + merchantId + ", merchantName=" + merchantName + ", emailId=" + emailId
@@ -82,8 +80,6 @@ public class Merchant {
 				+ ", merchantContact=" + merchantContact + ", merchantAddress="
 				+ merchantAddress + ", isVerified=" + isVerified + "]";
 	}
-	
-	
 	public Merchant(int merchantId, String merchantName, String emailId, String merchantPassword,
 			String merchantContact, Address merchantAddress, boolean isVerified) {
 		super();

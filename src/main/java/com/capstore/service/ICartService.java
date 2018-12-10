@@ -3,14 +3,13 @@ package com.capstore.service;
 import java.util.List;
 
 import com.capstore.model.Cart;
+import com.capstore.model.CartProduct;
+import com.capstore.model.Product;
 
 public interface ICartService {
 
-	List<Cart> deleteCartProduct(int productId);
-	public void deleteCartAfterOrder(int custId);//team 6 
+	Cart addProductToCart(CartProduct cartProduct, Integer cartId);
 
-	List<Cart> addCartProduct(Cart cartProduct);
-
-	List<Cart> getCartProducts(int custId);
+	
 
 }

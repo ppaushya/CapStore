@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.capstore.dao.ICartDao;
 import com.capstore.model.Cart;
+import com.capstore.model.CartProduct;
+import com.capstore.model.Product;
 
 @Service("cartService")
 public class CartService implements ICartService {
@@ -15,27 +17,21 @@ public class CartService implements ICartService {
 	ICartDao cartDao;
 
 	@Override
-	public List<Cart> deleteCartProduct(int cartId) {
-		cartDao.deleteById(cartId);
-		return cartDao.findAll();
-	}
-
-	@Override
-	public List<Cart> addCartProduct(Cart cartProduct) {
-		cartDao.save(cartProduct);
-		System.out.println("vcb");
-		return cartDao.findCartByCustomerIdCustomerId(cartProduct.getCustomer().getCustomerId());
-	}
-
-	@Override
-	public List<Cart> getCartProducts(int custId) {
-		return cartDao.findCartByCustomerIdCustomerId(custId);
-	}
-
-	@Override
-	public void deleteCartAfterOrder(int custId) {
-		//cartDao.deleteCartAfterOrder(custId);
+	public Cart addProductToCart(CartProduct cartProduct, Integer custId) {
+		Cart cart=cartDao.getOne(custId);
 		
+		if(cart==null)
+		{
+			
+			cart.getCartProducts().add(cartProduct);
+		}
+		else
+		{
+			
+		}
+		return null;
 	}
+
+	
 
 }
