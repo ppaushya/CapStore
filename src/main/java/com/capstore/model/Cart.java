@@ -60,5 +60,8 @@ public class Cart {
 		this.customer = customer;
 		this.cartProducts = cartProducts;
 		this.minimumAmount = minimumAmount;
-	}	
+	}
+	public Cart() {
+		super();
+	}
 }
