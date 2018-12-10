@@ -103,6 +103,10 @@ public class ValidationOfUserController {
 			
 			merchant.setVerified(true);
 			merchantService.updateMerchant(merchant);
+			Login login=new Login();
+			login.setEmailId(merchant.getEmailId());
+			login.setPassword(merchant.getMerchantPassword());
+			login.setUserTypes("Merchant");
 			
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
