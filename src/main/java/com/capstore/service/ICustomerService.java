@@ -15,6 +15,8 @@ public interface ICustomerService {
 	public Customer getCustomerByCustomerId(int customerId);
 	
 	public void updateCustomer(Customer customer);
+
+	public List<Customer> deleteCustomer(int customerId);
 	
 	
 }

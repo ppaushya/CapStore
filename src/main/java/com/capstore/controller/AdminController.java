@@ -54,6 +54,19 @@ public class AdminController {
 	}
 	
 	
+	@DeleteMapping(value="/deleteCustomerByAdmin/{customerId}")
+    public ResponseEntity<List<Customer>>deleteCustomer(@PathVariable("customerId")int customerId){
+	
+	   List<Customer> customers=customerService.deleteCustomer(customerId);
+	
+	   if(customers==null)
+		  return new ResponseEntity("Sorry!! Customer Id not available!",HttpStatus.NOT_FOUND);
+	
+	return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+	
+}
+	
+	
 //	************************Merchants**********************************************
 	
 	@GetMapping(value = "/merchants/all")
@@ -147,7 +160,7 @@ public class AdminController {
 	
 	
 
-	@GetMapping("/AdminInventories")
+	@GetMapping("/viewInventories")
 	public ResponseEntity<List<Inventory>> getAllInventories(){
 		
 		
@@ -160,21 +173,21 @@ public class AdminController {
 		
 	}
 	
-	@PostMapping("/addInventory")
-	public ResponseEntity<List<Inventory>> addNewInventory(@RequestBody Inventory inventory){
-		
-		System.out.println(inventory);
-		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
-		
-		if(inventories.isEmpty())
-			 return new ResponseEntity("Sorry!! Inventory List not available!",HttpStatus.NOT_FOUND);
-		
-		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
-		
-	}
-	
-	
-	@DeleteMapping(value="/AdminInventories/{inventoryId}")
+//	@PostMapping("/addInventory")
+//	public ResponseEntity<List<Inventory>> addNewInventory(@RequestBody Inventory inventory){
+//		
+//		System.out.println(inventory);
+//		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
+//		
+//		if(inventories.isEmpty())
+//			 return new ResponseEntity("Sorry!! Inventory List not available!",HttpStatus.NOT_FOUND);
+//		
+//		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
+//		
+//	}
+//	
+//	
+	@DeleteMapping(value="/deleteInventory/{inventoryId}")
     public ResponseEntity<List<Inventory>>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
 	   List<Inventory> inventories=inventoryMerchantService.deleteInventory(inventoryId);
@@ -186,7 +199,7 @@ public class AdminController {
 	
 }
 	
-	@PutMapping(value="/AdminInventories")
+	@PutMapping(value="/inventory")
 	public ResponseEntity<List<Inventory>>updateInventory(@RequestBody Inventory inventory){
 		List<Inventory> inventories=inventoryMerchantService.updateInventory(inventory);
 		
