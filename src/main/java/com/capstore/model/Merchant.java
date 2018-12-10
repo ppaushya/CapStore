@@ -1,5 +1,6 @@
 package com.capstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Merchant {
 	private String merchantPassword;
 	private String merchantContact;
 	
-	@OneToOne
+	@OneToOne(targetEntity=Address.class,cascade=CascadeType.ALL)
 //	@Column(name="merchantAddress")
 	private Address merchantAddress;
 	private boolean isVerified;
@@ -70,8 +71,6 @@ public class Merchant {
 	public void setMerchantPassword(String merchantPassword) {
 		this.merchantPassword = merchantPassword;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Merchant [merchantId=" + merchantId + ", merchantName=" + merchantName + ", emailId=" + emailId
@@ -80,8 +79,6 @@ public class Merchant {
 				+ ", merchantContact=" + merchantContact + ", merchantAddress="
 				+ merchantAddress + ", isVerified=" + isVerified + "]";
 	}
-	
-	
 	public Merchant(int merchantId, String merchantName, String emailId, String merchantPassword,
 			String merchantContact, Address merchantAddress, boolean isVerified) {
 		super();
