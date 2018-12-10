@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,13 @@ public class OrderService implements IOrderService {
 	private IProductService productService;
 
 	@Override
-	public List<CartProduct> displayCartProducts(int orderId) {		//display the cart items
+	public List<Product> displayCartProducts(int orderId) {		//display the cart items
 		Order order = findOrderById(orderId);
-		return order.getCart().getCartProducts();
+		List<Product> products = new ArrayList<Product>();
+		for(CartProduct cartProduct:order.getCart().getCartProducts()) {
+			products.add(cartProduct.getProduct());
+		}
+		return products;
 	}
 
 	@Override
