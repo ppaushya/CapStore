@@ -95,4 +95,10 @@ public class OrderService implements IOrderService {
 		return true;
 	}
 
+	@Override
+	public List<Order> getOrdersForCustomer(int custId) { // to get orders for a customer
+		
+		return orderDao.getOrdersForCustomer(custId) ;
+	}
+
 }

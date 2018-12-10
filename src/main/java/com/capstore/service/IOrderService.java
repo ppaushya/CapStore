@@ -15,6 +15,7 @@ public interface IOrderService {
 	
 	public Order findOrderById(int orderId);
 	
+	public List<Order> getOrdersForCustomer( int custId);
 	
 
 }
