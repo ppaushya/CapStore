@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Cart {
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 
-	@OneToMany(targetEntity=Product.class)
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 	private List<CartProduct> cartProducts = new ArrayList<>();
 	
 	private int minimumAmount;
