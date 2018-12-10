@@ -1,6 +1,5 @@
 package com.capstore.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +22,9 @@ public class Merchant {
 	private String merchantPassword;
 	private String merchantContact;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 //	@Column(name="merchantAddress")
 	private Address merchantAddress;
-	
 	private boolean isVerified;
 	
 	public int getMerchantId() {
