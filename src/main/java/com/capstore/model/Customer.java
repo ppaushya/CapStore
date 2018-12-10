@@ -28,8 +28,7 @@ public class Customer {
 	private String emailId;
 	private String password;
 	
-	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
-//	@Column(name="addresses")
+	@OneToMany(targetEntity=Address.class,cascade=CascadeType.ALL)
 	private List<Address> addresses = new ArrayList<>();
 	
 	@Column(name="isVerified")

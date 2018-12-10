@@ -37,8 +37,8 @@ public class CartController {
 		return new ResponseEntity<List<Cart>>(cartProducts, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addCartProduct")
-	public ResponseEntity<List<Cart>> addCartProduct(@RequestBody Cart cartProduct,HttpSession session)
+	@PostMapping("/addProductToCart")
+	public ResponseEntity<List<Cart>> addProductToCart(@RequestBody Cart cartProduct,HttpSession session)
 	{
 		
 		List<Cart> cartProducts=cartService.addCartProduct(cartProduct);

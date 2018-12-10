@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
   servlet:
     context-path: /capstore
 spring:
@@ -10,8 +10,3 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
-    
-    
-    
-
-    
