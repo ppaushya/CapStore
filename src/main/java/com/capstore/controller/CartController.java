@@ -40,9 +40,7 @@ public class CartController {
 	@PostMapping("/addCartProduct")
 	public ResponseEntity<List<Cart>> addCartProduct(@RequestBody Cart cartProduct,HttpSession session)
 	{
-		//int custId=(int) session.getAttribute("customerId");
-		//System.out.println(custId);
-	    // cartProduct.setCustomerId(custId);
+		
 		List<Cart> cartProducts=cartService.addCartProduct(cartProduct);
 		if (cartProducts.isEmpty())
 			return new ResponseEntity("Sorry!Product Cannot be added into cart!", HttpStatus.NOT_FOUND);

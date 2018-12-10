@@ -22,71 +22,78 @@ public class Order {
 	@Column(name="orderId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int orderId;
-	
-//	@Column(name="customerId")
+
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 	
-//	@Column(name="productId")
-	@OneToMany(targetEntity=Product.class)
-	private List<Product> orderedProducts;
-	
-//	@Column(name="shipmentId")
-	@OneToOne(targetEntity=Shipment.class)
-	private Shipment shipmentId;
+	@OneToOne(targetEntity=Product.class)
+	private Cart cart;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
+	
 	private int quantity;
+
 	public int getOrderId() {
 		return orderId;
 	}
+
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Product> getOrderedProducts() {
-		return orderedProducts;
+
+	
+
+	public Cart getCart() {
+		return cart;
 	}
-	public void setOrderedProducts(List<Product> orderedProducts) {
-		this.orderedProducts = orderedProducts;
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
-	public Shipment getShipmentId() {
-		return shipmentId;
-	}
-	public void setShipmentId(Shipment shipmentId) {
-		this.shipmentId = shipmentId;
-	}
+
 	public Date getOrderDate() {
 		return orderDate;
 	}
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customer=" + customer + ", orderedProducts=" + orderedProducts
-				+ ", shipmentId=" + shipmentId + ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
+		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", orderDate=" + orderDate
+				+ ", quantity=" + quantity + "]";
 	}
-	public Order(int orderId, Customer customer, List<Product> orderedProducts, Shipment shipmentId, Date orderDate,
-			int quantity) {
+
+	public Order(int orderId, Customer customer, Cart cart, Date orderDate, int quantity) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
-		this.orderedProducts = orderedProducts;
-		this.shipmentId = shipmentId;
+		this.cart = cart;
 		this.orderDate = orderDate;
 		this.quantity = quantity;
 	}
+
+	
+
+	
+	
+	
 }

@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Wishlist {
 	private Customer customer;
 	
 //	@Column(name="products")
-	@OneToMany(targetEntity=Product.class)
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 	private List<Product> products = new ArrayList<>();
 	
 	public int getWishlistId() {

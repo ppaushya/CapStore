@@ -25,8 +25,8 @@ public class Product {
 	
 /*	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private Merchant merchant;	
-	@Column(name="promoId")*/
+	private Merchant merchant;*/
+	
 	@OneToOne(targetEntity=Promos.class)
 	private Promos promo;
 	private int productsSold;

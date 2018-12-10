@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Customer {
 	private String emailId;
 	private String password;
 	
-	@OneToMany
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 //	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	

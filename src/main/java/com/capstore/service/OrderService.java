@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IOrderDao;
+import com.capstore.model.CartProduct;
 import com.capstore.model.Order;
 import com.capstore.model.Product;
 
@@ -21,9 +22,9 @@ public class OrderService implements IOrderService {
 	private IProductService productService;
 
 	@Override
-	public List<Product> displayCartProducts(int orderId) {		//display the cart items
+	public List<CartProduct> displayCartProducts(int orderId) {		//display the cart items
 		Order order = findOrderById(orderId);
-		return order.getOrderedProducts();
+		return order.getCart().getCartProducts();
 	}
 
 	@Override
@@ -37,12 +38,13 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public boolean checkAvailabilityInInventory(Order order) {//checking availability of ordered products
-		List<Product> products = order.getOrderedProducts();
+
+		List<CartProduct> products = order.getCart().getCartProducts();
 
 		// check if product is in sufficient quantity
-		for (Product orderProduct : products) {
+		for (CartProduct orderProduct : products) {
 			// fetch product from inventory
-			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
+			Product inventoryProduct = productService.getProduct(orderProduct.getProduct().getProductId());
 
 			// save orderProduct and inventoryProduct in map
 			// inventoryProductsMap.put(orderProduct, inventoryProduct);
@@ -65,21 +67,21 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public boolean deliverOrderAndUpdateInventory(Order order) {
-		List<Product> products = order.getOrderedProducts();
-		Map<Product, Product> inventoryProductsMap = new HashMap<>();
+		List<CartProduct> products = order.getCart().getCartProducts();
+		Map<CartProduct, Product> inventoryProductsMap = new HashMap<>();
 
-		for (Product orderProduct : products) {
+		for (CartProduct orderProduct : products) {
 			// fetch product from inventory
-			Product inventoryProduct = productService.getProduct(orderProduct.getProductId());
+			Product inventoryProduct = productService.getProduct(orderProduct.getProduct().getProductId());
 
 			// save orderProduct and inventoryProduct in map
 			inventoryProductsMap.put(orderProduct, inventoryProduct);
 		}
 
 		// update quantity in inventory
-		for (Map.Entry<Product, Product> productMap : inventoryProductsMap.entrySet()) {
+		for (Map.Entry<CartProduct, Product> productMap : inventoryProductsMap.entrySet()) {
 			// fetch orderProduct
-			Product orderProduct = productMap.getKey();
+			CartProduct orderProduct = productMap.getKey();
 			// fetch inventoryProduct
 			Product inventoryProduct = productMap.getValue();
 

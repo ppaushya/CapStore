@@ -31,8 +31,16 @@ public class ManageMerchantController {
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
 			@RequestBody Merchant merchant){
+		try {
 		merchantService.addMerchant(merchant);
 		return new ResponseEntity<>(true, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(false, HttpStatus.OK);
+		}
+		
+	
 	}
 
 	@DeleteMapping("/merchants/{merchantId}")
