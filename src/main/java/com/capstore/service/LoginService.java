@@ -54,4 +54,16 @@ public class LoginService implements ILoginService{
 		   }
 		
 	}
+
+	@Override
+	public boolean getLoginByEmailId(String emailId) {
+		// TODO Auto-generated method stub
+		
+		if(loginDao.getByEmailId(emailId)!=null)
+			
+		{
+			return true;
+		}
+		return false;
+	}
 }

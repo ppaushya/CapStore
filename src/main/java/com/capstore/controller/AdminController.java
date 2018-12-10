@@ -147,7 +147,7 @@ public class AdminController {
 	
 	
 
-	@GetMapping("/inventories")
+	@GetMapping("/AdminInventories")
 	public ResponseEntity<List<Inventory>> getAllInventories(){
 		
 		
@@ -174,7 +174,7 @@ public class AdminController {
 	}
 	
 	
-	@DeleteMapping(value="/inventories/{inventoryId}")
+	@DeleteMapping(value="/AdminInventories/{inventoryId}")
     public ResponseEntity<List<Inventory>>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
 	   List<Inventory> inventories=inventoryMerchantService.deleteInventory(inventoryId);
@@ -186,7 +186,7 @@ public class AdminController {
 	
 }
 	
-	@PutMapping(value="/inventories")
+	@PutMapping(value="/AdminInventories")
 	public ResponseEntity<List<Inventory>>updateInventory(@RequestBody Inventory inventory){
 		List<Inventory> inventories=inventoryMerchantService.updateInventory(inventory);
 		

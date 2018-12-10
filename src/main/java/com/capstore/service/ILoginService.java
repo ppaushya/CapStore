@@ -12,5 +12,7 @@ public interface ILoginService {
 
 
 	public boolean setPasswordByEmail(Login login);
+
+	public boolean getLoginByEmailId(String emailId);
 	
 }
