@@ -18,15 +18,14 @@ public class Cart {
 	@Column(name="cartId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cartId;
-	
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
+	private double minimumAmount;
 
-	@OneToMany(targetEntity=Product.class)
+	/*@OneToMany(targetEntity=Product.class)
 	private List<Product> products = new ArrayList<>();
-	
 	@Column(name="quantity")
-	private int quantity;
+	private int quantity;*/
 	
 	public int getCartId() {
 		return cartId;
@@ -40,29 +39,15 @@ public class Cart {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", customer=" + customer + ", products=" + products + ", quantity=" + quantity
-				+ "]";
+		return "Cart [cartId=" + cartId + ", customer=" + customer + ", minimumAmount=" + minimumAmount + "]";
 	}
-	public Cart(int cartId, Customer customer, List<Product> products, int quantity) {
+	public Cart(int cartId, Customer customer, double minimumAmount) {
 		super();
 		this.cartId = cartId;
 		this.customer = customer;
-		this.products = products;
-		this.quantity = quantity;
+		this.minimumAmount = minimumAmount;
 	}
 	public Cart() {
 		super();
