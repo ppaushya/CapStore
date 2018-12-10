@@ -28,7 +28,9 @@ public class MerchantService implements IMerchantService{
 
 	@Override
 	public Merchant getMerchantByMail(String merchantMail) {
-		return merchantDao.getByEmailId(merchantMail);
+		Merchant merchant= merchantDao.getByEmailId(merchantMail);
+		System.out.println(merchant);
+		return merchant;
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
+import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
@@ -39,7 +40,7 @@ public class ValidationOfUserController {
 	//customer validation!!
 	@PostMapping("/sendVerificationMail")
 	public ResponseEntity<Boolean> sendVerificationMail(@RequestBody Customer customer){
-		
+		try {
 		customerService.createCustomer(customer);
 		
 		Email mail=new Email();
@@ -49,7 +50,13 @@ public class ValidationOfUserController {
 		emailService.sendEmail(mail);
 		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		}
 	}
+	
 	
 	@PostMapping("/emailVerificationDone")
 	public ResponseEntity<Boolean> emailVerificationDone(@RequestBody Email email){
@@ -59,6 +66,9 @@ public class ValidationOfUserController {
 		
 		customer.setVerified(true);
 		customerService.updateCustomer(customer);
+		
+		Login login=new Login();
+		login.setEmailId();
 		
 		System.out.println(customerService.getAllCustomers());
 		
