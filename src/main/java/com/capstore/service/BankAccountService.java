@@ -38,11 +38,24 @@ public class BankAccountService implements IBankAccountService {
 		}
 		return null;
 	}
+
+	@Override
+	public BankAccount getCapstoreBankAccount() {
+		Optional<BankAccount> optional = bankAccountDao.findById(12345678l);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
 	
 	@Override
-	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword) {
-
-		return bankAccountDao.getBankAccountFromUserNamePassword(userName, userPassword);
+	public BankAccount getBankAccountFromUserNamePassword(String userName, String userPassword) {
+		List<BankAccount> accounts = bankAccountDao.getBankAccountFromUserNamePassword(userName, userPassword);
+		if(!accounts.isEmpty()) {
+			return accounts.get(0);
+		}else {
+			return null;
+		}
 	}
 	
 	@Override

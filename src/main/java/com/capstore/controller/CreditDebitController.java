@@ -69,6 +69,9 @@ public class CreditDebitController {
 	
 	@PutMapping("/card/withdraw/{amount}")
 	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @PathVariable double amount) {
+		if(!creditDebitService.isValidCard(card)) {
+			return new ResponseEntity<String>("Invalid card", HttpStatus.OK);
+		}
 		if(creditDebitService.withdrawAmount(amount, card)) {
 			return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
 		}else {

@@ -65,7 +65,7 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public boolean placeOrder(Order order) {
+	public boolean placeOrder(Order order) {		
 		orderDao.save(order);
 		return true;
 	}
@@ -99,6 +99,12 @@ public class OrderService implements IOrderService {
 			productService.updateProduct(inventoryProduct);
 		}
 
+		return true;
+	}
+
+	@Override
+	public boolean deleteOrder(int orderId) {
+		orderDao.deleteById(orderId);
 		return true;
 	}
 

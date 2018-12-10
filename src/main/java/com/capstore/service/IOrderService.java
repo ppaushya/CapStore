@@ -15,6 +15,7 @@ public interface IOrderService {
 	public boolean deliverOrderAndUpdateInventory(Order order);
 	
 	public Order findOrderById(int orderId);
+	public boolean deleteOrder(int orderId);
 	
 	
 

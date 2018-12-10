@@ -1,12 +1,16 @@
 package com.capstore.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,6 +30,9 @@ public class Order {
 	
 	@OneToOne(targetEntity=Product.class)
 	private Cart cart;
+	
+	@OneToMany(targetEntity=Shipment.class,cascade=CascadeType.ALL)
+	private List<Shipment> shipments = new ArrayList<>();
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
@@ -48,6 +55,12 @@ public class Order {
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
+	public List<Shipment> getShipments() {
+		return shipments;
+	}
+	public void setShipments(List<Shipment> shipments) {
+		this.shipments = shipments;
+	}
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -56,14 +69,15 @@ public class Order {
 	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", orderDate=" + orderDate
-				+ "]";
+		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", shipments=" + shipments
+				+ ", orderDate=" + orderDate + "]";
 	}
-	public Order(int orderId, Customer customer, Cart cart, Date orderDate) {
+	public Order(int orderId, Customer customer, Cart cart, List<Shipment> shipments, Date orderDate) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
 		this.cart = cart;
+		this.shipments = shipments;
 		this.orderDate = orderDate;
 	}
 	public Order() {

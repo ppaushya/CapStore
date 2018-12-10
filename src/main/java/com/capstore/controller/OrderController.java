@@ -53,6 +53,9 @@ public class OrderController {
 
 	@PostMapping("/placeOrder")
 	public ResponseEntity<String> placeOrder(@RequestBody Order order) {
+		if (!orderService.checkAvailabilityInInventory(order)) {
+			return new ResponseEntity("Sorry, some products are not available!", HttpStatus.OK);
+		}
 		if (orderService.placeOrder(order)) {
 			return new ResponseEntity("Order placed!", HttpStatus.OK);
 		} else {

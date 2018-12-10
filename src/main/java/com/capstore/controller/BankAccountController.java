@@ -44,17 +44,15 @@ public class BankAccountController {
 		}
 	}
 
-	@PostMapping("/bankaccount/credential")
+	/*@PostMapping("/bankaccount/credential")
 	public ResponseEntity<BankAccount> getBankAccountFromUserNamePassword(@RequestBody String userName,
 			@RequestBody String userPassword) {
-		List<BankAccount> bankAccounts = bankAccountService.getBankAccountFromUserNamePassword(userName, userPassword);
-		if (bankAccounts.isEmpty()) {
+		BankAccount bankAccount = bankAccountService.getBankAccountFromUserNamePassword(userName, userPassword);
+		if (bankAccount==null) {
 			return new ResponseEntity("Sorry! No such user exists!", HttpStatus.NOT_FOUND);
 		}
-
-		BankAccount userAccount = bankAccounts.get(0);
-		return new ResponseEntity<BankAccount>(userAccount, HttpStatus.OK);
-	}
+		return new ResponseEntity<BankAccount>(bankAccount, HttpStatus.OK);
+	}*/
 
 	@PutMapping("/bankaccount/deposit/{amount}")
 	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @PathVariable double amount) {
