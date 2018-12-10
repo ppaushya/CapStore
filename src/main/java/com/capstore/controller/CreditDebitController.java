@@ -18,51 +18,47 @@ import com.capstore.model.CreditDebit;
 import com.capstore.model.Login;
 import com.capstore.service.ICreditDebitService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class CreditDebitController {
-	
+
 	@Autowired
 	private ICreditDebitService creditDebitService;
 
 	@PostMapping("/saveCard")
-	public ResponseEntity<String> saveCard(@RequestBody CreditDebit card ){
-		if(creditDebitService.saveCard(card))	{
-		
-		return new ResponseEntity<String>("Card Added Successfully!", HttpStatus.OK);
-		}
-		else
-			return new ResponseEntity("sorry!card insertion failed",HttpStatus.NOT_FOUND);	
+	public ResponseEntity<String> saveCard(@RequestBody CreditDebit card) {
+		if (creditDebitService.saveCard(card)) {
+			return new ResponseEntity<String>("Card Added Successfully!", HttpStatus.OK);
+		} else
+			return new ResponseEntity("Sorry!card insertion failed", HttpStatus.NOT_FOUND);
 	}
-	
+
 	@GetMapping("/getcards")
-	public ResponseEntity<List<CreditDebit>> getCard(){
-		
-		List<CreditDebit> cards=creditDebitService.getAllCards();
-		if(cards.isEmpty()) {
-			return new ResponseEntity("Sorry!No cards available",HttpStatus.NOT_FOUND);	
-		}
-		else {
+	public ResponseEntity<List<CreditDebit>> getCard() {
+		List<CreditDebit> cards = creditDebitService.getAllCards();
+		if (cards.isEmpty()) {
+			return new ResponseEntity("Sorry!No cards available", HttpStatus.NOT_FOUND);
+		} else {
 			return new ResponseEntity<List<CreditDebit>>(cards, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/getcardfromcardnumber/{cardNumber}")
-		public ResponseEntity<CreditDebit> getCardFromCardNumber(@PathVariable String cardNumber){
-			CreditDebit creditDebit=creditDebitService.getCreditDebitFromCardNumber(cardNumber);
-			if(creditDebit==null) {
-				return new ResponseEntity("Sorry! Card does not exist!",HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity<CreditDebit>(creditDebit,HttpStatus.OK);
+	public ResponseEntity<CreditDebit> getCardFromCardNumber(@PathVariable String cardNumber) {
+		CreditDebit creditDebit = creditDebitService.getCreditDebitFromCardNumber(cardNumber);
+		if (creditDebit == null) {
+			return new ResponseEntity("Sorry! Card does not exist!", HttpStatus.NOT_FOUND);
 		}
-	
+		return new ResponseEntity<CreditDebit>(creditDebit, HttpStatus.OK);
+	}
+
 	@PostMapping("/depositAmount")
 	public ResponseEntity<String> depositAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		creditDebitService.depositAmount(amount, card);
 		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/withdrawAmount")
 	public ResponseEntity<String> withdrawAmount(@RequestBody CreditDebit card, @RequestBody double amount) {
 		if (amount > card.getBalance()) {
@@ -71,5 +67,4 @@ public class CreditDebitController {
 		creditDebitService.withdrawAmount(amount, card);
 		return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
 	}
-	
 }

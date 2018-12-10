@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,13 +55,13 @@ public class BankAccountController {
 	}
 
 	@PostMapping("/depositAmount")
-	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @RequestBody double amount) {
+	public ResponseEntity<String> depositAmount(@RequestBody double amount, @RequestBody BankAccount account) {
 		bankAccountService.depositAmount(amount, account);
 		return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
 	}
 
 	@PostMapping("/withdrawAmount")
-	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @RequestBody double amount) {
+	public ResponseEntity<String> withdrawAmount(@RequestBody double amount, @RequestBody BankAccount account) {
 		if (amount > account.getBalance()) {
 			return new ResponseEntity<String>("Insufficient Balance!", HttpStatus.NOT_FOUND);
 		}
