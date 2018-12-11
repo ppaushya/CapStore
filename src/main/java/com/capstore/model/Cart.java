@@ -21,7 +21,7 @@ public class Cart {
 	private int cartId;
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
-	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity=CartProduct.class,cascade=CascadeType.ALL)
 	private List<CartProduct> cartProducts = new ArrayList<>();
 	private int minimumAmount;
 
@@ -60,15 +60,9 @@ public class Cart {
 		this.customer = customer;
 		this.cartProducts = cartProducts;
 		this.minimumAmount = minimumAmount;
-<<<<<<< HEAD
-	}	
-	public Cart()
-	{
-		
-=======
 	}
+	
 	public Cart() {
 		super();
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 	}
 }
