@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.capstore.model.Customer;
+import com.capstore.model.Email;
 import com.capstore.model.Inventory;
 import com.capstore.model.Login;
 import com.capstore.model.Merchant;
+import com.capstore.model.Promos;
 import com.capstore.service.ICustomerService;
+import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
 import com.capstore.service.IMerchantService;
+import com.capstore.service.IPromoService;
 
 @RestController
 @CrossOrigin("*")
@@ -31,6 +35,12 @@ public class AdminController {
 	
 	@Autowired
 	public ICustomerService customerService;
+	
+	@Autowired
+	IPromoService promoService;
+	
+	@Autowired
+	IEmailService emailService;
 	
 	@Autowired
 	public IMerchantService merchantService;
@@ -69,6 +79,25 @@ public class AdminController {
 	
 //	************************Merchants**********************************************
 	
+	
+	@PostMapping("/inviteMerchant")
+	public ResponseEntity<Boolean> inviteMerchant(@RequestBody String merchantMailId){
+		if(merchantService.checkIfExists(merchantMailId)){
+			
+			Email email = new Email();
+			email.setMessage("W");
+			email.setReceiverEmailId(merchantMailId);
+			email.setSenderEmailId("admin@gmail.com");
+			emailService.sendEmail(email);
+			
+			
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
+	}
+	
+	
 	@GetMapping(value = "/merchants/all")
 	public ResponseEntity<java.util.List<Merchant>> getAllMerchants() {
 		System.out.println("");
@@ -78,6 +107,7 @@ public class AdminController {
 			new ResponseEntity("No Merchants found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<java.util.List<Merchant>>(list_of_merchants, HttpStatus.OK);
+		
 	}
 	
 	//admin verifies Merchant by clicking on approve button
@@ -215,8 +245,25 @@ public class AdminController {
 	
 	
 	
+	@GetMapping("/getAllPromos")
+	public ResponseEntity<List<Promos>> getAllPromos(){
+		
+		List<Promos> promos=promoService.getAllPromos();
+		if(promos.isEmpty())
+			return new ResponseEntity("Sorry!! Promos not available",HttpStatus.NOT_FOUND);
+		else return new ResponseEntity(promos,HttpStatus.OK);
+			
+	}
 	
-	
+	@GetMapping("/getPromo/{promoCode}")
+	public ResponseEntity<List<Promos>> getPromo(@PathVariable("promoCode") String promoCode){
+		
+		Promos promos=promoService.getPromo(promoCode);
+		if(promos==null)
+			return new ResponseEntity("Sorry!! Promos not available",HttpStatus.NOT_FOUND);
+		else return new ResponseEntity(promos,HttpStatus.OK);
+			
+	}
 	
 	
 	

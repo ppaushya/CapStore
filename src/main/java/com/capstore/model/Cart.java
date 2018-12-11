@@ -21,7 +21,7 @@ public class Cart {
 	private int cartId;
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
-	@OneToMany(targetEntity=CartProduct.class,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 	private List<CartProduct> cartProducts = new ArrayList<>();
 	private int minimumAmount;
 
@@ -61,8 +61,7 @@ public class Cart {
 		this.cartProducts = cartProducts;
 		this.minimumAmount = minimumAmount;
 	}
-	
 	public Cart() {
 		super();
-	}
+	}	
 }

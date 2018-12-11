@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,4 +41,11 @@ public class ProductController {
 			return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis, HttpStatus.OK);
 	}*/
 
+	@GetMapping("/similarProducts")
+	public ResponseEntity<List<Product>> getSimilarProducts(@RequestBody Product product){
+		
+		List<Product> products = productService.getSimilarProducts(product);
+		
+		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+	}	
 }
