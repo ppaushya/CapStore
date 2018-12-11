@@ -12,50 +12,40 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
-import com.capstore.model.Product;
 import com.capstore.service.ICartService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class CartController {
-	
+
 	@Autowired
 	ICartService cartService;
-	
+
 	@DeleteMapping("/deleteCartProduct/{cartId}")
-	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId )
-	{
+	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId) {
 		return null;
 	}
-	
+
 	@PostMapping("/addProductToCart/{custId}")
-	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,@PathVariable("custId") Integer custId,HttpSession session)
-	{
-		Cart cart=cartService.addProductToCart(cartProduct,custId);
+	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,
+			@PathVariable("custId") Integer custId, HttpSession session) {
+		Cart cart = cartService.addProductToCart(cartProduct, custId);
 		System.out.println(cart);
-		if(cart==null)
+		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
-		
-		
-		
 	}
-	
+
 	@GetMapping("/getCartProducts/{customerId}")
-	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session,@PathVariable("customerId") Integer custId)
-	{
+	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session, @PathVariable("customerId") Integer custId) {
 		return null;
-		
+
 	}
-	
-	
-	
 }
