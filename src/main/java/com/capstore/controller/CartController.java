@@ -52,6 +52,7 @@ public class CartController {
 	@GetMapping("/getCartProducts/{customerId}")
 	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session,@PathVariable("customerId") Integer custId)
 	{
+		
 		return null;
 		
 	}

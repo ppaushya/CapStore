@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.capstore.model.Promos;
 
-@Transactional
-@Repository("promoDao")
-public interface IPromoDao extends JpaRepository<Promos,Integer>{
 
-	Promos getById(int promoId);
+@Repository("promoDao")
+@Transactional
+public interface IPromoDao extends JpaRepository<Promos, Integer>{
+
+	Promos getPromoByPromoCode(String promoCode);
+
 }

@@ -19,4 +19,6 @@ public interface IMerchantService {
 	public String getMerchantName(int merchantId);
 	
 	public List<Merchant> getAllMerchants();
+
+	public boolean checkIfExists(String merchantMailId);
 }
