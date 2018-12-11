@@ -1,5 +1,7 @@
 package com.capstore.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +43,22 @@ public class ShipmentController {
 		if (shipment == null)
 			return new ResponseEntity("Sorry! Shipment is unavailable!", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Shipment>(shipment, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/shipment/all")
+	public ResponseEntity<List<Shipment>> getAllShipments() {
+		List<Shipment> shipments = shipmentService.getAllShipments();
+		if (shipments.isEmpty())
+			return new ResponseEntity("Sorry! No Shipments unavailable!", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/shipment/undelivered")
+	public ResponseEntity<List<Shipment>> getAllUndeliveredShipments() {
+		List<Shipment> shipments = shipmentService.getAllUndeliveredShipments();
+		if (shipments.isEmpty())
+			return new ResponseEntity("Sorry! No Undelivered Shipments unavailable!", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
 	}
 
 	@PostMapping("/getShipmentDeliveryStatus/{shipmentId}")

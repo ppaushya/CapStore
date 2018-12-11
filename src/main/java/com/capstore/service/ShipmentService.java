@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ public class ShipmentService implements IShipmentService {
 			return optional.get();
 		}
 		return null;
+	}
+	
+	@Override
+	public List<Shipment> getAllShipments() {
+		return shipmentdao.findAll();
+	}
+
+	@Override
+	public List<Shipment> getAllUndeliveredShipments() {
+		return shipmentdao.getShipmentsByDeliveryStatus("delivered");
 	}
 
 	@Override
