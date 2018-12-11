@@ -13,12 +13,18 @@ public class Email {
 	@Column(name="serialNo")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int serialNo;
+	
 	@Column(name="receiverEmailId")
 	private String receiverEmailId;
+	
 	@Column(name="senderEmailId")
-	private String senderEmailId;	
+	private String senderEmailId;
+	
 	@Column(name="message",columnDefinition="TEXT")
 	private String message;
+	
+	private String link;
+	
 	@Column(name="imageUrl")
 	private String imageUrl;
 	
@@ -52,17 +58,28 @@ public class Email {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+	
+	
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
 	@Override
 	public String toString() {
 		return "Email [serialNo=" + serialNo + ", receiverEmailId=" + receiverEmailId + ", senderEmailId="
-				+ senderEmailId + ", message=" + message + ", imageUrl=" + imageUrl + "]";
+				+ senderEmailId + ", message=" + message + ", link=" + link + ", imageUrl=" + imageUrl + "]";
 	}
-	public Email(int serialNo, String receiverEmailId, String senderEmailId, String message, String imageUrl) {
+	
+	public Email(int serialNo, String receiverEmailId, String senderEmailId, String message, String link,
+			String imageUrl) {
 		super();
 		this.serialNo = serialNo;
 		this.receiverEmailId = receiverEmailId;
 		this.senderEmailId = senderEmailId;
 		this.message = message;
+		this.link = link;
 		this.imageUrl = imageUrl;
 	}
 	public Email() {

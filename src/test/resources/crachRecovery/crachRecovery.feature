@@ -2,7 +2,7 @@ Feature: Crach Recovery
 
  Background: Given User navigates to the cart page
 
-   Scenario: User can see all the products in the cart
+   Scenario: User wants to see all the products in the cart
 	Then Show all the products in the cart
 
    Scenario: User wants to remove the product from the cart

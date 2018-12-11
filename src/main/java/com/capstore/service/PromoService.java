@@ -12,13 +12,18 @@ import com.capstore.model.Promos;
 public class PromoService implements IPromoService{
 
 	@Autowired
-	 IPromoDao promoDao;
+	IPromoDao promoDao;
+	
+	@Override
+	public int getDiscount(int promoId) {
+		Promos p= (Promos) promoDao.getById(promoId);
+		return p.getDiscount();
+	}
+	 
 	
 	@Override
 	public void addPromo(Promos promo) {
-		promoDao.save(promo);
-	
-		
+		promoDao.save(promo);	
 	}
 
 	@Override

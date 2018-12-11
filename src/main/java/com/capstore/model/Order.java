@@ -1,8 +1,10 @@
 package com.capstore.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,22 +24,19 @@ public class Order {
 	@Column(name="orderId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int orderId;
-	
-//	@Column(name="customerId")
+
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 	
-//	@Column(name="productId")
-	@OneToMany(targetEntity=Product.class)
-	private List<Product> orderedProducts;
+	@OneToOne(targetEntity=Product.class)
+	private Cart cart;
 	
-//	@Column(name="shipmentId")
-	@OneToOne(targetEntity=Shipment.class)
-	private Shipment shipmentId;
+	@OneToMany(targetEntity=Shipment.class,cascade=CascadeType.ALL)
+	private List<Shipment> shipments = new ArrayList<>();
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
-	private int quantity;
+
 	public int getOrderId() {
 		return orderId;
 	}
@@ -50,17 +49,17 @@ public class Order {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Product> getOrderedProducts() {
-		return orderedProducts;
+	public Cart getCart() {
+		return cart;
 	}
-	public void setOrderedProducts(List<Product> orderedProducts) {
-		this.orderedProducts = orderedProducts;
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
-	public Shipment getShipmentId() {
-		return shipmentId;
+	public List<Shipment> getShipments() {
+		return shipments;
 	}
-	public void setShipmentId(Shipment shipmentId) {
-		this.shipmentId = shipmentId;
+	public void setShipments(List<Shipment> shipments) {
+		this.shipments = shipments;
 	}
 	public Date getOrderDate() {
 		return orderDate;
@@ -68,25 +67,20 @@ public class Order {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customer=" + customer + ", orderedProducts=" + orderedProducts
-				+ ", shipmentId=" + shipmentId + ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
+		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", shipments=" + shipments
+				+ ", orderDate=" + orderDate + "]";
 	}
-	public Order(int orderId, Customer customer, List<Product> orderedProducts, Shipment shipmentId, Date orderDate,
-			int quantity) {
+	public Order(int orderId, Customer customer, Cart cart, List<Shipment> shipments, Date orderDate) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
-		this.orderedProducts = orderedProducts;
-		this.shipmentId = shipmentId;
+		this.cart = cart;
+		this.shipments = shipments;
 		this.orderDate = orderDate;
-		this.quantity = quantity;
+	}
+	public Order() {
+		super();
 	}
 }

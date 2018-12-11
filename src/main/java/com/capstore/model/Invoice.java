@@ -24,7 +24,6 @@ public class Invoice {
 	private Order order;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
-	
 	private Date InvoiceDate;
 	private double discountedPrice;
 	private double discount;

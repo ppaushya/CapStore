@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.service.FeedbackService;
+import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
 
 @CrossOrigin(origins="*")
@@ -23,8 +25,14 @@ import com.capstore.service.IMerchantService;
 @RequestMapping("/api/v1")
 public class ManageMerchantController {
 
+	
+	
 	@Autowired
 	IMerchantService merchantService;
+	
+	@Autowired
+	ILoginService loginService;
+	
 
 	public FeedbackService feedbackService;
 
@@ -60,11 +68,13 @@ public class ManageMerchantController {
 	}
 
 	@PostMapping("/passwordMatch")
-	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session) {
+	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session1) {
 
-
-		String merchantMail=(String) session.getAttribute("emailId");
+           session1.setAttribute("email", LoginController.emailId); 
+		String merchantMail=(String) session1.getAttribute("email");
+		System.out.println("session1:"+ session1);
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		System.out.println(merchant);
 		if(merchant.getMerchantPassword().equals(pasword)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
@@ -77,13 +87,17 @@ public class ManageMerchantController {
 	}
 
 	@PostMapping("/passwordChange")
-	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session) {
+	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session1) {
 
 
-		String merchantMail=(String) session.getAttribute("emailId");
-		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		/*String merchantMail=(String) session1.getAttribute("email");*/
+		Merchant merchant=merchantService.getMerchantByMail(LoginController.emailId);
 		merchant.setMerchantPassword(password);
 		merchantService.updateMerchant(merchant);
+		Login login=loginService.getLoginByEmailId(LoginController.emailId);
+		login.setPassword(password);
+		loginService.updateLogin(login);
+		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
 
