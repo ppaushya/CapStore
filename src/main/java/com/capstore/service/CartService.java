@@ -42,6 +42,7 @@ public class CartService implements ICartService {
 		{
 			
 			cart=new Cart();
+			
 			cart.setCustomer(customer);
 			System.out.println(cartProduct);
 			cartProductDao.save(cartProduct);
