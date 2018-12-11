@@ -40,8 +40,8 @@ public class LoginController {
 			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
 		session.setAttribute("emailId", loginbean.getEmailId());
-		Customer customer=loginService.getCustomerId(loginbean.getEmailId());
-		session.setAttribute("customerId",customer.getCustomerId() );
+		/*Customer customer=loginService.getCustomerId(loginbean.getEmailId());
+		session.setAttribute("customerId",customer.getCustomerId() );*/
 		
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	
 	}

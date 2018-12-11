@@ -42,8 +42,9 @@ public class ManageInventoryController {
 	
 
 	@GetMapping("/inventories")
-	public ResponseEntity<List<Inventory>> getAllInventories(){
-		
+	public ResponseEntity<List<Inventory>> getAllInventories(HttpSession session){
+		String s=session.getAttribute("emailId").toString();
+		System.out.println("THIS IS SESSION ID"+s);
 		
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
 		System.out.println(inventories);
@@ -63,8 +64,11 @@ public class ManageInventoryController {
 		
 		System.out.println(inventory);
 		 
-		System.out.println("SESSION ID"+session.getAttribute("emailId").toString());
-		//com.capstore.controller.ManageInventoryController.addNewInventory(ManageInventoryController.java:66)
+		String s=session.getAttribute("emailId").toString();
+		System.out.println("THIS IS SESSION ID"+s);
+		
+		//System.out.println("SESSION ID"+session.getAttribute("emailId").toString());
+		
 		merchant=merchantService.getMerchantByMail(session.getAttribute("emailId").toString());
 		System.out.println("this"+merchant);
 		inventory.setMerchant(merchant);
