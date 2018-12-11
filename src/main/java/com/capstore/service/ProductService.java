@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.IProductDao;
 import com.capstore.model.Product;
 
-@Service("productSenvice")
+@Service("productService")
 public class ProductService implements IProductService{
 
 	@Autowired
