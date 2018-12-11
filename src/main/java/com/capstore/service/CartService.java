@@ -11,7 +11,6 @@ import com.capstore.dao.ICustomerDao;
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
 import com.capstore.model.Customer;
-import com.capstore.model.Product;
 
 @Service("cartService")
 public class CartService implements ICartService {
@@ -96,12 +95,23 @@ public class CartService implements ICartService {
 		
 	}
 
-
-
 	@Override
 	public Cart getCartProducts(Integer customerId) {
 		
 		Cart cart=cartDao.findByCustomer(customerId);
+		return cart;
+	}
+
+	@Override
+	public Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId) {
+		
+		
+		int quantity=cartProduct.getQuantity();
+		
+		cartProductDao.updateQuantity(quantity,cartProduct.getProduct().getProductId(),customerId);
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		
 		return cart;
 	}
 

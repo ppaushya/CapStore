@@ -14,6 +14,8 @@ public interface ICartService {
 
 	Cart getCartProducts(Integer customerId);
 
+	Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId);
+
 	
 
 }
