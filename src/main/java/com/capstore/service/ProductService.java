@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IProductDao;
 import com.capstore.model.Product;
-import com.capstore.model.SalesAnalysis;
 
 @Service("productSenvice")
 public class ProductService implements IProductService{
@@ -67,4 +66,27 @@ public class ProductService implements IProductService{
 		return productDao.getProductsByIsPromotionMessageSent(false);
 	}
 
+	@Override
+	public List<Product> getSimilarProducts(Product product) {
+		
+		List<Product> similarProducts = new ArrayList<>();
+		List<Product> allProducts = getAllProducts();
+		int numberOfProducts = 0;
+		
+		for(Product myProduct:allProducts) {
+			if(!myProduct.equals(product)) {
+				if(myProduct.getProductCategory().equals(product.getProductCategory())) {
+					
+					numberOfProducts ++;
+					if(numberOfProducts > 3) {
+						return similarProducts;
+					}else {
+						similarProducts.add(myProduct);
+					}
+				}
+			}
+		}
+		
+		return similarProducts;
+	}
 }
