@@ -3,7 +3,6 @@ package com.capstore.service;
 import java.util.List;
 
 import com.capstore.model.Product;
-import com.capstore.model.SalesAnalysis;
 
 public interface IProductService {
 
@@ -15,4 +14,6 @@ public interface IProductService {
 	public boolean updateProduct(Product product);
 	
 	public List<Product> getProductsWithoutPromotionalEmailSent();
+	
+	public List<Product> getSimilarProducts(Product product);
 }

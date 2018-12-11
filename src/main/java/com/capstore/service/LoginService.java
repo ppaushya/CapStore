@@ -33,4 +33,42 @@ public class LoginService implements ILoginService{
 		return customerDao.getByEmailId(emailId);
 		
 	}
+	
+
+
+
+	@Override
+	public boolean setPasswordByEmail(Login login) {
+		  Login login1=loginDao.getByEmailId(login.getEmailId());
+		   System.out.println(login1);
+		   if(login1==null)
+		   {
+			   return false;
+		   }
+		   else
+		   {
+		   login1.setPassword(login.getPassword());
+			
+		   loginDao.save(login1);
+		   return true;
+		   }
+		
+	}
+
+	@Override
+	public Login getLoginByEmailId(String emailId) {
+		// TODO Auto-generated method stub
+		
+		return loginDao.getByEmailId(emailId);
+			
+		
+	}
+
+	@Override
+	public void updateLogin(Login login) {
+		// TODO Auto-generated method stub
+		
+		 loginDao.save(login);
+		
+	}
 }

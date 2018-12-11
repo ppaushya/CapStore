@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer {
 
 	@Id
@@ -27,8 +31,7 @@ public class Customer {
 	private String emailId;
 	private String password;
 	
-	@OneToMany
-//	@Column(name="addresses")
+	@OneToMany(targetEntity=Address.class,cascade=CascadeType.ALL)
 	private List<Address> addresses = new ArrayList<>();
 	
 	@Column(name="isVerified")
@@ -104,4 +107,65 @@ public class Customer {
 	public Customer() {
 		super();
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addresses == null) ? 0 : addresses.hashCode());
+		result = prime * result + customerId;
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + (isVerified ? 1231 : 1237);
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((mobileNumber == null) ? 0 : mobileNumber.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (addresses == null) {
+			if (other.addresses != null)
+				return false;
+		} else if (!addresses.equals(other.addresses))
+			return false;
+		if (customerId != other.customerId)
+			return false;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (isVerified != other.isVerified)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (mobileNumber == null) {
+			if (other.mobileNumber != null)
+				return false;
+		} else if (!mobileNumber.equals(other.mobileNumber))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
+	}
+	
+	
 }

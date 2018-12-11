@@ -12,4 +12,6 @@ import com.capstore.model.Promos;
 @Transactional
 public interface IPromoDao extends JpaRepository<Promos, Integer>{
 
+	Promos getPromoByPromoCode(String promoCode);
+
 }

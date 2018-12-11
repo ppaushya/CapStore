@@ -3,6 +3,7 @@ package com.capstore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Wishlist {
 	
 	@Id
@@ -19,12 +23,11 @@ public class Wishlist {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int wishlistId;
 	
-	
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 	
 //	@Column(name="products")
-	@OneToMany(targetEntity=Product.class)
+	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
 	private List<Product> products = new ArrayList<>();
 	
 	public int getWishlistId() {
@@ -33,7 +36,6 @@ public class Wishlist {
 	public void setWishlistId(int wishlistId) {
 		this.wishlistId = wishlistId;
 	}
-	
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -50,7 +52,6 @@ public class Wishlist {
 	public String toString() {
 		return "Wishlist [wishlistId=" + wishlistId + ", customer=" + customer + ", products=" + products + "]";
 	}
-	
 	public Wishlist(int wishlistId, Customer customer, List<Product> products) {
 		super();
 		this.wishlistId = wishlistId;

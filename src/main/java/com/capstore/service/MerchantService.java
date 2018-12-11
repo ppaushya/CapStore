@@ -1,5 +1,7 @@
 package com.capstore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,9 @@ public class MerchantService implements IMerchantService{
 
 	@Override
 	public Merchant getMerchantByMail(String merchantMail) {
-		return merchantDao.getByEmailId(merchantMail);
+		Merchant merchant= merchantDao.getByEmailId(merchantMail);
+		System.out.println(merchant);
+		return merchant;
 	}
 
 	@Override
@@ -52,6 +56,19 @@ public class MerchantService implements IMerchantService{
 	public String getMerchantName(int merchantId) {
 		Merchant merchant=merchantDao.findById(merchantId).get();
 		return merchant.getMerchantName();
+	}
+
+	@Override
+	public List<Merchant> getAllMerchants() {
+		return merchantDao.findAll();
+	}
+
+	@Override
+	public boolean checkIfExists(String merchantMailId) {
+		Merchant merchant=merchantDao.getByEmailId(merchantMailId);
+		if(merchant==null)
+			return true;
+		else return false;
 	}
 	
 }

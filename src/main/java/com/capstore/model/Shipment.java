@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Shipment {
 
 	@Id
@@ -19,9 +21,9 @@ public class Shipment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int shipmentId;
 
-//	@Column(name="orderId")
+/*//	@Column(name="orderId")
 	@OneToOne(targetEntity = Order.class)
-	private Order order;
+	private Order order;*/
 
 	// @Column(name="addressId")
 	@OneToOne(targetEntity = Address.class)
@@ -44,14 +46,6 @@ public class Shipment {
 
 	public void setShipmentId(int shipmentId) {
 		this.shipmentId = shipmentId;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 
 	public Address getAddress() {
@@ -104,16 +98,15 @@ public class Shipment {
 
 	@Override
 	public String toString() {
-		return "Shipment [shipmentId=" + shipmentId + ", order=" + order + ", address=" + address + ", product="
-				+ product + ", deliveryStatus=" + deliveryStatus + ", deliveryDate=" + deliveryDate + ", dispatchDate="
+		return "Shipment [shipmentId=" + shipmentId + ", address=" + address + ", product=" + product
+				+ ", deliveryStatus=" + deliveryStatus + ", deliveryDate=" + deliveryDate + ", dispatchDate="
 				+ dispatchDate + "]";
 	}
 
-	public Shipment(int shipmentId, Order order, Address address, Product product, String deliveryStatus,
+	public Shipment(int shipmentId, Address address, Product product, String deliveryStatus,
 			Date deliveryDate, Date dispatchDate) {
 		super();
 		this.shipmentId = shipmentId;
-		this.order = order;
 		this.address = address;
 		this.product = product;
 		this.deliveryStatus = deliveryStatus;

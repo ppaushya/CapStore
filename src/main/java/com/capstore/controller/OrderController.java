@@ -1,5 +1,6 @@
 package com.capstore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -53,6 +54,9 @@ public class OrderController {
 
 	@PostMapping("/placeOrder")
 	public ResponseEntity<String> placeOrder(@RequestBody Order order) {
+		if (!orderService.checkAvailabilityInInventory(order)) {
+			return new ResponseEntity("Sorry, some products are not available!", HttpStatus.OK);
+		}
 		if (orderService.placeOrder(order)) {
 			return new ResponseEntity("Order placed!", HttpStatus.OK);
 		} else {
@@ -67,5 +71,14 @@ public class OrderController {
 		} else {
 			return new ResponseEntity("Error occured while updating inventory", HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@GetMapping("/getorders/{custId}")
+	public ResponseEntity<List<Order>> displayAllOrders(HttpSession session,
+			@PathVariable("custId") Integer custId) {
+		List<Order> myorder = new ArrayList<Order>();
+			myorder = orderService.getOrdersForCustomer(custId);
+		return new ResponseEntity<List<Order>>(myorder, HttpStatus.OK);
+
 	}
 }

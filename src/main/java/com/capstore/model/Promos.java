@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Promos {
 	
 	@Id
@@ -21,7 +23,7 @@ public class Promos {
 	private String promoCode;
 	private int discount;
 	
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	
 	public int getPromoId() {
@@ -63,4 +65,41 @@ public class Promos {
 	public Promos() {
 		super();
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + discount;
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + ((promoCode == null) ? 0 : promoCode.hashCode());
+		result = prime * result + promoId;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Promos other = (Promos) obj;
+		if (discount != other.discount)
+			return false;
+		if (endDate == null) {
+			if (other.endDate != null)
+				return false;
+		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (promoCode == null) {
+			if (other.promoCode != null)
+				return false;
+		} else if (!promoCode.equals(other.promoCode))
+			return false;
+		if (promoId != other.promoId)
+			return false;
+		return true;
+	}
+	
+	
 }

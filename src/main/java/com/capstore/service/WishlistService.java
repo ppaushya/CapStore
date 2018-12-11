@@ -19,7 +19,7 @@ public class WishlistService implements IWishlistService{
 	private IWishlistDao wishlistDao;
 	
 	@Autowired
-	private ICartService cartDao;
+	private ICartService cartService;
 
 	@Override
 	public boolean addToWishlist(Customer customer, Product product) {
@@ -106,6 +106,7 @@ public class WishlistService implements IWishlistService{
 	public boolean moveFromWishlistToCart(Customer customer, Product product) {
 		
 		Wishlist myWishlist = deleteFromWishlist(customer, product);
+		
 		
 		return false;
 	}
