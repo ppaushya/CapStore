@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IWishlistDao;
+import com.capstore.model.CartProduct;
 import com.capstore.model.Customer;
 import com.capstore.model.Product;
 import com.capstore.model.Wishlist;
@@ -20,94 +21,95 @@ public class WishlistService implements IWishlistService{
 	
 	@Autowired
 	private ICartService cartService;
+	
+	@Autowired
+	private IProductService productService;
+	
+	@Autowired
+	private ICustomerService customerService;
 
 	@Override
-	public boolean addToWishlist(Customer customer, Product product) {
+	public boolean addToWishlist(int customerId, int productId) {
 		
-		boolean isWishListPresent=false;
+		Product product = productService.getProduct(productId);
+		Customer customer = customerService.getCustomerByCustomerId(customerId);
 		
-		List<Wishlist> wishLists =  wishlistDao.findAll();
-		Iterator<Wishlist> WishListIterator = wishLists.iterator();
+		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
 		
-		while (WishListIterator.hasNext()) {
-			Wishlist myWishList = WishListIterator.next();
-			if(myWishList.getCustomer().equals(customer)) {
-				List<Product> products = myWishList.getProducts();
-				Iterator<Product> productIterator = products.iterator();
-				isWishListPresent = true;
-				while(productIterator.hasNext()) {
-					Product myProduct = productIterator.next();
-					if(myProduct.equals(product)) {
-						return true;
-					}
-				}
-				products.add(product);
-				return true;
-			}
-		}
-		if(!isWishListPresent) {
-			Wishlist requiredWishlist = new Wishlist();
+		if(myWishlist.equals(null)) {
 			
 			List<Product> products = new ArrayList<>();
 			products.add(product);
 			
-			requiredWishlist.setCustomer(customer);
-			requiredWishlist.setProducts(products);
+			myWishlist.setCustomer(customer);
+			myWishlist.setProducts(products);
 			
-			wishlistDao.save(requiredWishlist);
+			wishlistDao.save(myWishlist);
 			
-		}
-		return true;
-	}
-
-	@Override
-	public Wishlist deleteFromWishlist(Customer customer, Product product) {
-
-		List<Wishlist> wishLists =  wishlistDao.findAll();
-		Iterator<Wishlist> WishListIterator = wishLists.iterator();
-		
-		while (WishListIterator.hasNext()) {
-			Wishlist myWishList = WishListIterator.next();
-			if(myWishList.getCustomer().equals(customer)) {
-				List<Product> products = myWishList.getProducts();
-				Iterator<Product> productIterator = products.iterator();
-				
-				while(productIterator.hasNext()) {
-					Product myProduct = productIterator.next();
-					if(myProduct.equals(product)) {
-						products.remove(myProduct);
-					}
+			return true;
+		}else {
+			
+			List<Product> products = myWishlist.getProducts();
+			Iterator<Product> productIterator = products.iterator();
+			while(productIterator.hasNext()) {
+				Product myProduct = productIterator.next();
+				if(myProduct.equals(product)) {
+					return true;
 				}
-				if(products.size() == 0) {
-					wishlistDao.delete(myWishList);
-					return null;
-				}
-				return myWishList;
 			}
 		}
-		return null;
-	}
-
-	@Override
-	public List<Product> wishListForSpecificCustomer(Customer customer) {
-		
-		List<Wishlist> wishLists =  wishlistDao.findAll();
-		
-		for(Wishlist myWishList: wishLists) {
-			if(myWishList.getCustomer().equals(customer)) {
-				
-				return myWishList.getProducts(); 
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public boolean moveFromWishlistToCart(Customer customer, Product product) {
-		
-		Wishlist myWishlist = deleteFromWishlist(customer, product);
-		
 		
 		return false;
+	}
+
+	@Override
+	public Wishlist deleteFromWishlist(int customerId, int productId) {
+		
+		Product product = productService.getProduct(productId);
+		
+		Wishlist myWishList = wishlistDao.getWishlistByCustomerId(customerId);
+		
+		List<Product> products = myWishList.getProducts();
+		Iterator<Product> productIterator = products.iterator();
+		
+		while(productIterator.hasNext()) {
+			Product myProduct = productIterator.next();
+			if(myProduct.equals(product)) {
+				products.remove(myProduct);
+			}
+		}
+		if(products.size() == 0) {
+			wishlistDao.delete(myWishList);
+			return null;
+		}
+		return myWishList;
+	}
+
+	@Override
+	public List<Product> wishListForSpecificCustomer(int customerId) {
+		
+		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
+		
+		if(myWishlist.equals(null)) {
+			return null;
+		}
+		
+		return myWishlist.getProducts();
+	}
+
+	@Override
+	public boolean moveFromWishlistToCart(int customerId, int productId) {
+		
+		deleteFromWishlist(customerId, productId);
+		
+		CartProduct cartProduct = new CartProduct();
+		
+		cartProduct.setProduct(productService.getProduct(productId));
+		cartProduct.setCustomer(customerService.getCustomerByCustomerId(customerId));
+		cartProduct.setQuantity(1);
+		
+		cartService.addProductToCart(cartProduct, customerId);
+		
+		return true;
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,11 +43,20 @@ public class ProductController {
 			return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis, HttpStatus.OK);
 	}*/
 
-	@GetMapping("/similarProducts")
-	public ResponseEntity<List<Product>> getSimilarProducts(@RequestBody Product product){
+	@GetMapping("/similarProducts/{productId}")
+	public ResponseEntity<List<Product>> getSimilarProducts(@PathVariable("productId") Integer productId){
 		
-		List<Product> products = productService.getSimilarProducts(product);
+		List<Product> products = productService.getSimilarProducts(productId);
 		
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
-	}	
+	}
+	
+	@PostMapping("/verifyCoupon/{productId}")
+	public ResponseEntity<Double> applyingDiscount( @PathVariable("productId") Integer productId){
+		
+		Product product = productService.getProduct(productId);
+		double discountedPrice = productService.getDiscountedPrice(product);
+		
+		return new ResponseEntity<Double>(discountedPrice,HttpStatus.OK);
+	}
 }

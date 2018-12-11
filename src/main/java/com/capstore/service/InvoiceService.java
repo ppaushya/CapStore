@@ -20,13 +20,6 @@ public class InvoiceService implements IInvoiceService{
 	IOrderService orderService;
 	
 	@Override
-	public Invoice insertInvoice(Invoice invoice) {
-		
-		return invoicedao.save(invoice);
-	}
-
-	
-	@Override
 	public Invoice getInvoiceFromOrderId(int OrderId) {
 		
 		Order myOrder = orderService.findOrderById(OrderId);
@@ -38,6 +31,12 @@ public class InvoiceService implements IInvoiceService{
 				return myInvoice;
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public Invoice generateInvoice(Invoice invoice) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

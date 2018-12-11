@@ -15,9 +15,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="productOrder")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
 	
 	@Id
@@ -37,7 +39,8 @@ public class Order {
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date orderDate;
 	
-	
+	@OneToOne(targetEntity=Coupons.class)
+	private Coupons coupon;
 
 	public int getOrderId() {
 		return orderId;
@@ -69,18 +72,25 @@ public class Order {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
+	public Coupons getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(Coupons coupon) {
+		this.coupon = coupon;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", customer=" + customer + ", cart=" + cart + ", shipments=" + shipments
-				+ ", orderDate=" + orderDate + "]";
+				+ ", orderDate=" + orderDate + ", coupon=" + coupon + "]";
 	}
-	public Order(int orderId, Customer customer, Cart cart, List<Shipment> shipments, Date orderDate) {
+	public Order(int orderId, Customer customer, Cart cart, List<Shipment> shipments, Date orderDate, Coupons coupon) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
 		this.cart = cart;
 		this.shipments = shipments;
 		this.orderDate = orderDate;
+		this.coupon = coupon;
 	}
 	public Order() {
 		super();
