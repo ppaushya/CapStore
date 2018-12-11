@@ -2,6 +2,7 @@ package com.capstore.service;
 
 import java.util.List;
 
+import com.capstore.model.Order;
 import com.capstore.model.Transaction;
 
 public interface ITransactionService {
@@ -11,5 +12,7 @@ public interface ITransactionService {
 
 	public boolean insertTransaction(Transaction transaction);
 	public boolean updateTransaction(Transaction transaction);
+	
+	public double calculateFinalAmountForPayment(Order order);
 	
 }

@@ -9,7 +9,8 @@ import com.capstore.model.Product;
 public interface ICartService {
 
 	Cart addProductToCart(CartProduct cartProduct, Integer cartId);
-
+	
+	public double calculateTotalCartAmount(Cart cart);
 	
 
 }
