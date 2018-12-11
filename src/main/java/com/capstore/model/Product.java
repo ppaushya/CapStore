@@ -37,7 +37,7 @@ public class Product {
 	private boolean isPromotionMessageSent;
 	private String productDescription;
 	private int quantity;
-	private double discount;
+	private int discount;
 	private String brand;
 	
 	public int getProductId() {
@@ -112,10 +112,10 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public double getDiscount() {
+	public int getDiscount() {
 		return discount;
 	}
-	public void setDiscount(double discount) {
+	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
 	public String getBrand() {
@@ -134,7 +134,7 @@ public class Product {
 	}
 	public Product(int productId, String productName, String productCategory, Inventory inventory, double productPrice,
 			Promos promo, int productsSold, int productView, boolean isPromotionMessageSent, String productDescription,
-			int quantity, double discount, String brand) {
+			int quantity, int discount, String brand) {
 		super();
 		this.productId = productId;
 		this.productName = productName;

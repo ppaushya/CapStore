@@ -19,5 +19,4 @@ public interface IOrderService {
 	
 	public List<Order> getOrdersForCustomer( int custId);
 	
-
 }

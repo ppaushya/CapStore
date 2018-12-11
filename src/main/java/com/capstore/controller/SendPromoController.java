@@ -20,13 +20,13 @@ public class SendPromoController {
 	private ISendPromoService sendPromoService;
 	
 	@PostMapping("/sendpromoemail")
-	public ResponseEntity<String> sendPromoEmails(){
+	public ResponseEntity<Boolean> sendPromoEmails(){
 		if(sendPromoService.checkIfPromotionalEmailsRequiredToBeSent()) {
 			if(sendPromoService.sendPromotionalEmailsToAllCustomer()) {
-				return new ResponseEntity<String>("Promotional emails sent successfully!",HttpStatus.OK);	
+				return new ResponseEntity<Boolean>(true,HttpStatus.OK);	
 			}
 		}
-		return new ResponseEntity<String>("No more Promotional emails to be sent!",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
 		
 	}
 	
