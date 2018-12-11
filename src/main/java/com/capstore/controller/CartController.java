@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,5 +61,17 @@ public class CartController {
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 
+	}
+	
+	@PostMapping("/updateCartProductQuantity/{customerId}")
+	public ResponseEntity<Cart> updateCartProductQuantity(@RequestBody CartProduct cartProduct,
+														@PathVariable("customerId") Integer customerId, HttpSession session){
+		
+		Cart cart=cartService.updateCartProductQuantity(cartProduct,customerId);
+		
+		if (cart == null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+		
 	}
 }
