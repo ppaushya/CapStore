@@ -17,6 +17,6 @@ public interface IFeedbackDao extends JpaRepository<Feedback,Integer>  {
 	@Query("from Feedback where product.productId=:productId")
 	public List<Feedback> findByProductId(int productId);
 	
-	@Query("from Merchant where merchant.merchantId=:merchantId")
+	@Query("from Feedback where merchant.merchantId=:merchantId")
 	public List<Feedback> findByMerchantId(int merchantId);
 }
