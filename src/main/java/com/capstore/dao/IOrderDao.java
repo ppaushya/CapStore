@@ -10,7 +10,7 @@ import com.capstore.model.Order;
 
 public interface IOrderDao extends JpaRepository<Order, Integer> {
 	
-	@Query("from Order WHERE  customer_customer_id=:custId")
+	@Query("from Order WHERE  customer.customerId=:custId")
 	public List<Order> getOrdersForCustomer(@Param("custId") int custId);
 
 }
