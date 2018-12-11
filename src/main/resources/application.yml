@@ -1,14 +1,11 @@
 server:
-  port: 8085
+  port: 8086
   servlet:
     context-path: /capstore
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/capstore
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
     username: root
     password: India123
   jpa:
