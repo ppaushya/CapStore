@@ -34,7 +34,6 @@ public class CartService implements ICartService {
 	public Cart addProductToCart(CartProduct cartProduct, Integer custId) {
 		
 		Customer customer=customerDao.getOne(custId);
-		System.out.println(customer);
 		
 		Cart cart=cartDao.findByCustomer(custId);
 		
@@ -44,12 +43,10 @@ public class CartService implements ICartService {
 			cart=new Cart();
 			
 			cart.setCustomer(customer);
-			System.out.println(cartProduct);
 			cartProductDao.save(cartProduct);
 			
 			cart.getCartProducts().add(cartProduct);
 			cart.setMinimumAmount(100);
-			
 			
 			cartDao.save(cart);
 		}
@@ -72,14 +69,40 @@ public class CartService implements ICartService {
 			
 			//add the product to cart table
 			cart.getCartProducts().add(cartProduct);
-			System.out.println(cart);
+			
 			cartDao.save(cart);
 			
 		}
 		return cart;
 	}
-
-
+	
+	@Override
+	public Cart deleteProductFromCart(Integer customerId, Integer productId) {
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		
+		if(cart==null)
+			return null;
+		else
+		{
+			
+			CartProduct cartProduct=cartProductDao.findByProduct(productId,customerId);
+			
+			//cart.getCartProducts().remove(cartProduct);
+			cartProductDao.delete(cartProduct);
+			cart=cartDao.findByCustomer(customerId);
+			
+			return cart;
+		}
+		
+	}
+	
+	@Override
+	public Cart getCartProducts(Integer customerId) {
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		return cart;
+	}
 
 	@Override
 	public double calculateTotalCartAmount(Cart cart) {
