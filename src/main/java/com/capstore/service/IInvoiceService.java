@@ -4,7 +4,7 @@ import com.capstore.model.Invoice;
 
 public interface IInvoiceService {
 
-	public Invoice insertInvoice(Invoice invoice);
+	public Invoice generateInvoice(Invoice invoice);
 	public Invoice getInvoiceFromOrderId(int OrderId);
 
 }

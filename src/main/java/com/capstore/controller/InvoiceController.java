@@ -25,7 +25,7 @@ public class InvoiceController {
 	@Autowired
 	private IInvoiceService invoiceService;
 	
-	@PostMapping(value = "/invoice")
+	/*@PostMapping(value = "/invoice")
 	public ResponseEntity<Invoice> insertShipment(@RequestBody Invoice invoice) {
 		System.out.println("add customer");
 		System.out.println(invoice);
@@ -36,7 +36,7 @@ public class InvoiceController {
 			return new ResponseEntity("Insertion Failed",HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<Invoice>(invoice1,HttpStatus.OK);
-	}
+	}*/
 	
 	@GetMapping(value = "/generateInvoice")
 	public ResponseEntity<Invoice> getInvoice(@RequestBody Order order){

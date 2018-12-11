@@ -67,7 +67,9 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public List<Product> getSimilarProducts(Product product) {
+	public List<Product> getSimilarProducts(int productId) {
+		
+		Product product = getProduct(productId);
 		
 		List<Product> similarProducts = new ArrayList<>();
 		List<Product> allProducts = getAllProducts();
@@ -88,5 +90,28 @@ public class ProductService implements IProductService{
 		}
 		
 		return similarProducts;
+	}
+
+	@Override
+	public double getDiscountedPrice(int productId) {
+		
+		double discountedPrice = 0;
+		Product product = getProduct(productId);
+		int discount = product.getDiscount();
+		int promo = product.getPromo().getDiscount();
+		
+		discountedPrice = (double)product.getProductPrice();
+		
+		if(promo != 0) {
+			
+			discountedPrice = discountedPrice - (discountedPrice*promo)/100;
+		}
+		
+		if(discount != 0) {
+			
+			discountedPrice = discountedPrice - (discountedPrice*discount)/100;
+		}
+		
+		return discountedPrice;
 	}
 }

@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Coupons {
 	
 	@Id
@@ -21,7 +23,7 @@ public class Coupons {
 	private String couponImageUrl;
 	@Column(name="maxDiscount")
 	private double maxDiscount;
-	@Column(name="couponCode")
+	@Column(name="couponCode", unique = true)
 	private String couponCode;
 	@Column(name="discountPercentage")
 	private double discountPercentage;
