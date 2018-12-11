@@ -1,5 +1,7 @@
 package com.capstore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,16 @@ public class PromoService implements IPromoService{
 		promoDao.save(promo);
 	
 		
+	}
+
+	@Override
+	public List<Promos> getAllPromos() {
+		return promoDao.findAll();
+	}
+
+	@Override
+	public Promos getPromo(String promoCode) {
+		return promoDao.getPromoByPromoCode(promoCode);
 	}
 
 }

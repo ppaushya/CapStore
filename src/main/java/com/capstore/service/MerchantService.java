@@ -62,5 +62,13 @@ public class MerchantService implements IMerchantService{
 	public List<Merchant> getAllMerchants() {
 		return merchantDao.findAll();
 	}
+
+	@Override
+	public boolean checkIfExists(String merchantMailId) {
+		Merchant merchant=merchantDao.getByEmailId(merchantMailId);
+		if(merchant==null)
+			return true;
+		else return false;
+	}
 	
 }
