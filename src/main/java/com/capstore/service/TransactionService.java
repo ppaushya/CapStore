@@ -50,9 +50,21 @@ public class TransactionService implements ITransactionService{
 	public double calculateFinalAmountForPayment(Order order) {
 		
 		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
+		Coupons coupon = order.getCoupon();
 		
-		
-		return 0;
+		if(coupon == null) {
+			return totalAmount;
+		}else {
+			int discount = coupon.getDiscountPercentage();
+			double maxDiscount = coupon.getMaxDiscount();
+			
+			double discountProvided = totalAmount*((double)discount)/100.0;
+			
+			if(discountProvided>maxDiscount) {
+				discountProvided = maxDiscount;
+			}
+			
+			return (totalAmount-discountProvided);
+		}
 	}
-
 }

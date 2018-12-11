@@ -11,7 +11,6 @@ import com.capstore.dao.ICustomerDao;
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
 import com.capstore.model.Customer;
-import com.capstore.model.Product;
 
 @Service("cartService")
 public class CartService implements ICartService {
