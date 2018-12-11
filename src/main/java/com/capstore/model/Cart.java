@@ -61,4 +61,8 @@ public class Cart {
 		this.cartProducts = cartProducts;
 		this.minimumAmount = minimumAmount;
 	}	
+	public Cart()
+	{
+		
+	}
 }
