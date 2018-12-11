@@ -22,12 +22,16 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 
 	@Override
 	public List<Inventory> addNewInventory(Inventory inventory) {
+		System.out.println("service"+inventory);
+		
 		inventoryMerchantDao.save(inventory);
+		System.out.println("service after "+inventory);
 		return getAllInventories();
+		
 	}
 
 	@Override
-	public List<Inventory> deleteInventory(Integer inventoryId) {
+	public List<Inventory> deleteInventory(int inventoryId) {
 		inventoryMerchantDao.deleteById(inventoryId);
 		return getAllInventories();
 	}

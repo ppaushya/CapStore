@@ -15,15 +15,11 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int transactionId;
 	
-//	@Column(name="orderId")
-	@OneToOne(targetEntity=Order.class)
-	private int orderId;
-	
 //	@Column(name="invoiceNo")
 	@OneToOne(targetEntity=Invoice.class)
-	private int invoiceNo;
+	private Invoice invoice;
 	private String modeOfPayment;
-	private String paymentModeNumber;
+	private long paymentModeNumber;
 	private String status;
 	
 	public int getTransactionId() {
@@ -32,18 +28,11 @@ public class Transaction {
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
-	public int getOrderId() {
-		return orderId;
+	public Invoice getInvoice() {
+		return invoice;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-	
-	public int getInvoiceNo() {
-		return invoiceNo;
-	}
-	public void setInvoiceNo(int invoiceNo) {
-		this.invoiceNo = invoiceNo;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 	public String getModeOfPayment() {
 		return modeOfPayment;
@@ -51,10 +40,10 @@ public class Transaction {
 	public void setModeOfPayment(String modeOfPayment) {
 		this.modeOfPayment = modeOfPayment;
 	}
-	public String getPaymentModeNumber() {
+	public long getPaymentModeNumber() {
 		return paymentModeNumber;
 	}
-	public void setPaymentModeNumber(String paymentModeNumber) {
+	public void setPaymentModeNumber(long paymentModeNumber) {
 		this.paymentModeNumber = paymentModeNumber;
 	}
 	public String getStatus() {
@@ -65,17 +54,14 @@ public class Transaction {
 	}
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", orderId=" + orderId + ", invoiceNo=" + invoiceNo
-				+ ", modeOfPayment=" + modeOfPayment + ", paymentModeNumber=" + paymentModeNumber + ", status=" + status
-				+ "]";
+		return "Transaction [transactionId=" + transactionId + ", invoice=" + invoice + ", modeOfPayment="
+				+ modeOfPayment + ", paymentModeNumber=" + paymentModeNumber + ", status=" + status + "]";
 	}
-	
-	public Transaction(int transactionId, int orderId, int invoiceNo, String modeOfPayment,
-			String paymentModeNumber, String status) {
+	public Transaction(int transactionId, Invoice invoice, String modeOfPayment, long paymentModeNumber,
+			String status) {
 		super();
 		this.transactionId = transactionId;
-		this.orderId = orderId;
-		this.invoiceNo = invoiceNo;
+		this.invoice = invoice;
 		this.modeOfPayment = modeOfPayment;
 		this.paymentModeNumber = paymentModeNumber;
 		this.status = status;

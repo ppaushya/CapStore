@@ -29,7 +29,7 @@ public class FeedbackService implements IFeedbackService{
 		List<Feedback> feedbacks = feedbackDao.findAll();
 		
 		for(Feedback myFeedback:feedbacks) {
-			if(myFeedback.getProductId() == productId) {
+			if(myFeedback.getProduct().getProductId() == productId) {
 				
 				sum += myFeedback.getRatingProduct();
 				feedbacksNumber++;
@@ -53,7 +53,7 @@ public class FeedbackService implements IFeedbackService{
 		List<Feedback> feedbacks = feedbackDao.findAll();
 		
 		for(Feedback myFeedback:feedbacks) {
-			if(myFeedback.getMerchantId() == merchantId) {
+			if(myFeedback.getMerchant().getMerchantId() == merchantId) {
 				
 				sum += myFeedback.getRatingMerchant();
 				feedbacksNumber++;

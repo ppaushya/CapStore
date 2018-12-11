@@ -17,7 +17,7 @@ public class ProductImage {
 	
 //	@Column(name="productId")
 	@OneToOne(targetEntity=Product.class)
-	private int productId;
+	private Product product;
 	private String imageUrl;
 	private String imageStatus;
 	
@@ -27,11 +27,17 @@ public class ProductImage {
 	public void setImageId(int imageId) {
 		this.imageId = imageId;
 	}
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public String getImageStatus() {
+		return imageStatus;
+	}
+	public void setImageStatus(String imageStatus) {
+		this.imageStatus = imageStatus;
 	}
 	public String getImageUrl() {
 		return imageUrl;
@@ -47,13 +53,13 @@ public class ProductImage {
 	}
 	@Override
 	public String toString() {
-		return "ProductImage [imageId=" + imageId + ", productId=" + productId + ", imageUrl=" + imageUrl
-				+ ", String=" + imageStatus + "]";
+		return "ProductImage [imageId=" + imageId + ", product=" + product + ", imageUrl=" + imageUrl + ", imageStatus="
+				+ imageStatus + "]";
 	}
-	public ProductImage(int imageId, int productId, String imageUrl, String String) {
+	public ProductImage(int imageId, Product product, String imageUrl, String imageStatus) {
 		super();
 		this.imageId = imageId;
-		this.productId = productId;
+		this.product = product;
 		this.imageUrl = imageUrl;
 		this.imageStatus = imageStatus;
 	}

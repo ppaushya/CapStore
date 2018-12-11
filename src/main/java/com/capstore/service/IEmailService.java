@@ -14,5 +14,9 @@ public interface IEmailService {
 	public List<Customer> getCustomerList();
 
 	public void sendEmail(Email mail);
+
+	List<Email> getEmails(String emailId);
+	
+	
   
 }

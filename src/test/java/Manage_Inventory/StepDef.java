@@ -14,22 +14,19 @@ import cucumber.api.java.en.When;
 
 public class StepDef {
 
-	
-	
 	private WebDriver webdriver;
 	private WebElement element;
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver","C:\\Users\\papurohi\\Desktop\\chromedriver.exe" );
-		webdriver=new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\papurohi\\Desktop\\chromedriver.exe");
+		webdriver = new ChromeDriver();
 
 	}
-	
+
 	@Given("^Details of product$")
 	public void details_of_product() throws Throwable {
-		
-		
+
 	}
 
 	@When("^Edit Button is clicked$")
@@ -52,5 +49,4 @@ public class StepDef {
 	public void delete_Entry() throws Throwable {
 	}
 
-	
 }

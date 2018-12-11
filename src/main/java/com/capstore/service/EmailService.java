@@ -14,6 +14,8 @@ public class EmailService implements IEmailService{
 	@Autowired
 
 	private IEmailDao emailDao;
+	
+	
 
 	@Override
 	public void sendEmailToCustomer(Email email) {
@@ -31,5 +33,11 @@ public class EmailService implements IEmailService{
 	@Override
 	public void sendEmail(Email mail) {
 		emailDao.save(mail);
+	}
+	
+	@Override
+	public List<Email> getEmails(String emailId) {
+		// TODO Auto-generated method stub
+		return emailDao.getByReceiverEmailId(emailId);
 	}
 }
