@@ -70,7 +70,7 @@ public class ValidationOfUserController {
 				mail.setReceiverEmailId(customer.getEmailId());
 				mail.setSenderEmailId("admin@capstore.com");
 				mail.setMessage("Verify by clicking this link ");
-				mail.setImageUrl("http://localhost:4200/auth/sign-in");
+				mail.setLink("//localhost:4200/auth/sign-in");
 				emailService.sendEmail(mail);
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 			/*}

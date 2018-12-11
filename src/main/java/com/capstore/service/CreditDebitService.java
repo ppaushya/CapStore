@@ -36,6 +36,27 @@ public class CreditDebitService implements ICreditDebitService {
 	}
 
 	@Override
+	public boolean isValidCard(CreditDebit creditDebit) {
+		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
+		if(!creditDebit.getCardHolderName().equalsIgnoreCase(card.getCardHolderName())) {
+			return false;
+		}
+		if(creditDebit.getCvv()!=card.getCvv()) {
+			return false;
+		}
+		if(creditDebit.getExpiryDate().getMonth()!=card.getExpiryDate().getMonth()) {
+			return false;
+		}
+		if(creditDebit.getExpiryDate().getYear()!=card.getExpiryDate().getYear()) {
+			return false;
+		}
+		if(creditDebit.getPinNumber()!=card.getPinNumber()) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public boolean depositAmount(double amount, CreditDebit creditDebit) {
 		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
 		if(card!=null) {
@@ -49,6 +70,9 @@ public class CreditDebitService implements ICreditDebitService {
 
 	@Override
 	public boolean withdrawAmount(double amount, CreditDebit creditDebit) {
+		if(!isValidCard(creditDebit)) {
+			return false;
+		}
 		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
 		if(card!=null) {
 			double balance = card.getBalance();

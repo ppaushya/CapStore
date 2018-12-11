@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstore.model.Cart;
+import com.capstore.model.Customer;
 
 @Repository("cartDao")
 @Transactional
@@ -16,7 +17,9 @@ public interface ICartDao extends JpaRepository<Cart, Integer> {
 
 	@Query("from Cart  where customer_customer_id=:custId")
 	public List<Cart> findCartByCustomerIdCustomerId(@Param("custId") Integer custId);
+
+	@Query("from Cart where customer_customer_id=:custId")
+	public Cart findByCustomer(int custId);
 	
-	/*@Query("delete from cart c where c.customer_customer_id=:custId")
-	public void deleteCartAfterOrder(int custId);*/
+	
 }
