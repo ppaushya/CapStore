@@ -105,12 +105,13 @@ public class CartService implements ICartService {
 	@Override
 	public Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId) {
 		
+		//Cart cart=cartDao.findByCustomer(customerId);
 		
 		int quantity=cartProduct.getQuantity();
 		
 		cartProductDao.updateQuantity(quantity,cartProduct.getProduct().getProductId(),customerId);
 		
-		Cart cart=cartDao.findByCustomer(customerId);
+		 Cart cart=cartDao.findByCustomer(customerId);
 		
 		return cart;
 	}
