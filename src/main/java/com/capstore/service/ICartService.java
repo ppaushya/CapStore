@@ -12,6 +12,8 @@ public interface ICartService {
 
 	Cart deleteProductFromCart(Integer customerId, Integer productId);
 
+	Cart getCartProducts(Integer customerId);
+
 	
 
 }

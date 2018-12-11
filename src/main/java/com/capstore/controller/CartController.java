@@ -42,17 +42,23 @@ public class CartController {
 
 	@PostMapping("/addProductToCart/{custId}")
 	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,
-			@PathVariable("custId") Integer custId, HttpSession session) {
+													@PathVariable("custId") Integer custId, HttpSession session) 
+	{
 		Cart cart = cartService.addProductToCart(cartProduct, custId);
-		System.out.println(cart);
+	
 		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
 
 	@GetMapping("/getCartProducts/{customerId}")
-	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session, @PathVariable("customerId") Integer custId) {
-		return null;
+	public ResponseEntity<Cart> getCartProducts(HttpSession sessison, @PathVariable("customerId") Integer customerId) {
+		
+		Cart cart=cartService.getCartProducts(customerId);
+		
+		if (cart == null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 
 	}
 }
