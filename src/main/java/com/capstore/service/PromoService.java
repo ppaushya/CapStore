@@ -16,7 +16,9 @@ public class PromoService implements IPromoService{
 	
 	@Override
 	public int getDiscount(int promoId) {
-		Promos p= promoDao.findById(promoId).get();
+		Promos p= (Promos) promoDao.findById(promoId).get();
+
+		
 		return p.getDiscount();
 	}
 	 

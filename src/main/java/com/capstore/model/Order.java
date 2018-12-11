@@ -15,9 +15,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="productOrder")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
 	
 	@Id

@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Merchant {
 	
 	@Id
@@ -93,4 +96,59 @@ public class Merchant {
 	public Merchant() {
 		super();
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + (isVerified ? 1231 : 1237);
+		result = prime * result + ((merchantAddress == null) ? 0 : merchantAddress.hashCode());
+		result = prime * result + ((merchantContact == null) ? 0 : merchantContact.hashCode());
+		result = prime * result + merchantId;
+		result = prime * result + ((merchantName == null) ? 0 : merchantName.hashCode());
+		result = prime * result + ((merchantPassword == null) ? 0 : merchantPassword.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Merchant other = (Merchant) obj;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (isVerified != other.isVerified)
+			return false;
+		if (merchantAddress == null) {
+			if (other.merchantAddress != null)
+				return false;
+		} else if (!merchantAddress.equals(other.merchantAddress))
+			return false;
+		if (merchantContact == null) {
+			if (other.merchantContact != null)
+				return false;
+		} else if (!merchantContact.equals(other.merchantContact))
+			return false;
+		if (merchantId != other.merchantId)
+			return false;
+		if (merchantName == null) {
+			if (other.merchantName != null)
+				return false;
+		} else if (!merchantName.equals(other.merchantName))
+			return false;
+		if (merchantPassword == null) {
+			if (other.merchantPassword != null)
+				return false;
+		} else if (!merchantPassword.equals(other.merchantPassword))
+			return false;
+		return true;
+	}
+	
+	
 }

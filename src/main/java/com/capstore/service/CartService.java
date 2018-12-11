@@ -33,9 +33,6 @@ public class CartService implements ICartService {
 		Customer customer=customerDao.getOne(custId);
 		System.out.println(customer);
 		
-		
-		
-		
 		Cart cart=cartDao.findByCustomer(custId);
 		
 		if(cart==null)
@@ -50,21 +47,19 @@ public class CartService implements ICartService {
 			cart.getCartProducts().add(cartProduct);
 			cart.setMinimumAmount(100);
 			
-			System.out.println("1"+cart);
+			
 			cartDao.save(cart);
 		}
 		else
 		{
-			System.out.println("2"+cart);
 			List<CartProduct> cartProducts=cart.getCartProducts();
 			
 			for(CartProduct cartProduct1:cartProducts)
 			{
-				System.out.println("3"+cart);
+				
 				//if the product already exists
 				if(cartProduct1.getProduct().equals(cartProduct.getProduct()))
 				{
-					System.out.println("4"+cart);
 					return cart;
 				}
 			}
@@ -73,8 +68,8 @@ public class CartService implements ICartService {
 			cartProductDao.save(cartProduct);
 			
 			//add the product to cart table
-			cartProducts.add(cartProduct);
-			cart.setCartProducts(cartProducts);
+			cart.getCartProducts().add(cartProduct);
+			System.out.println(cart);
 			cartDao.save(cart);
 			
 		}
