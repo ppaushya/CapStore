@@ -8,11 +8,11 @@ import com.capstore.model.Wishlist;
 
 public interface IWishlistService {
 
-	public boolean addToWishlist(Customer customer, Product product);
+	public boolean addToWishlist(int customerId, int productId);
 
-	public Wishlist deleteFromWishlist(Customer customer, Product product);
+	public Wishlist deleteFromWishlist(int customerId, int productId);
 	
-	public List<Product> wishListForSpecificCustomer(Customer customer);
+	public List<Product> wishListForSpecificCustomer(int customerId);
 	
-	public boolean moveFromWishlistToCart(Customer customer, Product product);
+	public boolean moveFromWishlistToCart(int customerId, int productId);
 }

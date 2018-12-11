@@ -76,8 +76,6 @@ public class ShipmentController {
 	@PostMapping("/updateShipmentDeliveryStatus/{shipmentId}/{status}")
 	public ResponseEntity<Boolean> deliverOrderAndUpdateInventory(@PathVariable("shipmentId") Integer shipmentId,
 			@PathVariable("status") String status) {
-		// boolean shipment2 = shipmentService.updateShipmentDeliveryStatus(shipmentId,
-		// status);
 		if (shipmentService.updateShipmentDeliveryStatus(shipmentId, status)) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {

@@ -19,7 +19,7 @@ public interface ICartDao extends JpaRepository<Cart, Integer> {
 	public List<Cart> findCartByCustomerIdCustomerId(@Param("custId") Integer custId);
 
 	@Query("from Cart where customer_customer_id=:custId")
-	public Cart findByCustomer(int custId);
+	public Cart findByCustomer(@Param("custId") Integer custId);
 	
 	
 }

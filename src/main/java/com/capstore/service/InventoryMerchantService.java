@@ -38,6 +38,7 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 
 	@Override
 	public List<Inventory> updateInventory(Inventory inventory) {
+		System.out.println(inventory);
 		inventoryMerchantDao.save(inventory);
 		return getAllInventories();
 	}

@@ -117,7 +117,7 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<Order> getOrdersForCustomer(int custId) { // to get orders for a customer
-		
+		//System.out.println("Service"+orderDao.getOrdersForCustomer(custId) );
 		return orderDao.getOrdersForCustomer(custId) ;
 	}
 	

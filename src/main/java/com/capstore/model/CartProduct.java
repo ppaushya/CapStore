@@ -6,7 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CartProduct {
 	
 	@Id
@@ -14,7 +17,7 @@ public class CartProduct {
 	private int serialNo;
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
-	@OneToOne(targetEntity=Customer.class)
+	@OneToOne(targetEntity=Product.class)
 	private Product product;
 	private int quantity;
 

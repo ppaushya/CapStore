@@ -107,7 +107,6 @@ public class TransactionController {
 
 		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
 		Invoice invoice = new Invoice();
-		invoiceService.insertInvoice(invoice); // REMOVE
 
 		transaction.setInvoice(invoice);
 		transactionService.insertTransaction(transaction);
@@ -144,7 +143,6 @@ public class TransactionController {
 
 		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
 		Invoice invoice = new Invoice();
-		invoiceService.insertInvoice(invoice); // REMOVE
 
 		transaction.setInvoice(invoice);
 		transactionService.insertTransaction(transaction);
@@ -166,7 +164,6 @@ public class TransactionController {
 
 		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
 		Invoice invoice = new Invoice();
-		invoiceService.insertInvoice(invoice); // REMOVE
 
 		transaction.setInvoice(invoice);
 		transactionService.insertTransaction(transaction);
