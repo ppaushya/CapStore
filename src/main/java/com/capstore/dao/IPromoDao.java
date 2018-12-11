@@ -12,7 +12,7 @@ import com.capstore.model.Promos;
 @Transactional
 public interface IPromoDao extends JpaRepository<Promos, Integer>{
 	
-	Promos getById(int promoId);
+	
 	Promos getPromoByPromoCode(String promoCode);
 
 }

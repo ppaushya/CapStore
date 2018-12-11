@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.IPromoDao;
 import com.capstore.model.Promos;
 
-@Service("/promoService")
+@Service("promoService")
 public class PromoService implements IPromoService{
 
 	@Autowired
@@ -16,7 +16,7 @@ public class PromoService implements IPromoService{
 	
 	@Override
 	public int getDiscount(int promoId) {
-		Promos p= (Promos) promoDao.getById(promoId);
+		Promos p= promoDao.findById(promoId).get();
 		return p.getDiscount();
 	}
 	 

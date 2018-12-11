@@ -35,7 +35,7 @@ public class ApplyDiscountController {
 		
 		int discounts=promoService.getDiscount(promoId);
 		
-		applydiscountService.applyingDiscount(promoId,productId);
+		//applydiscountService.applyingDiscount(promoId,productId);
 		
 		return new ResponseEntity<>(true,HttpStatus.OK);
 
