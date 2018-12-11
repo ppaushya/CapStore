@@ -13,6 +13,8 @@ public interface ILoginService {
 
 	public boolean setPasswordByEmail(Login login);
 
-	public boolean getLoginByEmailId(String emailId);
+	public Login getLoginByEmailId(String emailId);
+
+	public void updateLogin(Login login);
 	
 }
