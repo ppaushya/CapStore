@@ -60,9 +60,15 @@ public class Cart {
 		this.customer = customer;
 		this.cartProducts = cartProducts;
 		this.minimumAmount = minimumAmount;
+<<<<<<< HEAD
 	}	
 	public Cart()
 	{
 		
+=======
+	}
+	public Cart() {
+		super();
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 	}
 }

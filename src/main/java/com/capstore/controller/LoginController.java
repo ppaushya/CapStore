@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Login;
+import com.capstore.service.ICustomerService;
 import com.capstore.service.ILoginService;
 
 @CrossOrigin(origins="*")
@@ -29,12 +30,14 @@ public class LoginController {
 	@Autowired
 	private ILoginService loginService;
 	
+	@Autowired
+	private ICustomerService customerService;
+	
 	
 	@PostMapping("/validlogin")
 	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
 		
 		//(@RequestBody Login login,
-		System.out.println("dfsgsdfgtsdfgt");
 		
 		Login loginbean=loginService.getLogin(login.getEmailId(),login.getPassword());
 		
@@ -43,6 +46,9 @@ public class LoginController {
 			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
 		session.setAttribute("emailId", loginbean.getEmailId());
+		Customer customer= customerService.getCustomerByEmail(loginbean.getEmailId());
+		
+		session.setAttribute("customerId", customer.getCustomerId() );
 		/*Customer customer=loginService.getCustomerId(loginbean.getEmailId());
 		session.setAttribute("customerId",customer.getCustomerId() );*/
 		

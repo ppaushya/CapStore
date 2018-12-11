@@ -64,7 +64,9 @@ public class ManageMerchantController {
 
 
 		String merchantMail=(String) session.getAttribute("emailId");
+		System.out.println(merchantMail);
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		System.out.println(merchant);
 		if(merchant.getMerchantPassword().equals(pasword)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}

@@ -10,8 +10,9 @@ public interface IBankAccountService {
 
 	public List<BankAccount> getAllBankAccounts();
 	public BankAccount getBankAccount(long accountNumber);
+	public BankAccount getCapstoreBankAccount();
 
-	public List<BankAccount> getBankAccountFromUserNamePassword(String userName, String userPassword);
+	public BankAccount getBankAccountFromUserNamePassword(String userName, String userPassword);
 
 	public boolean depositAmount(double amount, BankAccount bankAccount);
 
