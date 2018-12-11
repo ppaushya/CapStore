@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstore.model.BankAccount;
 import com.capstore.model.CreditDebit;
 import com.capstore.model.Invoice;
+import com.capstore.model.Order;
 import com.capstore.model.Transaction;
 import com.capstore.service.IBankAccountService;
+import com.capstore.service.ICartService;
 import com.capstore.service.ICreditDebitService;
 import com.capstore.service.IInvoiceService;
 import com.capstore.service.IOrderService;
@@ -45,6 +47,9 @@ public class TransactionController {
 
 	@Autowired
 	IOrderService orderService;
+	
+	@Autowired
+	ICartService cartService;
 
 	@GetMapping("/transaction")//
 	public ResponseEntity<List<Transaction>> getAllTransactions(HttpSession session) {// Team 6
@@ -81,94 +86,128 @@ public class TransactionController {
 		}
 	}
 
-	@PostMapping("/transaction/order/{orderId}/pay/bankaccount/{amount}") //
-	public ResponseEntity<Boolean> payByNetBanking(@RequestBody BankAccount account, @PathVariable double amount,
-			@PathVariable int orderId) {// Team 6
+	@PostMapping("/transaction/order/{orderId}/pay/bankaccount") //
+	public ResponseEntity<Boolean> payByNetBanking(@RequestBody BankAccount account,@PathVariable int orderId) {// Team 6
 		BankAccount bankAccount = bankAccountService.getBankAccountFromUserNamePassword(account.getUserName(),
 				account.getUserPassword());
 		if (bankAccount == null) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-		if (!bankAccountService.withdrawAmount(amount, account)) {
+		
+		Order order = orderService.findOrderById(orderId);
+		if(order==null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
+		
+		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
+		double finalAmount = transactionService.calculateFinalAmountForPayment(order);
+		
+		if (!bankAccountService.withdrawAmount(finalAmount, account)) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 
-		if (!bankAccountService.depositAmount(amount, bankAccountService.getCapstoreBankAccount())) {
+		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 
-		Transaction transaction = new Transaction();
-		transaction.setModeOfPayment("net banking");
-		transaction.setPaymentModeNumber(account.getAccountNumber());
-		transaction.setStatus("success");
-
-		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
-		Invoice invoice = new Invoice();
-
-		transaction.setInvoice(invoice);
-		transactionService.insertTransaction(transaction);
-
+		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
+		addNetBankingTransaction(account,invoice);
+		
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
-	@PostMapping("/transaction/order/{orderId}/pay/card/{amount}")//
-	public ResponseEntity<Boolean> payByCard(@RequestBody CreditDebit creditDebit, @PathVariable double amount,
-			@PathVariable int orderId) {// Team 6
+	@PostMapping("/transaction/order/{orderId}/pay/card")//
+	public ResponseEntity<Boolean> payByCard(@RequestBody CreditDebit creditDebit, @PathVariable int orderId) {// Team 6
 		if (!creditDebitService.isValidCard(creditDebit)) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
+		
+		Order order = orderService.findOrderById(orderId);
+		if(order==null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
+		
+		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
+		double finalAmount = transactionService.calculateFinalAmountForPayment(order);
+		
 		CreditDebit card = creditDebitService.getCardFromCardNumber(creditDebit.getCardNumber());
 		if (card == null) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
-		if (!creditDebitService.withdrawAmount(amount, card)) {
+		if (!creditDebitService.withdrawAmount(finalAmount, card)) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 
-		if (!bankAccountService.depositAmount(amount, bankAccountService.getCapstoreBankAccount())) {
+		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
 			orderService.deleteOrder(orderId);
 			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 
+		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
+		addCardTransaction(card,invoice);
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+
+	@PostMapping("/transaction/order/{orderId}/pay/cash")//
+	public ResponseEntity<Boolean> payByCard(@PathVariable int orderId) {// Team 6
+		Order order = orderService.findOrderById(orderId);
+		if(order==null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
+		
+		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
+		double finalAmount = transactionService.calculateFinalAmountForPayment(order);
+		
+		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
+			orderService.deleteOrder(orderId);
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
+
+		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
+		addCashTransaction(invoice);
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+
+	private Invoice generateInvoice(Order order,double totalAmount,double finalAmount) {
+		Invoice invoice = new Invoice();
+		invoice.setOrder(order);
+		invoice.setInvoiceDate(order.getOrderDate());
+		invoice.setDiscountedPrice(finalAmount);
+		invoice.setDiscount(totalAmount-finalAmount);
+		invoiceService.generateInvoice(invoice);
+		return invoice;
+	}
+	
+	private void addNetBankingTransaction(BankAccount account,Invoice invoice) {
+		Transaction transaction = new Transaction();
+		transaction.setModeOfPayment("net banking");
+		transaction.setPaymentModeNumber(account.getAccountNumber());
+		transaction.setStatus("success");
+		transaction.setInvoice(invoice);
+		transactionService.insertTransaction(transaction);
+	}
+	private void addCardTransaction(CreditDebit card,Invoice invoice) {
 		Transaction transaction = new Transaction();
 		transaction.setModeOfPayment("card");
 		transaction.setPaymentModeNumber(card.getCardNumber());
 		transaction.setStatus("success");
-
-		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
-		Invoice invoice = new Invoice();
-
 		transaction.setInvoice(invoice);
 		transactionService.insertTransaction(transaction);
-
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-
-	@PostMapping("/transaction/order/{orderId}/pay/cash/{amount}")//
-	public ResponseEntity<Boolean> payByCard(@PathVariable double amount, @PathVariable int orderId) {// Team 6
-		if (!bankAccountService.depositAmount(amount, bankAccountService.getCapstoreBankAccount())) {
-			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-		}
-
+	private void addCashTransaction(Invoice invoice) {
 		Transaction transaction = new Transaction();
 		transaction.setModeOfPayment("cash");
 		transaction.setPaymentModeNumber(0);
 		transaction.setStatus("success");
-
-		// Invoice invoice = invoiceService.insertInvoiceUsingOrderAndReturn(invoice);
-		Invoice invoice = new Invoice();
-
 		transaction.setInvoice(invoice);
 		transactionService.insertTransaction(transaction);
-
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-
 }
