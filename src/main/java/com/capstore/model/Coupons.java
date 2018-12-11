@@ -21,7 +21,7 @@ public class Coupons {
 	private String couponImageUrl;
 	@Column(name="maxDiscount")
 	private double maxDiscount;
-	@Column(name="couponCode")
+	@Column(name="couponCode", unique = true)
 	private String couponCode;
 	@Column(name="discountPercentage")
 	private double discountPercentage;

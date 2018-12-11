@@ -28,7 +28,7 @@ public class Order {
 	@OneToOne(targetEntity=Customer.class)
 	private Customer customer;
 	
-	@OneToOne(targetEntity=Product.class)
+	@OneToOne(targetEntity=Cart.class)
 	private Cart cart;
 	
 	@OneToMany(targetEntity=Shipment.class,cascade=CascadeType.ALL)
