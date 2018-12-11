@@ -10,6 +10,8 @@ public interface ICartService {
 
 	Cart addProductToCart(CartProduct cartProduct, Integer cartId);
 
+	Cart deleteProductFromCart(Integer customerId, Integer productId);
+
 	
 
 }

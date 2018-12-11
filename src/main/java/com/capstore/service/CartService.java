@@ -76,6 +76,30 @@ public class CartService implements ICartService {
 		return cart;
 	}
 
+
+
+	@Override
+	public Cart deleteProductFromCart(Integer customerId, Integer productId) {
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		
+		if(cart==null)
+			return null;
+		else
+		{
+			
+			CartProduct cartProduct=cartProductDao.findByProduct(productId,customerId);
+			
+			//cart.getCartProducts().remove(cartProduct);
+			cartProductDao.delete(cartProduct);
+			cart=cartDao.findByCustomer(customerId);
+			System.out.println(cart);
+			
+			return cart;
+		}
+		
+	}
+
 	
 
 }
