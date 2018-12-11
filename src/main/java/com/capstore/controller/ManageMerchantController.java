@@ -2,6 +2,7 @@ package com.capstore.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +13,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.service.FeedbackService;
+import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
 
 @CrossOrigin(origins="*")
-@RestController
+@RestController()
 @RequestMapping("/api/v1")
 public class ManageMerchantController {
 
+	
+	
 	@Autowired
 	IMerchantService merchantService;
+	
+	@Autowired
+	ILoginService loginService;
+	
 
 	public FeedbackService feedbackService;
 
@@ -59,12 +69,12 @@ public class ManageMerchantController {
 
 	}
 
-	@PostMapping("/passwordMatch")
-	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session) {
+	@RequestMapping(value="/passwordMatch",method=RequestMethod.POST, headers="Accept=*/*")
+	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session1) {
 
-
-		String merchantMail=(String) session.getAttribute("emailId");
-		System.out.println(merchantMail);
+           session1.setAttribute("email", LoginController.emailId); 
+		String merchantMail=(String) session1.getAttribute("email");
+		System.out.println("session1:"+ session1);
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
 		System.out.println(merchant);
 		if(merchant.getMerchantPassword().equals(pasword)) {
@@ -78,14 +88,18 @@ public class ManageMerchantController {
 
 	}
 
-	@PostMapping("/passwordChange")
-	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session) {
+	@RequestMapping(value="/passwordChange",method=RequestMethod.POST, headers="Accept=*/*")
+	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session1) {
 
 
-		String merchantMail=(String) session.getAttribute("emailId");
+		String merchantMail=(String) session1.getAttribute("email");
 		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
 		merchant.setMerchantPassword(password);
 		merchantService.updateMerchant(merchant);
+		Login login=loginService.getLoginByEmailId(LoginController.emailId);
+		login.setPassword(password);
+		loginService.updateLogin(login);
+		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
 
