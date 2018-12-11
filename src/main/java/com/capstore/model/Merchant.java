@@ -25,7 +25,6 @@ public class Merchant {
 	
 	@OneToOne(targetEntity=Address.class,cascade=CascadeType.ALL)
 //	@Column(name="merchantAddress")
-	
 	private Address merchantAddress;
 	private boolean isVerified;
 	

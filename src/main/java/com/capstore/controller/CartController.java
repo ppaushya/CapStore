@@ -40,6 +40,7 @@ public class CartController {
 	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,@PathVariable("custId") Integer custId,HttpSession session)
 	{
 		Cart cart=cartService.addProductToCart(cartProduct,custId);
+		System.out.println(cart);
 		if(cart==null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);

@@ -18,7 +18,7 @@ public class Email {
 	private String receiverEmailId;
 	
 	@Column(name="senderEmailId")
-	private String senderEmailId;	
+	private String senderEmailId;
 	
 	@Column(name="message",columnDefinition="TEXT")
 	private String message;

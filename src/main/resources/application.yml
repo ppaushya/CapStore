@@ -8,5 +8,7 @@ spring:
     username: root
     password: India123
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     show-sql: true
+    
+    
