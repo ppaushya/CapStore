@@ -117,4 +117,9 @@ public class ProductService implements IProductService{
 		
 		return discountedPrice;
 	}
+
+	@Override
+	public List<Object[]> getBestSellerId() {
+		return productDao.getBestSellerId();
+	}
 }
