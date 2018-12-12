@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.capstore.model.Inventory;
 import com.capstore.model.Product;
 
 @Repository("productDao")
@@ -20,6 +21,8 @@ public interface IProductDao extends JpaRepository<Product,Integer> {
 	@Query("SELECT productCategory, SUM(quantity*productPrice), SUM(productsSold*productPrice) FROM"
 			+ " Product group by productCategory")
 	public List<Object[]> getProductSold();
+
+	public Product getProductByInventory(Inventory inventory);
 	
 
 	

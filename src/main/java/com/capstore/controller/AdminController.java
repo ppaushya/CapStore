@@ -39,7 +39,6 @@ import com.capstore.service.StorageService;
 @RequestMapping("/api/v1")
 public class AdminController {
 	
-	@Autowired
 	public ICustomerService customerService;
 	
 	@Autowired
