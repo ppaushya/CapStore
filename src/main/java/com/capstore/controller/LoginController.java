@@ -26,7 +26,7 @@ import com.capstore.service.ILoginService;
 @RequestMapping("/api/v1")
 public class LoginController {
 
-	public static String emailId;
+	
 	
 	@Autowired
 	private ILoginService loginService;
@@ -46,10 +46,9 @@ public class LoginController {
 		{
 			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
-		this.emailId=loginbean.getEmailId();
+		/*this.emailId=loginbean.getEmailId();*/
 		session.setAttribute("emailId", loginbean.getEmailId());
-		/*Customer customer=loginService.getCustomerId(loginbean.getEmailId());
-		session.setAttribute("customerId",customer.getCustomerId() );*/
+		System.out.println(session);
 		
 		
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	
@@ -75,11 +74,12 @@ public class LoginController {
 			return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		}
 		//emailService.sendEmail(mail);
-
+		
 		
 		
 		
 	}
 	
 	
-}
+}	
+		/*this.emailId=loginbean.getEmailId();*/

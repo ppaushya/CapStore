@@ -4,6 +4,6 @@ import com.capstore.model.Coupons;
 
 public interface ICouponService {
 
-	Boolean applyingCoupon(Coupons coupons);
+	public Coupons checkIfCouponCodeIsValid(String couponCode);
 
 }

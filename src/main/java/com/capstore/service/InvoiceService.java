@@ -12,19 +12,11 @@ import com.capstore.model.Order;
 @Service("invoiceService")
 public class InvoiceService implements IInvoiceService{
 
-	
 	@Autowired
 	IInvoiceDao invoicedao;
 	
 	@Autowired
 	IOrderService orderService;
-	
-	@Override
-	public Invoice insertInvoice(Invoice invoice) {
-		
-		return invoicedao.save(invoice);
-	}
-
 	
 	@Override
 	public Invoice getInvoiceFromOrderId(int OrderId) {
@@ -39,5 +31,13 @@ public class InvoiceService implements IInvoiceService{
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean generateInvoice(Invoice invoice) {
+		
+		invoicedao.save(invoice);
+		
+		return true;
 	}
 }

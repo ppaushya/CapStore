@@ -19,44 +19,59 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
-import com.capstore.model.Product;
 import com.capstore.service.ICartService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class CartController {
-	
+
 	@Autowired
 	ICartService cartService;
 	
-	@DeleteMapping("/deleteCartProduct/{cartId}")
-	public ResponseEntity<List<Cart>> deleteCartProduct(@PathVariable("cartId") Integer cartId )
+	@DeleteMapping("/deleteProductFromCart/{customerId}/{productId}")
+	public ResponseEntity<Cart> deleteCartProduct(@PathVariable("customerId") Integer customerId,
+													@PathVariable("productId") Integer productId)
 	{
-		return null;
-	}
-	
-	@PostMapping("/addProductToCart/{custId}")
-	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,@PathVariable("custId") Integer custId,HttpSession session)
-	{
-		Cart cart=cartService.addProductToCart(cartProduct,custId);
-		System.out.println(cart);
+		Cart cart=cartService.deleteProductFromCart(customerId,productId);
+		
 		if(cart==null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
-		
-		
-		
 	}
 	
-	@GetMapping("/getCartProducts/{customerId}")
-	public ResponseEntity<List<Cart>> getCartProducts(HttpSession session,@PathVariable("customerId") Integer custId)
+
+	@PostMapping("/addProductToCart/{custId}")
+	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,
+													@PathVariable("custId") Integer custId, HttpSession session) 
 	{
+		Cart cart = cartService.addProductToCart(cartProduct, custId);
+	
+		if (cart == null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+	}
+
+	@GetMapping("/getCartProducts/{customerId}")
+	public ResponseEntity<Cart> getCartProducts(HttpSession sessison, @PathVariable("customerId") Integer customerId) {
 		
-		return null;
+		Cart cart=cartService.getCartProducts(customerId);
 		
+		if (cart == null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+
 	}
 	
-	
-	
+	@PostMapping("/updateCartProductQuantity/{customerId}")
+	public ResponseEntity<Cart> updateCartProductQuantity(@RequestBody CartProduct cartProduct,
+														@PathVariable("customerId") Integer customerId, HttpSession session){
+		
+		Cart cart=cartService.updateCartProductQuantity(cartProduct,customerId);
+		
+		if (cart == null)
+			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+		
+	}
 }

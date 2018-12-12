@@ -23,10 +23,10 @@ public class Coupons {
 	private String couponImageUrl;
 	@Column(name="maxDiscount")
 	private double maxDiscount;
-	@Column(name="couponCode")
+	@Column(name="couponCode", unique = true)
 	private String couponCode;
 	@Column(name="discountPercentage")
-	private double discountPercentage;
+	private int discountPercentage;
 	
 	@Column(name="endDate")
 	@JsonFormat(pattern="dd-MM-yyyy")
@@ -50,10 +50,10 @@ public class Coupons {
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
 	}
-	public double getDiscountPercentage() {
+	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
-	public void setDiscountPercentage(double discountPercentage) {
+	public void setDiscountPercentage(int discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
 	public String getCouponImageUrl() {
@@ -74,9 +74,8 @@ public class Coupons {
 				+ ", couponCode=" + couponCode + ", discountPercentage=" + discountPercentage + ", endDate=" + endDate
 				+ "]";
 	}
-	
 	public Coupons(int couponId, String couponImageUrl, double maxDiscount, String couponCode,
-			double discountPercentage, Date endDate) {
+			int discountPercentage, Date endDate) {
 		super();
 		this.couponId = couponId;
 		this.couponImageUrl = couponImageUrl;

@@ -15,5 +15,7 @@ public interface IProductService {
 	
 	public List<Product> getProductsWithoutPromotionalEmailSent();
 	
-	public List<Product> getSimilarProducts(Product product);
+	public List<Product> getSimilarProducts(int productId);
+	
+	public double getDiscountedPrice(Product product);
 }

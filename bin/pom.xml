@@ -57,8 +57,7 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
-<<<<<<< HEAD
-=======
+
 		<!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -69,7 +68,7 @@
     <version>3.1.0.RELEASE</version>
 </dependency> -->
 		
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
+
 		
 		<dependency>
 		    <groupId>javax.xml.bind</groupId>
