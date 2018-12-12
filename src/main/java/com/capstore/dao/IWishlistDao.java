@@ -13,9 +13,14 @@ import com.capstore.model.Wishlist;
 @Transactional
 public interface IWishlistDao  extends JpaRepository<Wishlist,Integer> {
 	
+<<<<<<< HEAD
 	@Query("from Wishlist WHERE customer.customerId=:customerId")
 	public Wishlist getWishlistByCustomerId(@Param("customerId") int customerId);
 
 	
+=======
+	@Query("from Wishlist where customer.customerId=:customerId")
+	public Wishlist getWishlistByCustomerId(@Param("customerId") int customerId);
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 	
 }

@@ -1,9 +1,11 @@
 package com.capstore.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,12 +27,16 @@ import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.model.Product;
 import com.capstore.model.Promos;
+import com.capstore.model.SalesAnalysis;
+import com.capstore.service.IBusinessAnalysisService;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
+import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
 import com.capstore.service.IProductService;
 import com.capstore.service.IPromoService;
+import com.capstore.service.LoginService;
 import com.capstore.service.StorageService;
 
 
@@ -39,7 +45,6 @@ import com.capstore.service.StorageService;
 @RequestMapping("/api/v1")
 public class AdminController {
 	
-	@Autowired
 	public ICustomerService customerService;
 	
 	@Autowired
@@ -47,6 +52,9 @@ public class AdminController {
 	
 	@Autowired
 	IEmailService emailService;
+	
+	@Autowired
+	ILoginService loginService;
 	
 	@Autowired
 	public IMerchantService merchantService;
@@ -59,6 +67,9 @@ public class AdminController {
 	
 	@Autowired
 	IProductService productService;
+	
+	@Autowired
+	IBusinessAnalysisService businessAnalysisService;
 	
 
 	
@@ -123,33 +134,33 @@ public class AdminController {
 	}
 	
 	//admin verifies Merchant by clicking on approve button
-	@RequestMapping("/merchantVerification")
-	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@RequestBody Merchant merchant) {
+	@RequestMapping("/merchantVerification/{merchantId}")
+	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@PathVariable("merchantId") int merchantId) {
+		
+		Merchant merchant = merchantService.getMerchantByMerchantId(merchantId);
+		merchant.setVerified(true); 
+		merchantService.updateMerchant(merchant);
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
-		
-	 
-	    
-	    merchant.setVerified(true);
-	    Login login = new Login();
+		  
+		Login login = new Login();
 	    login.setEmailId(merchant.getEmailId());
 	    login.setPassword(merchant.getMerchantPassword());
 	    login.setUserTypes("MERCHANT");
-        merchantService.updateMerchant(merchant);	
-        
-		
+        		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
 	}
 	
 	
 	//admin removes Merchant by clicking on reject button
-	@RequestMapping("/merchantReject")
-	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@RequestBody Merchant merchant){
+	@GetMapping("/merchantReject/{merchantId}")
+	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@PathVariable("merchantId") int merchantId){
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
 		
-	
-	    merchant.setVerified(false);
+		Merchant merchant=merchantService.getMerchantByMerchantId(merchantId);
+		System.out.println(merchant);
+	    
 	    System.out.println("\r\n" + 
 	    		"                                                                                                                                                                                                                                                                                                          \r\n" + 
 	    		"                                         dddddddd                                                                                                                                                                                         dddddddd                                                        \r\n" + 
@@ -178,7 +189,10 @@ public class AdminController {
 	    		"                                                                                                                                     jjjjjj                                                                                                                                                               \r\n" + 
 	    		"");
 	    
+	    merchant.setVerified(false);
 	    merchantService.updateMerchant(merchant);
+	    
+	    loginService.remove(merchant.getEmailId());
 		
 		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
@@ -230,7 +244,13 @@ public class AdminController {
 //	************************Inventory(Products)**********************************************
 	
 	
-	
+	@GetMapping("/editAllPromos/{promoCode}/{category}")
+	public ResponseEntity<Boolean> editAllPromos(@PathVariable("promoCode") String promoCode,@PathVariable("category") String category){
+		Promos promo=promoService.getPromo(promoCode);
+		inventoryMerchantService.editAllPromos(promo,category);
+		return new ResponseEntity(true,HttpStatus.OK);
+			
+	}
 
 	@GetMapping("/viewInventories")
 	public ResponseEntity<List<Inventory>> getAllInventories(){
@@ -327,7 +347,17 @@ public class AdminController {
 	
 	
 //	************************Generate Business Analysis**********************************************
-	
+	@GetMapping("/salesAnalysis/{fromDate}/to/{toDate}")
+	public ResponseEntity<List<SalesAnalysis>> getSalesAnalysis(@PathVariable("fromDate") @DateTimeFormat(pattern="yyyy-MM-dd")
+	Date fromDate, @PathVariable("toDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate)	{
+		
+		List<SalesAnalysis> salesAnalysis=businessAnalysisService.getSalesAnalysis(fromDate, toDate);
+		
+		if(salesAnalysis.isEmpty())
+			return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis,HttpStatus.OK);
+		
+	}
 	
 
 	

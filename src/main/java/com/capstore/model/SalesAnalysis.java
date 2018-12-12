@@ -7,16 +7,20 @@ public class SalesAnalysis {
 	private double productQuantity;
 	private double productSales;
 	private double salesPercent;
+	private double totalRevenue;
+	
+	
 	public SalesAnalysis(String productCategory, String merchant, double productQuantity, double productSales,
-			double salesPercent) {
+			double salesPercent, double totalRevenue) {
 		super();
 		this.productCategory = productCategory;
 		this.merchant = merchant;
 		this.productQuantity = productQuantity;
 		this.productSales = productSales;
 		this.salesPercent = salesPercent;
+		this.totalRevenue = totalRevenue;
 	}
-	
+
 	public SalesAnalysis()	{}
 	
 	public String getProductCategory() {
@@ -49,12 +53,28 @@ public class SalesAnalysis {
 	public void setSalesPercent(double salesPercent) {
 		this.salesPercent = salesPercent;
 	}
+
 	@Override
 	public String toString() {
 		return "SalesAnalysis [productCategory=" + productCategory + ", merchant=" + merchant + ", productQuantity="
-				+ productQuantity + ", productSales=" + productSales + ", salesPercent=" + salesPercent + "]";
+				+ productQuantity + ", productSales=" + productSales + ", salesPercent=" + salesPercent
+				+ ", totalRevenue=" + totalRevenue + "]";
 	}
 
+	public double getTotalRevenue() {
+		return totalRevenue;
+	}
+
+	public void setTotalRevenue(double totalRevenue) {
+		this.totalRevenue = totalRevenue;
+	}
+
+	public void setProductQuantity(double productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+	
+	
+	
 	
 	
 	

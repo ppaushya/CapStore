@@ -1,14 +1,11 @@
 package com.capstore.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -16,27 +13,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Coupons {
 	
 	@Id
-	@Column(name="couponId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int couponId;
-	@Column(name="couponImageUrl")
 	private String couponImageUrl;
-	@Column(name="maxDiscount")
 	private double maxDiscount;
-	@Column(name="couponCode", unique = true)
+	@Column(unique = true)
 	private String couponCode;
-	@Column(name="discountPercentage")
 	private int discountPercentage;
-	
-	@Column(name="endDate")
-	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date endDate;
+	private boolean isCouponAvailable=true;
 	
 	public int getCouponId() {
 		return couponId;
 	}
 	public void setCouponId(int couponId) {
 		this.couponId = couponId;
+	}
+	public String getCouponImageUrl() {
+		return couponImageUrl;
+	}
+	public void setCouponImageUrl(String couponImageUrl) {
+		this.couponImageUrl = couponImageUrl;
 	}
 	public double getMaxDiscount() {
 		return maxDiscount;
@@ -56,33 +52,27 @@ public class Coupons {
 	public void setDiscountPercentage(int discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
-	public String getCouponImageUrl() {
-		return couponImageUrl;
+	public boolean isCouponAvailable() {
+		return isCouponAvailable;
 	}
-	public void setCouponImageUrl(String couponImageUrl) {
-		this.couponImageUrl = couponImageUrl;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setCouponAvailable(boolean isCouponAvailable) {
+		this.isCouponAvailable = isCouponAvailable;
 	}
 	@Override
 	public String toString() {
 		return "Coupons [couponId=" + couponId + ", couponImageUrl=" + couponImageUrl + ", maxDiscount=" + maxDiscount
-				+ ", couponCode=" + couponCode + ", discountPercentage=" + discountPercentage + ", endDate=" + endDate
-				+ "]";
+				+ ", couponCode=" + couponCode + ", discountPercentage=" + discountPercentage + ", isCouponAvailable="
+				+ isCouponAvailable + "]";
 	}
-	public Coupons(int couponId, String couponImageUrl, double maxDiscount, String couponCode,
-			int discountPercentage, Date endDate) {
+	public Coupons(int couponId, String couponImageUrl, double maxDiscount, String couponCode, int discountPercentage,
+			boolean isCouponAvailable) {
 		super();
 		this.couponId = couponId;
 		this.couponImageUrl = couponImageUrl;
 		this.maxDiscount = maxDiscount;
 		this.couponCode = couponCode;
 		this.discountPercentage = discountPercentage;
-		this.endDate = endDate;
+		this.isCouponAvailable = isCouponAvailable;
 	}
 	public Coupons() {
 		super();

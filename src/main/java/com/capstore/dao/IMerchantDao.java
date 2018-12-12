@@ -20,6 +20,4 @@ public interface IMerchantDao extends JpaRepository<Merchant, Integer>{
 	
 	//public List<Merchant> getAllMerchants();
 	
-	 
-
 }

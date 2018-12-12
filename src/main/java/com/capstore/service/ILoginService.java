@@ -16,5 +16,7 @@ public interface ILoginService {
 	public Login getLoginByEmailId(String emailId);
 
 	public void updateLogin(Login login);
+
+	public void remove(String emailId);
 	
 }
