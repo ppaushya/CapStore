@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.capstore.model.Invoice;
 import com.capstore.model.Shipment;
 
-@Repository("invoicedao")
+@Repository("invoiceDao")
 @Transactional
 public interface IInvoiceDao extends JpaRepository<Invoice,Integer> {
 

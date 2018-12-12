@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IAddressDao;
 import com.capstore.model.Address;
+import com.capstore.model.Customer;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 
@@ -15,20 +16,22 @@ public class AddressService implements IAddressService{
 
 	@Autowired
 
-	IAddressDao addressdao;
+	IAddressDao addressDao;
 
 	//Get all addresses
 	public List<Address> getAllAddresses() {
 
-		List<Address> add=addressdao.findAll();
+		List<Address> add=addressDao.findAll();
 		System.out.println("Service"+add);
-		return addressdao.findAll();
+		return addressDao.findAll();
 
 	}
 
 	public Address createAddress(Address address) {
 		
-		return addressdao.save(address) ;
+		return addressDao.save(address) ;
 	}
+
+	
 
 }

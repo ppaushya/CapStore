@@ -76,11 +76,9 @@ public class OrderController {
 	@GetMapping("/getorders/{custId}")//
 	public ResponseEntity<List<Order>> displayAllOrder(HttpSession session, @PathVariable("custId") Integer custId) {
 		List<Order> myorder = new ArrayList<Order>();
-		if (session.getAttribute("customerId") == custId)
+	
 			myorder = orderService.getOrdersForCustomer(custId);
-		else {
-			myorder = null;
-		}
+
 		return new ResponseEntity<List<Order>>(myorder, HttpStatus.OK);
 
 	}

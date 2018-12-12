@@ -13,7 +13,7 @@ import com.capstore.model.Order;
 public class InvoiceService implements IInvoiceService{
 
 	@Autowired
-	IInvoiceDao invoicedao;
+	IInvoiceDao invoiceDao;
 	
 	@Autowired
 	IOrderService orderService;
@@ -23,7 +23,7 @@ public class InvoiceService implements IInvoiceService{
 		
 		Order myOrder = orderService.findOrderById(OrderId);
 		
-		List<Invoice> invoices = invoicedao.findAll();
+		List<Invoice> invoices = invoiceDao.findAll();
 		
 		for(Invoice myInvoice: invoices) {
 			if(myInvoice.getOrder().equals(myOrder)) {
@@ -36,7 +36,7 @@ public class InvoiceService implements IInvoiceService{
 	@Override
 	public boolean generateInvoice(Invoice invoice) {
 		
-		invoicedao.save(invoice);
+		invoiceDao.save(invoice);
 		
 		return true;
 	}
