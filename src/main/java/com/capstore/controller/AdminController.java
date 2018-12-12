@@ -28,9 +28,11 @@ import com.capstore.model.Promos;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
+import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
 import com.capstore.service.IProductService;
 import com.capstore.service.IPromoService;
+import com.capstore.service.LoginService;
 import com.capstore.service.StorageService;
 
 
@@ -47,6 +49,9 @@ public class AdminController {
 	
 	@Autowired
 	IEmailService emailService;
+	
+	@Autowired
+	ILoginService loginService;
 	
 	@Autowired
 	public IMerchantService merchantService;
@@ -126,7 +131,7 @@ public class AdminController {
 	@RequestMapping("/merchantVerification/{merchantId}")
 	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@PathVariable("merchantId") int merchantId) {
 		
-		Merchant merchant = merchantService.getMerchant(merchantId);
+		Merchant merchant = merchantService.getMerchantByMerchantId(merchantId);
 		merchant.setVerified(true); 
 		merchantService.updateMerchant(merchant);
 		
@@ -142,13 +147,14 @@ public class AdminController {
 	
 	
 	//admin removes Merchant by clicking on reject button
-	@RequestMapping("/merchantReject")
-	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@RequestBody Merchant merchant){
+	@GetMapping("/merchantReject/{merchantId}")
+	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@PathVariable("merchantId") int merchantId){
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
 		
-	
-	    merchant.setVerified(false);
+		Merchant merchant=merchantService.getMerchantByMerchantId(merchantId);
+		System.out.println(merchant);
+	    
 	    System.out.println("\r\n" + 
 	    		"                                                                                                                                                                                                                                                                                                          \r\n" + 
 	    		"                                         dddddddd                                                                                                                                                                                         dddddddd                                                        \r\n" + 
@@ -177,7 +183,10 @@ public class AdminController {
 	    		"                                                                                                                                     jjjjjj                                                                                                                                                               \r\n" + 
 	    		"");
 	    
+	    merchant.setVerified(false);
 	    merchantService.updateMerchant(merchant);
+	    
+	    loginService.remove(merchant.getEmailId());
 		
 		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
