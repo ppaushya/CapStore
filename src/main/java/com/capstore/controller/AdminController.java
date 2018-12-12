@@ -111,21 +111,20 @@ public class AdminController {
 	}
 	
 	//admin verifies Merchant by clicking on approve button
-	@RequestMapping("/merchantVerification")
-	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@RequestBody Merchant merchant) {
+	@RequestMapping("/merchantVerification/{merchantId}")
+	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@PathVariable("merchantId") int merchantId) {
+		
+		Merchant merchant = merchantService.getMerchant(merchantId);
+		merchant.setVerified(true); 
+		merchantService.updateMerchant(merchant);
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
-		
-	 
-	    
-	    merchant.setVerified(true);
-	    Login login = new Login();
+		  
+		Login login = new Login();
 	    login.setEmailId(merchant.getEmailId());
 	    login.setPassword(merchant.getMerchantPassword());
 	    login.setUserTypes("MERCHANT");
-        merchantService.updateMerchant(merchant);	
-        
-		
+        		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
 	}
 	
@@ -188,7 +187,13 @@ public class AdminController {
 //	************************Inventory(Products)**********************************************
 	
 	
-	
+	@GetMapping("/editAllPromos/{promoCode}/{category}")
+	public ResponseEntity<Boolean> editAllPromos(@PathVariable("promoCode") String promoCode,@PathVariable("category") String category){
+		Promos promo=promoService.getPromo(promoCode);
+		inventoryMerchantService.editAllPromos(promo,category);
+		return new ResponseEntity(true,HttpStatus.OK);
+			
+	}
 
 	@GetMapping("/viewInventories")
 	public ResponseEntity<List<Inventory>> getAllInventories(){
