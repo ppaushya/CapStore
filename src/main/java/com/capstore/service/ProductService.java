@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IProductDao;
+import com.capstore.model.Merchant;
 import com.capstore.model.Product;
 
 @Service("productSenvice")
@@ -114,4 +115,5 @@ public class ProductService implements IProductService{
 		
 		return discountedPrice;
 	}
+
 }
