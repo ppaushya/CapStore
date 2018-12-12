@@ -29,11 +29,11 @@ public class CartController {
 	@Autowired
 	ICartService cartService;
 	
-	@DeleteMapping("/deleteProductFromCart/{customerId}/{productId}")
-	public ResponseEntity<Cart> deleteCartProduct(@PathVariable("customerId") Integer customerId,
+	@DeleteMapping("/deleteProductFromCart/{customerEmailId}/{productId}")
+	public ResponseEntity<Cart> deleteCartProduct(@PathVariable("customerEmailId") String customerEmailId,
 													@PathVariable("productId") Integer productId)
 	{
-		Cart cart=cartService.deleteProductFromCart(customerId,productId);
+		Cart cart=cartService.deleteProductFromCart(customerEmailId,productId);
 		
 		if(cart==null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
@@ -41,21 +41,21 @@ public class CartController {
 	}
 	
 
-	@PostMapping("/addProductToCart/{custId}")
+	@PostMapping("/addProductToCart/{customerEmailId}")
 	public ResponseEntity<Cart> addProductToCart(@RequestBody CartProduct cartProduct,
-													@PathVariable("custId") Integer custId, HttpSession session) 
+													@PathVariable("customerEmailId") String customerEmailId, HttpSession session) 
 	{
-		Cart cart = cartService.addProductToCart(cartProduct, custId);
+		Cart cart = cartService.addProductToCart(cartProduct, customerEmailId);
 	
 		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
 
-	@GetMapping("/getCartProducts/{customerId}")
-	public ResponseEntity<Cart> getCartProducts(HttpSession sessison, @PathVariable("customerId") Integer customerId) {
+	@GetMapping("/getCartProducts/{customerEmailId}")
+	public ResponseEntity<Cart> getCartProducts(HttpSession sessison, @PathVariable("customerEmailId") String customerEmailId) {
 		
-		Cart cart=cartService.getCartProducts(customerId);
+		Cart cart=cartService.getCartProducts(customerEmailId);
 		
 		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
@@ -63,11 +63,11 @@ public class CartController {
 
 	}
 	
-	@PostMapping("/updateCartProductQuantity/{customerId}")
+	@PostMapping("/updateCartProductQuantity/{customerEmailId}")
 	public ResponseEntity<Cart> updateCartProductQuantity(@RequestBody CartProduct cartProduct,
-														@PathVariable("customerId") Integer customerId, HttpSession session){
+														@PathVariable("customerEmailId") String customerEmailId, HttpSession session){
 		
-		Cart cart=cartService.updateCartProductQuantity(cartProduct,customerId);
+		Cart cart=cartService.updateCartProductQuantity(cartProduct,customerEmailId);
 		
 		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
