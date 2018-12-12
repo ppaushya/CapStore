@@ -12,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cart {
 	
 	@Id
@@ -63,5 +66,41 @@ public class Cart {
 	}
 	public Cart() {
 		super();
-	}	
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + cartId;
+		result = prime * result + ((cartProducts == null) ? 0 : cartProducts.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + minimumAmount;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cart other = (Cart) obj;
+		if (cartId != other.cartId)
+			return false;
+		if (cartProducts == null) {
+			if (other.cartProducts != null)
+				return false;
+		} else if (!cartProducts.equals(other.cartProducts))
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (minimumAmount != other.minimumAmount)
+			return false;
+		return true;
+	}
+	
 }

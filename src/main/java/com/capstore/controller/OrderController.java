@@ -28,7 +28,7 @@ public class OrderController {
 	@Autowired
 	private IOrderService orderService;
 
-	@GetMapping("/displayCartProducts/{orderId}")
+	@GetMapping("/displayCartProducts/{orderId}")//error
 	public ResponseEntity<List<Product>> displayCartProducts(HttpSession session,
 			@PathVariable("orderId") Integer orderId) {
 		List<Product> mycart = orderService.displayCartProducts(orderId);
@@ -43,42 +43,40 @@ public class OrderController {
 		return new ResponseEntity<Order>(order, HttpStatus.OK);
 	}
 
-	@PostMapping("/checkAvailabilityInInventory")
-	public ResponseEntity<String> checkAvailabilityInInventory(@RequestBody Order order) {
+	@PostMapping("/checkAvailabilityInInventory")//
+	public ResponseEntity<Boolean> checkAvailabilityInInventory(@RequestBody Order order) {
 		if (orderService.checkAvailabilityInInventory(order)) {
-			return new ResponseEntity("All products are available!", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Sorry, Order is not available!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@PostMapping("/placeOrder")
-	public ResponseEntity<String> placeOrder(@RequestBody Order order) {
+	@PostMapping("/placeOrder")//
+	public ResponseEntity<Boolean> placeOrder(@RequestBody Order order) {
 		if (!orderService.checkAvailabilityInInventory(order)) {
-			return new ResponseEntity("Sorry, some products are not available!", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 		if (orderService.placeOrder(order)) {
-			return new ResponseEntity("Order placed!", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Error occured while placing order", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@PostMapping("/deliverOrderAndUpdateInventory")
-	public ResponseEntity<String> deliverOrderAndUpdateInventory(@RequestBody Order order) {
+	@PostMapping("/deliverOrderAndUpdateInventory")//
+	public ResponseEntity<Boolean> deliverOrderAndUpdateInventory(@RequestBody Order order) {
 		if (orderService.deliverOrderAndUpdateInventory(order)) {
-			return new ResponseEntity("Inventory updated", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Error occured while updating inventory", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@GetMapping("/getorders/{custId}")
-	public ResponseEntity<List<Order>> displayAllOrder(HttpSession session,
-			@PathVariable("custId") Integer custId) {
+	@GetMapping("/getorders/{custId}")//
+	public ResponseEntity<List<Order>> displayAllOrder(HttpSession session, @PathVariable("custId") Integer custId) {
 		List<Order> myorder = new ArrayList<Order>();
-		if(session.getAttribute("customerId")==custId)
-			
+		if (session.getAttribute("customerId") == custId)
 			myorder = orderService.getOrdersForCustomer(custId);
 		else {
 			myorder = null;

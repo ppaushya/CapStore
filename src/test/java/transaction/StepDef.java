@@ -1,9 +1,15 @@
 package transaction;
 
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.capstore.dao.IOrderDao;
+import com.capstore.service.IOrderService;
+import com.capstore.service.OrderService;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.Before;
@@ -13,26 +19,24 @@ import cucumber.api.java.en.When;
 
 public class StepDef {
 
-	private WebDriver webdriver;
+	@Mock
+	IOrderDao orderDao;
+	
+	IOrderService orderService;
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\muasif\\Desktop\\chromedriver\\chromedriver.exe");
-		webdriver = new ChromeDriver();
+		MockitoAnnotations.initMocks(this);
+		//orderService = new OrderService();
 	}
 
 	@Given("^Order is placed$")
 	public void order_is_placed() throws Throwable {
-		WebElement acceptTC = webdriver.findElement(By.cssSelector("#terms.input-checkbox"));
-		acceptTC.click();
-
-		WebElement placeOrder = webdriver.findElement(By.cssSelector("#place_order"));
-		placeOrder.submit();
 	}
 
 	@When("^Navigated to payment page$")
 	public void navigated_to_payment_page() throws Throwable {
-		webdriver.get("//payment page url");
+		
 	}
 
 	@Then("^Get transaction details$")

@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Invoice {
 	
 	@Id
@@ -27,10 +29,6 @@ public class Invoice {
 	private Date InvoiceDate;
 	private double discountedPrice;
 	private double discount;
-	
-//	@Column(name="couponId")
-	@OneToOne(targetEntity=Coupons.class)
-	private Coupons coupon;
 	
 	public int getInvoiceNo() {
 		return invoiceNo;
@@ -62,26 +60,18 @@ public class Invoice {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	public Coupons getCoupon() {
-		return coupon;
-	}
-	public void setCoupon(Coupons coupon) {
-		this.coupon = coupon;
-	}
 	@Override
 	public String toString() {
 		return "Invoice [invoiceNo=" + invoiceNo + ", order=" + order + ", InvoiceDate=" + InvoiceDate
-				+ ", discountedPrice=" + discountedPrice + ", discount=" + discount + ", coupon=" + coupon + "]";
+				+ ", discountedPrice=" + discountedPrice + ", discount=" + discount + "]";
 	}
-	public Invoice(int invoiceNo, Order order, Date invoiceDate, double discountedPrice, double discount,
-			Coupons coupon) {
+	public Invoice(int invoiceNo, Order order, Date invoiceDate, double discountedPrice, double discount) {
 		super();
 		this.invoiceNo = invoiceNo;
 		this.order = order;
 		InvoiceDate = invoiceDate;
 		this.discountedPrice = discountedPrice;
 		this.discount = discount;
-		this.coupon = coupon;
 	}
 	public Invoice() {
 		super();

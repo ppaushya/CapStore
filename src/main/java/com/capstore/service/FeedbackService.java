@@ -26,14 +26,12 @@ public class FeedbackService implements IFeedbackService{
 		int sum=0;
 		int feedbacksNumber=0;
 		
-		List<Feedback> feedbacks = feedbackDao.findAll();
+		List<Feedback> feedbacks = feedbackDao.findByProductId(productId);
 		
 		for(Feedback myFeedback:feedbacks) {
-			if(myFeedback.getProduct().getProductId() == productId) {
 				
-				sum += myFeedback.getRatingProduct();
-				feedbacksNumber++;
-			}
+			sum += myFeedback.getRatingProduct();
+			feedbacksNumber++;
 		}
 		
 		if(feedbacksNumber!=0) {
@@ -50,14 +48,12 @@ public class FeedbackService implements IFeedbackService{
 		int sum=0;
 		int feedbacksNumber=0;
 		
-		List<Feedback> feedbacks = feedbackDao.findAll();
+		List<Feedback> feedbacks = feedbackDao.findByMerchantId(merchantId);
 		
 		for(Feedback myFeedback:feedbacks) {
-			if(myFeedback.getMerchant().getMerchantId() == merchantId) {
 				
-				sum += myFeedback.getRatingMerchant();
-				feedbacksNumber++;
-			}
+			sum += myFeedback.getRatingMerchant();
+			feedbacksNumber++;
 		}
 		
 		if(feedbacksNumber!=0) {
@@ -66,5 +62,4 @@ public class FeedbackService implements IFeedbackService{
 		
 		return averageRating;
 	}
-
 }

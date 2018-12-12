@@ -1,7 +1,5 @@
 package com.capstore.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +13,12 @@ public class CouponService implements ICouponService{
 	private ICouponDao couponsDao;
 	
 	@Override
-	public Boolean applyingCoupon(Coupons coupons) {
-		Optional<Coupons> coupon=couponsDao.findById(coupons.getCouponId());
-		if(coupon.isPresent()) {
-			return true;
-		}
-		return false;
+	public Coupons checkIfCouponCodeIsValid(String couponCode) {
 		
+		Coupons myCoupon=couponsDao.findByCouponCode(couponCode);
+		if(myCoupon.equals(null)) {
+			return null;
+		}
+		return myCoupon;
 	}
-
 }

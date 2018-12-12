@@ -11,7 +11,6 @@ import com.capstore.dao.ICustomerDao;
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
 import com.capstore.model.Customer;
-import com.capstore.model.Product;
 
 @Service("cartService")
 public class CartService implements ICartService {
@@ -25,16 +24,15 @@ public class CartService implements ICartService {
 	@Autowired
 	ICartProductDao cartProductDao;
 	
+	@Autowired
+	IProductService productService;
+	
 	
 
 	@Override
 	public Cart addProductToCart(CartProduct cartProduct, Integer custId) {
 		
 		Customer customer=customerDao.getOne(custId);
-		System.out.println(customer);
-		
-		
-		
 		
 		Cart cart=cartDao.findByCustomer(custId);
 		
@@ -44,27 +42,23 @@ public class CartService implements ICartService {
 			cart=new Cart();
 			
 			cart.setCustomer(customer);
-			System.out.println(cartProduct);
 			cartProductDao.save(cartProduct);
 			
 			cart.getCartProducts().add(cartProduct);
 			cart.setMinimumAmount(100);
 			
-			System.out.println("1"+cart);
 			cartDao.save(cart);
 		}
 		else
 		{
-			System.out.println("2"+cart);
 			List<CartProduct> cartProducts=cart.getCartProducts();
 			
 			for(CartProduct cartProduct1:cartProducts)
 			{
-				System.out.println("3"+cart);
+				
 				//if the product already exists
 				if(cartProduct1.getProduct().equals(cartProduct.getProduct()))
 				{
-					System.out.println("4"+cart);
 					return cart;
 				}
 			}
@@ -73,14 +67,76 @@ public class CartService implements ICartService {
 			cartProductDao.save(cartProduct);
 			
 			//add the product to cart table
-			cartProducts.add(cartProduct);
-			cart.setCartProducts(cartProducts);
+			cart.getCartProducts().add(cartProduct);
+			
 			cartDao.save(cart);
 			
 		}
 		return cart;
 	}
-
 	
+	@Override
+	public Cart deleteProductFromCart(Integer customerId, Integer productId) {
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		
+		if(cart==null)
+			return null;
+		else
+		{
+			
+			CartProduct cartProduct=cartProductDao.findByProduct(productId,customerId);
+			
+			//cart.getCartProducts().remove(cartProduct);
+			cartProductDao.delete(cartProduct);
+			cart=cartDao.findByCustomer(customerId);
+			
+			return cart;
+		}
+		
+	}
+	
+	@Override
+	public Cart getCartProducts(Integer customerId) {
+		
+		Cart cart=cartDao.findByCustomer(customerId);
+		return cart;
+	}
+
+	@Override
+	public Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId) {
+		
+		//Cart cart=cartDao.findByCustomer(customerId);
+		
+		int quantity=cartProduct.getQuantity();
+		
+		cartProductDao.updateQuantity(quantity,cartProduct.getProduct().getProductId(),customerId);
+		
+		 Cart cart=cartDao.findByCustomer(customerId);
+		
+		return cart;
+	}
+
+	@Override
+	public double calculateTotalCartAmount(Cart cart) {
+		
+		if(cart == null) {
+			return 0;
+		}
+		
+		double totalAmount=0;
+		
+		List<CartProduct> cartProducts = cart.getCartProducts();
+		
+		for(CartProduct cartProduct:cartProducts) {
+			
+			double price = productService.getDiscountedPrice(cartProduct.getProduct());
+			double quantity = (double)cartProduct.getQuantity();
+			
+			totalAmount += price*quantity;
+		}
+		
+		return totalAmount;
+	}
 
 }

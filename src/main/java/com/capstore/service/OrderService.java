@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IOrderDao;
+import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
 import com.capstore.model.Order;
 import com.capstore.model.Product;
@@ -21,13 +22,25 @@ public class OrderService implements IOrderService {
 	private IOrderDao orderDao;
 	@Autowired
 	private IProductService productService;
+	
+	public OrderService(IOrderDao orderDao, IProductService productService) {
+		super();
+		this.orderDao = orderDao;
+		this.productService = productService;
+	}
 
 	@Override
 	public List<Product> displayCartProducts(int orderId) {		//display the cart items
 		Order order = findOrderById(orderId);
 		List<Product> products = new ArrayList<Product>();
-		for(CartProduct cartProduct:order.getCart().getCartProducts()) {
-			products.add(cartProduct.getProduct());
+		if(order!=null) {
+			Cart cart = order.getCart();
+			if(cart!=null) {
+				List<CartProduct> cartProducts = cart.getCartProducts();
+				for(CartProduct cartProduct:cartProducts) {
+					products.add(cartProduct.getProduct());
+				}
+			}
 		}
 		return products;
 	}
@@ -104,7 +117,7 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<Order> getOrdersForCustomer(int custId) { // to get orders for a customer
-		
+		//System.out.println("Service"+orderDao.getOrdersForCustomer(custId) );
 		return orderDao.getOrdersForCustomer(custId) ;
 	}
 	

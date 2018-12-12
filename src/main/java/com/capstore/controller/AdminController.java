@@ -1,5 +1,6 @@
 package com.capstore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +14,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Inventory;
 import com.capstore.model.Login;
 import com.capstore.model.Merchant;
+import com.capstore.model.Product;
 import com.capstore.model.Promos;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
 import com.capstore.service.IMerchantService;
+import com.capstore.service.IProductService;
 import com.capstore.service.IPromoService;
+import com.capstore.service.StorageService;
+
 
 @RestController
 @CrossOrigin("*")
@@ -47,6 +53,12 @@ public class AdminController {
 	
 	@Autowired
 	IInventoryMerchantService inventoryMerchantService;
+	
+	@Autowired
+	StorageService storageService;
+	
+	@Autowired
+	IProductService productService;
 	
 
 	
@@ -172,9 +184,39 @@ public class AdminController {
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
 	}
 	
+//  *********************** Upload Images ****************************************
+	
+	List<String> files = new ArrayList<String>();
+	
+	@PostMapping("/post/{productId}")
+	public ResponseEntity<String> handleFileUpload(@PathVariable("productId") String productId,@RequestParam("file") MultipartFile file) {
+		
+		String message = "";
+		try {
+			storageService.store(file,productId);
+			files.add(file.getOriginalFilename());
+           // System.out.println(files);
+			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			message = "FAIL to upload " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}
+	}
 	
 	
-	
+	@GetMapping("/viewProducts")
+	public ResponseEntity<List<Product>> getAllProducts(){
+		
+		System.out.println("VIEWproducts");
+		List<Product> products=productService.getAllProducts();
+		if(products.isEmpty())
+			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
+		
+		
+		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
+		
+	}
 	
 	
 	
