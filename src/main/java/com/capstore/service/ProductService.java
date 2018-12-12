@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IProductDao;
+import com.capstore.model.Merchant;
 import com.capstore.model.Product;
 
-@Service("productSenvice")
+@Service("productService")
 public class ProductService implements IProductService{
 
 	@Autowired
@@ -93,10 +94,13 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public double getDiscountedPrice(int productId) {
+	public double getDiscountedPrice(Product product) {
+		
+		if(product == null) {
+			return 0;
+		}
 		
 		double discountedPrice = 0;
-		Product product = getProduct(productId);
 		int discount = product.getDiscount();
 		int promo = product.getPromo().getDiscount();
 		
@@ -114,4 +118,5 @@ public class ProductService implements IProductService{
 		
 		return discountedPrice;
 	}
+
 }

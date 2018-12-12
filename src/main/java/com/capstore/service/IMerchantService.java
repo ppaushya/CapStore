@@ -11,6 +11,8 @@ public interface IMerchantService {
 	public void deleteMerchant(Integer merchantId);
 
 	public Merchant getMerchantByMail(String merchantMail);
+	
+	public Merchant getMerchantByMerchantId(int merchantId);
 
 	public void updateMerchant(Merchant merchant);
 	

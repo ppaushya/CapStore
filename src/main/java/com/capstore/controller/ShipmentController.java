@@ -42,23 +42,23 @@ public class ShipmentController {
 	public ResponseEntity<Shipment> getShipment(@PathVariable("shipmentId") Integer shipmentId) {
 		Shipment shipment = shipmentService.getShipment(shipmentId);
 		if (shipment == null)
-			return new ResponseEntity("Sorry! Shipment is unavailable!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity(shipment, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Shipment>(shipment, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/shipment/all")
 	public ResponseEntity<List<Shipment>> getAllShipments() {
 		List<Shipment> shipments = shipmentService.getAllShipments();
 		if (shipments.isEmpty())
-			return new ResponseEntity("Sorry! No Shipments unavailable!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity(shipments, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/shipment/undelivered")
 	public ResponseEntity<List<Shipment>> getAllUndeliveredShipments() {
 		List<Shipment> shipments = shipmentService.getAllUndeliveredShipments();
 		if (shipments.isEmpty())
-			return new ResponseEntity("Sorry! No Undelivered Shipments unavailable!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity(shipments, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
 	}
 
@@ -75,7 +75,7 @@ public class ShipmentController {
 
 	@PostMapping("/updateShipmentDeliveryStatus/{shipmentId}/{status}")
 	public ResponseEntity<Boolean> deliverOrderAndUpdateInventory(@PathVariable("shipmentId") Integer shipmentId,
-			@PathVariable("status") String status){
+			@PathVariable("status") String status) {
 		if (shipmentService.updateShipmentDeliveryStatus(shipmentId, status)) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {

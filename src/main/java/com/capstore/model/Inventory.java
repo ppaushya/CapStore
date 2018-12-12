@@ -43,6 +43,9 @@ public class Inventory {
 	@Column(name="inventoryQuantity")
 	private int inventoryQuantity;
 	
+	@Column(name="imageUrl")
+	private String imageUrl;
+	
 	public int getInventoryId() {
 		return inventoryId;
 	}
@@ -109,16 +112,26 @@ public class Inventory {
 	public void setInventoryQuantity(int inventoryQuantity) {
 		this.inventoryQuantity = inventoryQuantity;
 	}
+	
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	@Override
 	public String toString() {
 		return "Inventory [inventoryId=" + inventoryId + ", merchant=" + merchant + ", productName=" + productName
 				+ ", productCategory=" + productCategory + ", productPrice=" + productPrice + ", productDescription="
 				+ productDescription + ", productBrand=" + productBrand + ", promo=" + promo + ", status=" + status
-				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + "]";
+				+ ", inventoryType=" + inventoryType + ", inventoryQuantity=" + inventoryQuantity + ", imageUrl="
+				+ imageUrl + "]";
 	}
+	
 	public Inventory(int inventoryId, Merchant merchant, String productName, String productCategory,
 			double productPrice, String productDescription, String productBrand, Promos promo, String status,
-			String inventoryType, int inventoryQuantity) {
+			String inventoryType, int inventoryQuantity, String imageUrl) {
 		super();
 		this.inventoryId = inventoryId;
 		this.merchant = merchant;
@@ -131,6 +144,7 @@ public class Inventory {
 		this.status = status;
 		this.inventoryType = inventoryType;
 		this.inventoryQuantity = inventoryQuantity;
+		this.imageUrl = imageUrl;
 	}
 	public Inventory() {
 		super();
@@ -139,6 +153,7 @@ public class Inventory {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
 		result = prime * result + inventoryId;
 		result = prime * result + inventoryQuantity;
 		result = prime * result + ((inventoryType == null) ? 0 : inventoryType.hashCode());
@@ -163,6 +178,11 @@ public class Inventory {
 		if (getClass() != obj.getClass())
 			return false;
 		Inventory other = (Inventory) obj;
+		if (imageUrl == null) {
+			if (other.imageUrl != null)
+				return false;
+		} else if (!imageUrl.equals(other.imageUrl))
+			return false;
 		if (inventoryId != other.inventoryId)
 			return false;
 		if (inventoryQuantity != other.inventoryQuantity)
@@ -211,5 +231,6 @@ public class Inventory {
 			return false;
 		return true;
 	}
+	
 	
 }

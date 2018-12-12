@@ -26,11 +26,11 @@ public class BankAccountController {
 	private IBankAccountService bankAccountService;
 
 	@PostMapping("/bankaccount")
-	public ResponseEntity<String> addBankAccount(@RequestBody BankAccount bankAccount) {
+	public ResponseEntity<Boolean> addBankAccount(@RequestBody BankAccount bankAccount) {
 		if (bankAccountService.addBankAccount(bankAccount)) {
-			return new ResponseEntity("Bank Account added successfully!", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
-			return new ResponseEntity("Sorry! Bank Account insertion failed!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -38,37 +38,38 @@ public class BankAccountController {
 	public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
 		List<BankAccount> bankAccounts = bankAccountService.getAllBankAccounts();
 		if (bankAccounts.isEmpty()) {
-			return new ResponseEntity("Sorry! No Saved Bank Accounts!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity(bankAccounts, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<List<BankAccount>>(bankAccounts, HttpStatus.OK);
 		}
 	}
 
-	/*@PostMapping("/bankaccount/credential")
-	public ResponseEntity<BankAccount> getBankAccountFromUserNamePassword(@RequestBody String userName,
-			@RequestBody String userPassword) {
-		BankAccount bankAccount = bankAccountService.getBankAccountFromUserNamePassword(userName, userPassword);
-		if (bankAccount==null) {
-			return new ResponseEntity("Sorry! No such user exists!", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<BankAccount>(bankAccount, HttpStatus.OK);
-	}*/
+	/*
+	 * @PostMapping("/bankaccount/credential") public ResponseEntity<BankAccount>
+	 * getBankAccountFromUserNamePassword(@RequestBody String userName,
+	 * 
+	 * @RequestBody String userPassword) { BankAccount bankAccount =
+	 * bankAccountService.getBankAccountFromUserNamePassword(userName,
+	 * userPassword); if (bankAccount==null) { return new
+	 * ResponseEntity("Sorry! No such user exists!", HttpStatus.NOT_FOUND); } return
+	 * new ResponseEntity<BankAccount>(bankAccount, HttpStatus.OK); }
+	 */
 
 	@PutMapping("/bankaccount/deposit/{amount}")
-	public ResponseEntity<String> depositAmount(@RequestBody BankAccount account, @PathVariable double amount) {
-		if(bankAccountService.depositAmount(amount, account)) {
-			return new ResponseEntity<String>("Amount deposited Successfully!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
+	public ResponseEntity<Boolean> depositAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if (bankAccountService.depositAmount(amount, account)) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 	}
 
 	@PutMapping("/bankaccount/withdraw/{amount}")
-	public ResponseEntity<String> withdrawAmount(@RequestBody BankAccount account, @PathVariable double amount) {
-		if(bankAccountService.withdrawAmount(amount, account)) {
-			return new ResponseEntity<String>("Amount withdrawn Successfully!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Error occured", HttpStatus.OK);
+	public ResponseEntity<Boolean> withdrawAmount(@RequestBody BankAccount account, @PathVariable double amount) {
+		if (bankAccountService.withdrawAmount(amount, account)) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IWishlistDao;
+import com.capstore.model.CartProduct;
 import com.capstore.model.Customer;
 import com.capstore.model.Product;
 import com.capstore.model.Wishlist;
@@ -99,9 +100,16 @@ public class WishlistService implements IWishlistService{
 	@Override
 	public boolean moveFromWishlistToCart(int customerId, int productId) {
 		
-		Wishlist myWishlist = deleteFromWishlist(customerId, productId);
+		deleteFromWishlist(customerId, productId);
 		
+		CartProduct cartProduct = new CartProduct();
 		
-		return false;
+		cartProduct.setProduct(productService.getProduct(productId));
+		cartProduct.setCustomer(customerService.getCustomerByCustomerId(customerId));
+		cartProduct.setQuantity(1);
+		
+		cartService.addProductToCart(cartProduct, customerId);
+		
+		return true;
 	}
 }

@@ -54,9 +54,9 @@ public class ProductController {
 	@PostMapping("/verifyCoupon/{productId}")
 	public ResponseEntity<Double> applyingDiscount( @PathVariable("productId") Integer productId){
 		
-		double discountedPrice = productService.getDiscountedPrice(productId);
+		Product product = productService.getProduct(productId);
+		double discountedPrice = productService.getDiscountedPrice(product);
 		
 		return new ResponseEntity<Double>(discountedPrice,HttpStatus.OK);
-	
 	}
 }

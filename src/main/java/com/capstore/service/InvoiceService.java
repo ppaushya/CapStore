@@ -12,7 +12,6 @@ import com.capstore.model.Order;
 @Service("invoiceService")
 public class InvoiceService implements IInvoiceService{
 
-	
 	@Autowired
 	IInvoiceDao invoicedao;
 	
@@ -35,8 +34,10 @@ public class InvoiceService implements IInvoiceService{
 	}
 
 	@Override
-	public Invoice generateInvoice(Invoice invoice) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean generateInvoice(Invoice invoice) {
+		
+		invoicedao.save(invoice);
+		
+		return true;
 	}
 }
