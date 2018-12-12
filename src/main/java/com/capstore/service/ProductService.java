@@ -159,4 +159,9 @@ public class ProductService implements IProductService{
 		productDao.save(product);
 		
 	}
+	
+	@Override
+	public List<Object[]> getBestSellerId() {
+		return productDao.getBestSellerId();
+	}
 }

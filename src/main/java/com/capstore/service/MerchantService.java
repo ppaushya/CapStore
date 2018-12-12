@@ -1,11 +1,13 @@
 package com.capstore.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IMerchantDao;
+import com.capstore.model.Customer;
 import com.capstore.model.Merchant;
 
 @Service("merchantService")
@@ -47,14 +49,11 @@ public class MerchantService implements IMerchantService{
 	}
 
 	
-
-	
-
-	
-	
 	@Override
 	public String getMerchantName(int merchantId) {
 		Merchant merchant=merchantDao.findById(merchantId).get();
+		if(merchant==null)	
+			return null;
 		return merchant.getMerchantName();
 	}
 
@@ -69,6 +68,15 @@ public class MerchantService implements IMerchantService{
 		if(merchant==null)
 			return true;
 		else return false;
+	}
+
+	@Override
+	public Merchant getMerchantByMerchantId(int merchantId) {
+		Optional<Merchant> optional = merchantDao.findById(merchantId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
 	}
 	
 }
