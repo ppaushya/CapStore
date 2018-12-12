@@ -29,9 +29,8 @@ public class StorageService {
 	  IProductService productService;
 		Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
-		//private final Path rootLocation = Paths.get("D:\\FinalBackendLocalRepo\\CapStore\\src\\main\\resources\\static\\upload-dir");
-		private final Path rootLocation = Paths.get("C:\\Users\\bannapoo\\Desktop\\FinalProject\\CapStore123\\src\\main\\resources\\static\\upload-dir");
-
+		private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
+		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
 		public void store(MultipartFile file,String productId) {
