@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class InvoiceService implements IInvoiceService{
 		invoiceDao.save(invoice);
 		
 		return true;
+	}
+
+	@Override
+	public List<Invoice> getInvoiceDetailsBetweenDates(Date fromDate, Date toDate) {
+		List<Invoice> invoiceDetails=invoiceDao.getInvoiceDetailsBetweenDates(fromDate, toDate);
+		return invoiceDetails;
 	}
 }

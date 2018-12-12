@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.capstore.model.CartProduct;
@@ -18,5 +19,7 @@ public interface IOrderService {
 	public boolean deleteOrder(int orderId);
 	
 	public List<Order> getOrdersForCustomer( int custId);
+	
+	public List<Order> getOrdersBetween(Date fromDate, Date toDate);
 	
 }
