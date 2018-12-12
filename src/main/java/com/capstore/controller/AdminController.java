@@ -1,9 +1,11 @@
 package com.capstore.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +27,8 @@ import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.model.Product;
 import com.capstore.model.Promos;
+import com.capstore.model.SalesAnalysis;
+import com.capstore.service.IBusinessAnalysisService;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
@@ -39,7 +43,6 @@ import com.capstore.service.StorageService;
 @RequestMapping("/api/v1")
 public class AdminController {
 	
-	@Autowired
 	public ICustomerService customerService;
 	
 	@Autowired
@@ -59,6 +62,9 @@ public class AdminController {
 	
 	@Autowired
 	IProductService productService;
+	
+	@Autowired
+	IBusinessAnalysisService businessAnalysisService;
 	
 
 	
@@ -327,7 +333,17 @@ public class AdminController {
 	
 	
 //	************************Generate Business Analysis**********************************************
-	
+	@GetMapping("/salesAnalysis/{fromDate}/to/{toDate}")
+	public ResponseEntity<List<SalesAnalysis>> getSalesAnalysis(@PathVariable("fromDate") @DateTimeFormat(pattern="yyyy-MM-dd")
+	Date fromDate, @PathVariable("toDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate)	{
+		
+		List<SalesAnalysis> salesAnalysis=businessAnalysisService.getSalesAnalysis(fromDate, toDate);
+		
+		if(salesAnalysis.isEmpty())
+			return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis,HttpStatus.OK);
+		
+	}
 	
 
 	
