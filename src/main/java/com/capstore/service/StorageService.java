@@ -29,7 +29,7 @@ public class StorageService {
 	  IProductService productService;
 		Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
-		private final Path rootLocation = Paths.get("D:\\FinalBackendLocalRepo\\CapStore\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("D:\\Users\\mokotha\\Desktop\\CapStore\\src\\main\\resources\\static\\upload-dir");
 		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
