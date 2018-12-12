@@ -1,6 +1,7 @@
 package com.capstore.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,6 +126,11 @@ public class OrderService implements IOrderService {
 	public boolean deleteOrder(int orderId) {
 		orderDao.deleteById(orderId);
 		return true;
+	}
+
+	@Override
+	public List<Order> getOrdersBetween(Date fromDate, Date toDate) {
+		return orderDao.getOrdersBetween(fromDate, toDate);
 	}
 
 }

@@ -59,10 +59,9 @@ public class ValidationOfUserController {
 	@PostMapping("/sendVerificationMail")
 	public ResponseEntity<Boolean> sendVerificationMail(@RequestBody Customer customer){
 		
-		/*	try
+			try
 			{
-*/
-//			if(loginService.getLoginByEmailId(customer.getEmailId())) {
+			if(loginService.getLoginByEmailId(customer.getEmailId())==null) {
 
 				customer.getAddresses().add(this.address);
 				customerService.createCustomer(customer);
@@ -74,17 +73,17 @@ public class ValidationOfUserController {
 				mail.setLink("//localhost:4200/auth/sign-in");
 				emailService.sendEmail(mail);
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-			/*}
+			}
 			else
 			{
-				
+				return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 			}
 			}
 			catch(Exception e)
 			{
 				return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 			}
-*/
+
 			
 		
 

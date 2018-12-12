@@ -29,7 +29,7 @@ public class StorageService {
 	  IProductService productService;
 		Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
-		private final Path rootLocation = Paths.get("C:\\Users\\bannapoo\\git\\CapStore2\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
@@ -56,9 +56,8 @@ public class StorageService {
 			try {
 				if(!Files.isDirectory(rootLocation))
 				    Files.createDirectories(rootLocation);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				throw new RuntimeException("Could not initialize storage!");
-				//System.out.println("ohk");
 			}
 		}
 }
