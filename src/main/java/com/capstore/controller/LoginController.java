@@ -75,7 +75,7 @@ public class LoginController {
 			return  new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		}
 		//emailService.sendEmail(mail);
-;
+
 		
 		
 		
