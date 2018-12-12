@@ -18,5 +18,5 @@ public interface IProductService {
 	
 	public List<Product> getSimilarProducts(int productId);
 	
-	public double getDiscountedPrice(int productId);
+	public double getDiscountedPrice(Product product);
 }
