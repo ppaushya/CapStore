@@ -1,6 +1,8 @@
 package com.capstore.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.http.Header;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +43,14 @@ public class ManageMerchantController {
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
 			@RequestBody Merchant merchant){
-		try {
+		
 		merchantService.addMerchant(merchant);
 		return new ResponseEntity<>(true, HttpStatus.OK);
-		}
-		catch(Exception e)
-		{
-			return new ResponseEntity<>(false, HttpStatus.OK);
-		}
+		
+		
+//		{
+//			return new ResponseEntity<>(false, HttpStatus.OK);
+//		}
 		
 	
 	}
@@ -69,13 +71,11 @@ public class ManageMerchantController {
 
 	}
 
-	@RequestMapping(value="/passwordMatch",method=RequestMethod.POST, headers="Accept=*/*")
-	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session1) {
+	@PostMapping("/passwordMatch/{email}")
+	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session, @PathVariable("email") String mail) {
 
-           session1.setAttribute("email", LoginController.emailId); 
-		String merchantMail=(String) session1.getAttribute("email");
-		System.out.println("session1:"+ session1);
-		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		
+		Merchant merchant=merchantService.getMerchantByMail(mail);
 		System.out.println(merchant);
 		if(merchant.getMerchantPassword().equals(pasword)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
@@ -88,15 +88,15 @@ public class ManageMerchantController {
 
 	}
 
-	@RequestMapping(value="/passwordChange",method=RequestMethod.POST, headers="Accept=*/*")
-	public ResponseEntity<Boolean> passwordChange(@RequestBody String password,HttpSession session1) {
+	@PostMapping("/passwordChange/{email}")
+	public ResponseEntity<Boolean> passwordChange(@RequestBody String password, HttpServletRequest request, @PathVariable("email") String mail) {
 
-
-		String merchantMail=(String) session1.getAttribute("email");
-		Merchant merchant=merchantService.getMerchantByMail(merchantMail);
+		
+		//String merchantMail=(String) session.getAttribute("email");
+		Merchant merchant=merchantService.getMerchantByMail(mail);
 		merchant.setMerchantPassword(password);
 		merchantService.updateMerchant(merchant);
-		Login login=loginService.getLoginByEmailId(LoginController.emailId);
+		Login login=loginService.getLoginByEmailId(mail);
 		login.setPassword(password);
 		loginService.updateLogin(login);
 		
@@ -107,12 +107,7 @@ public class ManageMerchantController {
 
 	}
 
-	@GetMapping("/destroySession")
-	public ResponseEntity<Boolean> destroySession(HttpSession session) {
-		session.invalidate();
-
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
+	
 
 
 

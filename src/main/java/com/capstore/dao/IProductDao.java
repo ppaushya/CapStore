@@ -21,7 +21,6 @@ public interface IProductDao extends JpaRepository<Product,Integer> {
 			+ " Product group by productCategory")
 	public List<Object[]> getProductSold();
 	
-//	
 	@Query("SELECT productCategory, inventory.merchant.merchantId FROM Product WHERE productsSold in(SELECT MAX(productsSold) from Product GROUP BY productCategory)")
 	public List<Object[]> getBestSellerId();
 }

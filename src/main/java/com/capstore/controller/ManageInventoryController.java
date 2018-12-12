@@ -48,7 +48,7 @@ public class ManageInventoryController {
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
 		System.out.println(inventories);
 		if(inventories.isEmpty())
-			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
+			 return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
 		
 		
 		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
@@ -57,15 +57,15 @@ public class ManageInventoryController {
 	
 	
 
-	@PostMapping("/inventories")
+	@PostMapping("/inventories/{mailId}")
 	public ResponseEntity<List<Inventory>> addNewInventory(@RequestBody Inventory inventory,
-			HttpSession session){
+		 @PathVariable("mailId") String mailId){
 		
 		System.out.println(inventory);
 		 
-		System.out.println("SESSION ID"+session.getAttribute("emailId").toString());
+		
 		//com.capstore.controller.ManageInventoryController.addNewInventory(ManageInventoryController.java:66)
-		merchant=merchantService.getMerchantByMail(session.getAttribute("emailId").toString());
+		merchant=merchantService.getMerchantByMail(mailId);
 		System.out.println("this"+merchant);
 		inventory.setMerchant(merchant);
 		System.out.println(merchant);
