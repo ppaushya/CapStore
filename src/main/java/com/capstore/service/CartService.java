@@ -24,6 +24,9 @@ public class CartService implements ICartService {
 	@Autowired
 	ICartProductDao cartProductDao;
 	
+	@Autowired
+	IProductService productService;
+	
 	
 
 	@Override
@@ -72,9 +75,7 @@ public class CartService implements ICartService {
 		}
 		return cart;
 	}
-
-
-
+	
 	@Override
 	public Cart deleteProductFromCart(String customerEmailId, Integer productId) {
 		
@@ -96,7 +97,7 @@ public class CartService implements ICartService {
 		}
 		
 	}
-
+	
 	@Override
 	public Cart getCartProducts(String customerEmailId) {
 		Customer customer=customerDao.getByEmailId(customerEmailId);
@@ -120,6 +121,26 @@ public class CartService implements ICartService {
 		return cart;
 	}
 
-	
+	@Override
+	public double calculateTotalCartAmount(Cart cart) {
+		
+		if(cart == null) {
+			return 0;
+		}
+		
+		double totalAmount=0;
+		
+		List<CartProduct> cartProducts = cart.getCartProducts();
+		
+		for(CartProduct cartProduct:cartProducts) {
+			
+			double price = productService.getDiscountedPrice(cartProduct.getProduct());
+			double quantity = (double)cartProduct.getQuantity();
+			
+			totalAmount += price*quantity;
+		}
+		
+		return totalAmount;
+	}
 
 }

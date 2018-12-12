@@ -62,6 +62,22 @@ public class ShipmentController {
 		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/shipment/order/{orderId}")
+	public ResponseEntity<List<Shipment>> getShipmentsOfOrder(@PathVariable("orderId") Integer orderId) {
+		List<Shipment> shipments = shipmentService.getShipmentsOfOrder(orderId);
+		if (shipments.isEmpty())
+			return new ResponseEntity(shipments, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/shipment/customer/{customerId}")
+	public ResponseEntity<List<Shipment>> getShipmentsOfCustomer(@PathVariable("customerId") Integer customerId) {
+		List<Shipment> shipments = shipmentService.getShipmentsOfCustomer(customerId);
+		if (shipments.isEmpty())
+			return new ResponseEntity(shipments, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Shipment>>(shipments, HttpStatus.OK);
+	}
+	
 	@PostMapping("/getShipmentDeliveryStatus/{shipmentId}")
 	public ResponseEntity<String> getShipmentDeliveryStatus(@PathVariable("shipmentId") Integer shipmentId) throws JsonProcessingException {
 		String shipmentDeliveryStatus = shipmentService.getShipmentDeliveryStatus(shipmentId);

@@ -14,5 +14,8 @@ public interface IShipmentService {
 		
 	public String getShipmentDeliveryStatus(int shipmentId);
 	public boolean updateShipmentDeliveryStatus(int shipmentId, String status);
+
+	List<Shipment> getShipmentsOfOrder(int orderId);
+	List<Shipment> getShipmentsOfCustomer(int customerId);
 	
 }

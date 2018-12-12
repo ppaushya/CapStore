@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IProductDao;
+import com.capstore.model.Inventory;
 import com.capstore.model.Product;
 
-@Service("productSenvice")
+@Service("productService")
 public class ProductService implements IProductService{
 
 	@Autowired
@@ -93,10 +94,13 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public double getDiscountedPrice(int productId) {
+	public double getDiscountedPrice(Product product) {
+		
+		if(product == null) {
+			return 0;
+		}
 		
 		double discountedPrice = 0;
-		Product product = getProduct(productId);
 		int discount = product.getDiscount();
 		int promo = product.getPromo().getDiscount();
 		
@@ -113,5 +117,51 @@ public class ProductService implements IProductService{
 		}
 		
 		return discountedPrice;
+	}
+
+	@Override
+	public void addNewProduct(Inventory inventory) {
+		Product product=new Product();//getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.save(product);
+		
+		
+	}
+
+	private Product getProductByInventory(Inventory inventory) {
+		
+		return productDao.getProductByInventory(inventory);
+		
+	}
+
+	@Override
+	public void editProduct(Inventory inventory) {
+		Product product=getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.save(product);
+		
+	}
+	
+	@Override
+	public List<Object[]> getBestSellerId() {
+		return productDao.getBestSellerId();
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstore.model.Customer;
 import com.capstore.model.Product;
 import com.capstore.model.Wishlist;
+import com.capstore.service.ICustomerService;
 import com.capstore.service.IWishlistService;
 
 @CrossOrigin(origins="*")
@@ -26,37 +27,52 @@ public class WishlistController {
 
 	@Autowired
 	private IWishlistService wishlistService;
+
+	@Autowired
+	private ICustomerService customerService;
 	
-	@PostMapping("/addingtowishlist/{customerId}/{productId}")
+	@PostMapping("/addingtowishlist/{customerMail}/{productId}")
 	public ResponseEntity<Boolean> addToWishlist(@PathVariable("productId") Integer productId,
-			@PathVariable("customerId") Integer customerId ){
-		Boolean success = wishlistService.addToWishlist(customerId, productId);
+			@PathVariable("customerMail") String customerEmail ){
 		
+		
+		Customer customer=customerService.getCustomerByEmail(customerEmail);
+		
+		Boolean success = wishlistService.addToWishlist(customer.getCustomerId(), productId);
+ 
 		return new ResponseEntity<Boolean>(success,HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewWishlist/{customerId}")
-	public ResponseEntity<List<Product>> wishListForSpecificCustomer(@PathVariable("customerId") Integer customerId){
+	@GetMapping("/viewWishlist/{customerMail}")
+	public ResponseEntity<List<Product>> wishListForSpecificCustomer(@PathVariable("customerMail") String customerEmail){
 	
-		List<Product> products=wishlistService.wishListForSpecificCustomer(customerId);
+		Customer customer=customerService.getCustomerByEmail(customerEmail);
+		System.out.println(customer);
+		List<Product> products=wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
+		if(products.isEmpty())
+			System.out.println("no entries");
+		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/deleteFromWishlist/{customerMail}/{productId}")
+	public ResponseEntity<List<Product>> deleteFromWishlist(@PathVariable("productId") Integer productId,
+			@PathVariable("customerMail") String customerEmail ){
+		
+		Customer customer=customerService.getCustomerByEmail(customerEmail);
+		
+		Wishlist wishlist=wishlistService.deleteFromWishlist(customer.getCustomerId(), productId);
+		
+		List<Product> products=wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
 		
 		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deleteFromWishlist/{customerId}/{productId}")
-	public ResponseEntity<Wishlist> deleteFromWishlist(@PathVariable("productId") Integer productId,
-			@PathVariable("customerId") Integer customerId ){
-		
-		Wishlist wishlist=wishlistService.deleteFromWishlist(customerId, productId);
-		
-		return new ResponseEntity<Wishlist>(wishlist,HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/moveFromWishlistToCart/{customerId}/{productId}")
+	@DeleteMapping("/moveFromWishlistToCart/{customerMail}/{productId}")
 	public ResponseEntity<Boolean> moveFromWishlistToCart(@PathVariable("productId") Integer productId,
-			@PathVariable("customerId") Integer customerId ){
+			@PathVariable("customerMail") String customerMail ){
 		
-		Boolean success = wishlistService.moveFromWishlistToCart(customerId, productId);
+		Customer customer=customerService.getCustomerByEmail(customerMail);
+		Boolean success = wishlistService.moveFromWishlistToCart(customer.getCustomerId(), productId);
 		
 		return new ResponseEntity<Boolean>(success, HttpStatus.OK);
 	}

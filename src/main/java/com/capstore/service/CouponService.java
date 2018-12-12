@@ -1,8 +1,5 @@
 package com.capstore.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +20,13 @@ public class CouponService implements ICouponService{
 			return null;
 		}
 		return myCoupon;
+	}
+
+	@Override
+	public boolean generateCoupon(Coupons coupon) {
+		
+		couponsDao.save(coupon);
+
+		return true;
 	}
 }

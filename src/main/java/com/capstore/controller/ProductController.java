@@ -8,13 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Product;
-import com.capstore.model.SalesAnalysis;
 import com.capstore.service.IProductService;
 
 @CrossOrigin(origins="*")
@@ -51,12 +48,12 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 	
-	@PostMapping("/verifyCoupon/{productId}")
+	@GetMapping("/verifyCoupon/{productId}")
 	public ResponseEntity<Double> applyingDiscount( @PathVariable("productId") Integer productId){
 		
-		double discountedPrice = productService.getDiscountedPrice(productId);
+		Product product = productService.getProduct(productId);
+		double discountedPrice = productService.getDiscountedPrice(product);
 		
 		return new ResponseEntity<Double>(discountedPrice,HttpStatus.OK);
-	
 	}
 }

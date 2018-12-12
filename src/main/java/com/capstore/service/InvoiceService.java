@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,8 @@ import com.capstore.model.Order;
 @Service("invoiceService")
 public class InvoiceService implements IInvoiceService{
 
-	
 	@Autowired
-	IInvoiceDao invoicedao;
+	IInvoiceDao invoiceDao;
 	
 	@Autowired
 	IOrderService orderService;
@@ -24,7 +24,7 @@ public class InvoiceService implements IInvoiceService{
 		
 		Order myOrder = orderService.findOrderById(OrderId);
 		
-		List<Invoice> invoices = invoicedao.findAll();
+		List<Invoice> invoices = invoiceDao.findAll();
 		
 		for(Invoice myInvoice: invoices) {
 			if(myInvoice.getOrder().equals(myOrder)) {
@@ -35,8 +35,16 @@ public class InvoiceService implements IInvoiceService{
 	}
 
 	@Override
-	public Invoice generateInvoice(Invoice invoice) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean generateInvoice(Invoice invoice) {
+		
+		invoiceDao.save(invoice);
+		
+		return true;
+	}
+
+	@Override
+	public List<Invoice> getInvoiceDetailsBetweenDates(Date fromDate, Date toDate) {
+		List<Invoice> invoiceDetails=invoiceDao.getInvoiceDetailsBetweenDates(fromDate, toDate);
+		return invoiceDetails;
 	}
 }

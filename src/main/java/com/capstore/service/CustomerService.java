@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.ICustomerDao;
+import com.capstore.model.Address;
 import com.capstore.model.Customer;
 
 @Service("customerService")
@@ -49,6 +51,13 @@ public class CustomerService implements ICustomerService{
 	public List<Customer> deleteCustomer(int customerId) {
 		customerDao.deleteById(customerId);
 		return customerDao.findAll();
+	}
+
+	@Override
+	public List<Address> getAddressesOfCustomer(String customerMail) {
+		Customer customer=customerDao.getByEmailId(customerMail);
+		List<Address> addresses=customer.getAddresses();
+		return addresses;
 	}
 
 	
