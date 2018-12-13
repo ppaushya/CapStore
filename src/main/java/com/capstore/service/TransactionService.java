@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.capstore.dao.ITransactionDao;
 import com.capstore.model.Coupons;
+import com.capstore.model.Invoice;
 import com.capstore.model.Order;
 import com.capstore.model.Transaction;
 
@@ -67,4 +68,14 @@ public class TransactionService implements ITransactionService{
 			return (totalAmount-discountProvided);
 		}
 	}
+	
+	@Override
+	public Transaction getTransactionFromInvoice(Invoice invoice) {
+		
+		return transactionDao.getTransactionFromInvoice(invoice);
+	}
+	
+	
 }
+
+

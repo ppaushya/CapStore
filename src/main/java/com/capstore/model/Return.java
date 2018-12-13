@@ -31,6 +31,9 @@ public class Return {
 	@OneToOne(targetEntity=Product.class)
 	private Product product;
 	
+	public Return() {
+		super();
+	}
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date pickupDate;
 	

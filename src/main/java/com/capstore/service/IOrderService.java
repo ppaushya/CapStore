@@ -22,4 +22,9 @@ public interface IOrderService {
 	
 	public List<Order> getOrdersBetween(Date fromDate, Date toDate);
 	
+	public List<Order> getAllOrders();
+
+	
+	
+	
 }
