@@ -53,5 +53,7 @@ public interface IProductDao extends JpaRepository<Product,Integer> {
     
 	@Query("from Product WHERE brand=:brand AND productCategory=:productCategory")
 	public List<Product> getSimilarProducts(String brand, String productCategory);
+	/*@Query("from Product WHERE image_url is null")
+	public List<Product> getProductToUpload();*/
 
 }

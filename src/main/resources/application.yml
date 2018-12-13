@@ -11,4 +11,3 @@ spring:
     generate-ddl: false
     show-sql: true
     
-    

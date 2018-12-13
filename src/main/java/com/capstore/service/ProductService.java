@@ -234,4 +234,10 @@ public class ProductService implements IProductService{
 		     Product product5=productDao.save(product);
 			return product5;
 	}
+	
+	/*@Override
+	public List<Product> getProductToUpload() {
+		
+		return productDao.getProductToUpload();
+	}*/
 }

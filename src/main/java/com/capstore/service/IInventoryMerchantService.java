@@ -9,7 +9,7 @@ public interface IInventoryMerchantService {
 
 	
 	
-	public List<Inventory> getAllInventories();
+	public List<Inventory> getAllInventories(int merchantId);
 
     public List<Inventory> addNewInventory(Inventory inventory);
 
@@ -17,7 +17,13 @@ public interface IInventoryMerchantService {
 
 	public List<Inventory> updateInventory(Inventory inventory);
 
+
+	public List<Inventory> getInventoriesList();
+
+
+
 	public void editAllPromos(Promos promo, String category);
 
 	
+
 }

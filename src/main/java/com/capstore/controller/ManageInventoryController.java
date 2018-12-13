@@ -45,11 +45,11 @@ public class ManageInventoryController {
 	Merchant merchant;
 	
 
-	@GetMapping("/inventories")
-	public ResponseEntity<List<Inventory>> getAllInventories(){
+	@GetMapping("/inventories/{mailId}")
+	public ResponseEntity<List<Inventory>> getAllInventories(@PathVariable("mailId") String mailId){
 		
-		
-		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
+		merchant=merchantService.getMerchantByMail(mailId);
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		System.out.println(inventories);
 		if(inventories.isEmpty())
 			 return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
@@ -74,8 +74,9 @@ public class ManageInventoryController {
 		System.out.println(merchant);
 		
 		
-		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
+		inventoryMerchantService.addNewInventory(inventory);
 		productService.editProduct(inventory);
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		
 		if(inventories.isEmpty())
 			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
@@ -97,9 +98,10 @@ public class ManageInventoryController {
 		System.out.println(merchant);
 		
 		
-		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
+		inventoryMerchantService.addNewInventory(inventory);
 		productService.addNewProduct(inventory);
 		
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		if(inventories.isEmpty())
 			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		
@@ -112,7 +114,9 @@ public class ManageInventoryController {
 	@DeleteMapping(value="/inventories/{inventoryId}")
     public ResponseEntity<Boolean>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
-	   List<Inventory> inventories=inventoryMerchantService.deleteInventory(inventoryId);
+		
+	   inventoryMerchantService.deleteInventory(inventoryId);
+	   //List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchantId);
 	
 /*//	   if(inventories==null)
 //		  return new ResponseEntity("Sorry!! Inventory Id not available!",HttpStatus.NOT_FOUND);
