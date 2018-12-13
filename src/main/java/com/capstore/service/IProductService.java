@@ -43,4 +43,6 @@ public interface IProductService {
 
 	//	public List<Product> getProductToUpload();
 	public Product postProductView(Product product);
+
+	public List<Product> getMerchantProducts(String emailId);
 }
