@@ -99,7 +99,6 @@ public class ManageInventoryController {
 		
 		
 		inventoryMerchantService.addNewInventory(inventory);
-		productService.addNewProduct(inventory);
 		
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		if(inventories.isEmpty())
