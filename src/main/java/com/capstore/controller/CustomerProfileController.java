@@ -35,7 +35,7 @@ public class CustomerProfileController {
 	@Autowired
 	ILoginService loginService;
 	
-	@GetMapping("/getCustomer/{email}")
+	@GetMapping("/getCustomers/{email}")
 	public ResponseEntity<Customer> getCustomer(@PathVariable("email") String email)
 	{
 		
