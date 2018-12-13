@@ -58,9 +58,9 @@ public class AddressController {
 	
 	@PostMapping(value = "/address")
 	public ResponseEntity<Address> createAddress(@RequestBody Address address) {
-		System.out.println(address+"i am here");
+		//System.out.println(address+"i am here");
 		Address address1 = addressService.createAddress(address);
-		System.out.println("Controller"+address);
+		//System.out.println("Controller"+address);
 		if (address==null) {
 			new ResponseEntity("No account found", HttpStatus.NOT_FOUND);
 		}

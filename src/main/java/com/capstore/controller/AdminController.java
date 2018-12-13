@@ -32,9 +32,11 @@ import com.capstore.service.IBusinessAnalysisService;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IEmailService;
 import com.capstore.service.IInventoryMerchantService;
+import com.capstore.service.ILoginService;
 import com.capstore.service.IMerchantService;
 import com.capstore.service.IProductService;
 import com.capstore.service.IPromoService;
+import com.capstore.service.LoginService;
 import com.capstore.service.StorageService;
 
 
@@ -50,6 +52,9 @@ public class AdminController {
 	
 	@Autowired
 	IEmailService emailService;
+	
+	@Autowired
+	ILoginService loginService;
 	
 	@Autowired
 	public IMerchantService merchantService;
@@ -129,33 +134,33 @@ public class AdminController {
 	}
 	
 	//admin verifies Merchant by clicking on approve button
-	@RequestMapping("/merchantVerification")
-	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@RequestBody Merchant merchant) {
+	@RequestMapping("/merchantVerification/{merchantId}")
+	public ResponseEntity<List<Merchant>> verifyMerchant_On_clicking_Approve_BUTTON(@PathVariable("merchantId") int merchantId) {
+		
+		Merchant merchant = merchantService.getMerchantByMerchantId(merchantId);
+		merchant.setVerified(true); 
+		merchantService.updateMerchant(merchant);
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
-		
-	 
-	    
-	    merchant.setVerified(true);
-	    Login login = new Login();
+		  
+		Login login = new Login();
 	    login.setEmailId(merchant.getEmailId());
 	    login.setPassword(merchant.getMerchantPassword());
 	    login.setUserTypes("MERCHANT");
-        merchantService.updateMerchant(merchant);	
-        
-		
+        		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
 	}
 	
 	
 	//admin removes Merchant by clicking on reject button
-	@RequestMapping("/merchantReject")
-	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@RequestBody Merchant merchant){
+	@GetMapping("/merchantReject/{merchantId}")
+	public ResponseEntity<List<Merchant>> rejectMerchant_On_clicking_Reject_BUTTON(@PathVariable("merchantId") int merchantId){
 		
 		List<Merchant> list_of_verified_merchants=merchantService.getAllMerchants();
 		
-	
-	    merchant.setVerified(false);
+		Merchant merchant=merchantService.getMerchantByMerchantId(merchantId);
+		System.out.println(merchant);
+	    
 	    System.out.println("\r\n" + 
 	    		"                                                                                                                                                                                                                                                                                                          \r\n" + 
 	    		"                                         dddddddd                                                                                                                                                                                         dddddddd                                                        \r\n" + 
@@ -184,7 +189,10 @@ public class AdminController {
 	    		"                                                                                                                                     jjjjjj                                                                                                                                                               \r\n" + 
 	    		"");
 	    
+	    merchant.setVerified(false);
 	    merchantService.updateMerchant(merchant);
+	    
+	    loginService.remove(merchant.getEmailId());
 		
 		
 		return new ResponseEntity<List<Merchant>>(list_of_verified_merchants,HttpStatus.OK);
@@ -199,6 +207,7 @@ public class AdminController {
 		
 		String message = "";
 		try {
+			System.out.println(productId);
 			storageService.store(file,productId);
 			files.add(file.getOriginalFilename());
            // System.out.println(files);
@@ -214,7 +223,7 @@ public class AdminController {
 	@GetMapping("/viewProducts")
 	public ResponseEntity<List<Product>> getAllProducts(){
 		
-		System.out.println("VIEWproducts");
+		//System.out.println("VIEWproducts");
 		List<Product> products=productService.getAllProducts();
 		if(products.isEmpty())
 			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
@@ -236,7 +245,13 @@ public class AdminController {
 //	************************Inventory(Products)**********************************************
 	
 	
-	
+	@GetMapping("/editAllPromos/{promoCode}/{category}")
+	public ResponseEntity<Boolean> editAllPromos(@PathVariable("promoCode") String promoCode,@PathVariable("category") String category){
+		Promos promo=promoService.getPromo(promoCode);
+		inventoryMerchantService.editAllPromos(promo,category);
+		return new ResponseEntity(true,HttpStatus.OK);
+			
+	}
 
 	@GetMapping("/viewInventories")
 	public ResponseEntity<List<Inventory>> getAllInventories(){

@@ -62,4 +62,11 @@ public class FeedbackService implements IFeedbackService{
 		
 		return averageRating;
 	}
+	
+	public List<Feedback> getAllFeedbacks(int productId){
+		
+		 return feedbackDao.getAllFeedbacks(productId);
+			
+		}
+
 }

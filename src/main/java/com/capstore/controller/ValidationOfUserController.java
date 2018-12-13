@@ -111,7 +111,7 @@ public class ValidationOfUserController {
 	}
 
 		//merchant validation!!
-		@GetMapping("/merchantVerification/{merchantMail}")
+		/*@GetMapping("/merchantVerification/{merchantMail}")
 		public ResponseEntity<Boolean> merchantVerification(@PathVariable("merchantMail") String merchantMail){
 			
 			Merchant merchant=merchantService.getMerchantByMail(merchantMail);
@@ -124,7 +124,7 @@ public class ValidationOfUserController {
 			login.setUserTypes("Merchant");
 			
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-		}
+		}*/
 
 
 	@PostMapping("/youMail/email")
