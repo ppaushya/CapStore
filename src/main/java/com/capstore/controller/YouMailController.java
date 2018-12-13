@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.YouMailLogin;
+import com.capstore.service.IEmailService;
 import com.capstore.service.IYouMailService;
 
 @CrossOrigin(origins="*")
@@ -23,6 +24,9 @@ public class YouMailController {
 
 	@Autowired
 	IYouMailService youMailService;
+	
+	@Autowired
+	IEmailService emailService;
 
 	@PostMapping("/youMail")
 	public ResponseEntity<Boolean> validateYouMailLogin(@RequestBody YouMailLogin login){
@@ -36,5 +40,14 @@ public class YouMailController {
 		}
 	}
 	
+	
+	@PostMapping("/youMail/email")
+	public ResponseEntity<List<Email>> sendVerificationToMail(@RequestBody String email)
+	{
+		
+		List<Email> emails=emailService.getEmails(email);
+		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
+
+	}
 	
 }
