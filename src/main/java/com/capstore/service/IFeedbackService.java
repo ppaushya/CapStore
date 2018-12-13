@@ -1,5 +1,7 @@
 package com.capstore.service;
 
+import java.util.List;
+
 import com.capstore.model.Feedback;
 
 public interface IFeedbackService {
@@ -9,5 +11,9 @@ public interface IFeedbackService {
 	public double calculateProductRating(int productId);
 	
 	public double calculateMerchantRating(int merchantId);
+
+	public List<Feedback> getAllFeedbacksOrderByMerchantId();
+
+	public List<Long> getNumberOfFeedbacksPerMerchant();
 
 }

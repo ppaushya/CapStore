@@ -1,9 +1,12 @@
 package com.capstore.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,4 +48,32 @@ public class FeedbackController {
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
 	}
+	
+	@GetMapping("/allFeedbacks")
+	public ResponseEntity<List<Feedback>> getAllFeedbacks(){
+		List<Feedback> feedbacks=feedbackService.getAllFeedbacksOrderByMerchantId();
+		System.out.println(feedbacks);
+		return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getNumberOfFeedbacksPerMerchant")
+	public ResponseEntity<List<Long>> getNumberOfFeedbacksPerMerchant(){
+		List<Long> feedbacks=feedbackService.getNumberOfFeedbacksPerMerchant();
+		System.out.println("dsfs"+feedbacks);
+		return new ResponseEntity<List<Long>>(feedbacks,HttpStatus.OK);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
