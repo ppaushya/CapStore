@@ -147,7 +147,9 @@ public class ProductService implements IProductService{
 	@Override
 	public void editProduct(Inventory inventory) {
 		Product product=getProductByInventory(inventory);
-		
+		if(product==null) {
+			product=new Product();
+		}
 		product.setInventory(inventory);
 		product.setProductName(inventory.getProductName());
 		product.setProductPrice(inventory.getProductPrice());
@@ -229,6 +231,22 @@ public class ProductService implements IProductService{
 		return productDao.getSimilarProducts(brand,productCategory);
 	}
 
+	@Override
+	public void deleteProduct(Inventory inventory) {
+		Product product=getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.delete(product);
+	}
+	
 	/*@Override
 	public List<Product> getProductToUpload() {
 		

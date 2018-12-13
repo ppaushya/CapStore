@@ -33,7 +33,7 @@ public class StorageService {
 		
 
 
-		private final Path rootLocation = Paths.get("D:\\FinalBackendLocalRepo\\CapStore\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("C:\\Users\\bannapoo\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 
 		//private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 

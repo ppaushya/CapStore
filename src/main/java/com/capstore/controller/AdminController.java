@@ -109,7 +109,8 @@ public class AdminController {
 		if(merchantService.checkIfExists(merchantMailId)){
 			
 			Email email = new Email();
-			email.setMessage("W");
+			email.setMessage("Please accept the Request!");
+			email.setLink("//localhost:4200");
 			email.setReceiverEmailId(merchantMailId);
 			email.setSenderEmailId("admin@gmail.com");
 			emailService.sendEmail(email);
@@ -308,14 +309,33 @@ public class AdminController {
 	
 	return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
 	
-}
+	}
 	
-	@PutMapping(value="/inventory")
+	/*@PostMapping("/editInventories")
+	public ResponseEntity<Boolean> editInventory(@RequestBody Inventory inventory){
+		
+		System.out.println(inventory);
+				
+		
+		inventoryMerchantService.addNewInventory(inventory);
+		productService.editProduct(inventory);
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
+		
+		if(inventories.isEmpty())
+			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		
+	}*/
+	
+	
+	@PostMapping("/inventory")
 	public ResponseEntity<List<Inventory>>updateInventory(@RequestBody Inventory inventory){
+		System.out.println("abds");
 		List<Inventory> inventories=inventoryMerchantService.updateInventory(inventory);
 		
 		if(inventories==null)
-			  return new ResponseEntity("Sorry!! Inventory Id not available",HttpStatus.NOT_FOUND);
+			  return new ResponseEntity("",HttpStatus.OK);
 		
 		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
 	
