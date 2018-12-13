@@ -83,4 +83,11 @@ public class FeedbackService implements IFeedbackService{
 			
 		}
 
+	@Override
+	public List<Feedback> getAllFeedbacksOfMerchant(int merchantId) {
+		
+		return feedbackDao.findByMerchantId(merchantId);
+	}
+
+	
 }

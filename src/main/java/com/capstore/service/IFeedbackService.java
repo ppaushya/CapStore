@@ -17,4 +17,8 @@ public interface IFeedbackService {
 
 	public List<Long> getNumberOfFeedbacksPerMerchant();
 
+	public List<Feedback> getAllFeedbacksOfMerchant(int merchantId);
+
+	
+
 }

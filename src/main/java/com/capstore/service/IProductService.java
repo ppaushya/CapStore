@@ -43,5 +43,10 @@ public interface IProductService {
 
 	public void deleteProduct(Inventory inventory);
 	public Product postProductView(Product product);
+
+
+	public List<Product> getMerchantProducts(String emailId);
+
 //	public List<Product> getProductToUpload();
+
 }
