@@ -33,7 +33,7 @@ public class CartService implements ICartService {
 	public Cart addProductToCart(CartProduct cartProduct, String customerEmailId) {
 		
 		Customer customer=customerDao.getByEmailId(customerEmailId);
-		
+		System.out.println(customer);
 		
 		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
