@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IInventoryMerchantDao;
 import com.capstore.model.Inventory;
+import com.capstore.model.Promos;
 
 @Service("inventoryMerchantService")
 public class InventoryMerchantService implements IInventoryMerchantService{
@@ -46,11 +48,26 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 	}
 
 	@Override
+
 	public List<Inventory> getInventoriesList() {
 		
 		return inventoryMerchantDao.findAll();
 	}
 
 
+
+	public void editAllPromos(Promos promo, String category) {
+		List<Inventory> inventories=inventoryMerchantDao.findAll();
+		int x=0;
+		for(Inventory inventory:inventories) {
+			if(inventory.getProductCategory().equals(category)) {
+				inventories.get(x).setPromo(promo);
+				inventoryMerchantDao.save(inventories.get(x));
+			}
+			x++;
+		}
+	}
+
+	
 
 }

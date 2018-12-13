@@ -21,4 +21,12 @@ public class CouponService implements ICouponService{
 		}
 		return myCoupon;
 	}
+
+	@Override
+	public boolean generateCoupon(Coupons coupon) {
+		
+		couponsDao.save(coupon);
+
+		return true;
+	}
 }

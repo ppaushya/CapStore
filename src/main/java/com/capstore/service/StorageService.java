@@ -1,6 +1,7 @@
 package com.capstore.service;
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.capstore.dao.IImageUploadDao;
 import com.capstore.model.Product;
 import com.capstore.model.ProductImage;
+import com.gargoylesoftware.htmlunit.javascript.host.file.File;
 
 
 @Service("storageService")
@@ -27,21 +29,25 @@ public class StorageService {
 	   IImageUploadDao uploadDao;
 	   @Autowired
 	  IProductService productService;
-		Logger log = LoggerFactory.getLogger(this.getClass().getName());
+		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
+		
 		
 
-		//private final Path rootLocation = Paths.get("C:\\Users\\vjain7\\Documents\\GitIN\\CapStore\\src\\main\\resources\\static\\upload-dir");
-
 		private final Path rootLocation = Paths.get("C:\\Users\\poojha\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
+
+
+		
 
 		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
 		public void store(MultipartFile file,String productId) {
 			product=productService.getProduct(Integer.parseInt(productId));
+			
 			try {
 				productId=productId+".jpg";
 				Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename().replace(file.getOriginalFilename(), productId)));
+				
 				//dbStore(productId);
 				dbStore(this.rootLocation.resolve(file.getOriginalFilename().replace(file.getOriginalFilename(), productId)).toString());
 			} catch (Exception e) {
@@ -50,18 +56,49 @@ public class StorageService {
 		}
 		
 		public void dbStore(String string) {
+			product.setImageUrl(string);
 			productImage.setImageUrl(string);
 			productImage.setImageStatus("main");
 			productImage.setProduct(product);
 			uploadDao.save(productImage);
+			productService.updateProduct(product);
+			
 		}
+		
+		public Resource loadFile(String filename) {
+			try {
+				System.out.println("Check1: "+filename);
+				String str=productImage.getImageUrl();
+				int index=str.lastIndexOf("\\");
+				str=str.substring(index+1, str.length());
+				System.out.println(str);
+			if(str.equals(filename))
+			{
+				
+				Path file = rootLocation.resolve(filename);
+				Resource resource = new UrlResource(file.toUri());
+				System.out.println(resource);
+				if (resource.exists() || resource.isReadable()) {
+					return resource;
+				} else {
+					throw new RuntimeException("FAIL!");
+				}
+			}
+			return null;
+			} catch (MalformedURLException e) {
+				throw new RuntimeException("FAIL!");
+			}
+		}
+
 
 		public void init() {
 			try {
 				if(!Files.isDirectory(rootLocation))
 				    Files.createDirectories(rootLocation);
 			} catch (IOException e) {
-				throw new RuntimeException("Could not initialize storage!");
+				//throw new RuntimeException("Could not initialize storage!");
 			}
 		}
+		
+		
 }

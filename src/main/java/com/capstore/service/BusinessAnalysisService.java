@@ -80,6 +80,9 @@ public class BusinessAnalysisService implements IBusinessAnalysisService {
 		double salesPrice=0;
 		double purchasePrice=0;
 		
+		//get total revenue for period
+		double totalRevenue=getTotalRevenueBetween(fromDate, toDate);
+		
 		//get best seller details for the products, category-wise(from PRODUCT table)
 		List<Object[]> bestSellerDetails=productService.getBestSellerId();
 		System.out.println(bestSellerDetails);
@@ -126,7 +129,7 @@ public class BusinessAnalysisService implements IBusinessAnalysisService {
 			salesAnalysis.setProductQuantity(purchasePriceDetails.get(productCategory));
 			salesAnalysis.setProductSales(salesPriceDetails.get(productCategory));
 			salesAnalysis.setSalesPercent((salesAnalysis.getProductSales()*100)/salesAnalysis.getProductQuantity());
-			salesAnalysis.setTotalRevenue(getTotalRevenueBetween(fromDate, toDate));
+			salesAnalysis.setTotalRevenue(totalRevenue);
 			
 			//make a list of sales analysis performed
 			salesAnalysisDetails.add(salesAnalysis);

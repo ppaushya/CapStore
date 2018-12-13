@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.capstore.dao.IProductDao;
 import com.capstore.model.Inventory;
 import com.capstore.model.Product;
+import com.capstore.model.ProductImage;
 
 @Service("productService")
 public class ProductService implements IProductService{
@@ -163,5 +164,68 @@ public class ProductService implements IProductService{
 	@Override
 	public List<Object[]> getBestSellerId() {
 		return productDao.getBestSellerId();
+	}
+	
+	@Override
+	public List<Product> getProductsAsc(String productCategory) {
+		List<Product> products=productDao.findByProductCategoryOrderByProductPrice(productCategory);
+		
+		return products;
+	}
+
+	@Override
+	public List<Product> getProductsDesc(String productCategory) {
+		List<Product> products1=productDao.findByProductCategoryOrderByProductPriceDesc(productCategory);
+		return products1;
+	}
+
+	@Override
+	public List<Product> getMostViewed(String productCategory) {
+	
+		 List<Product> product2=productDao.findByproductCategoryOrderByProductViewDesc(productCategory);
+		return product2;
+	
+	}
+
+	@Override
+	public List<Product> getBestSeller(String productCategory) {
+		 List<Product> product3=productDao.findByproductCategoryOrderByProductsSoldDesc(productCategory);
+		return product3;
+	}
+
+	@Override
+	public List<Product> getProductsInRange(String productCategory, double min, double max) {
+		List<Product> product4 = productDao.getProductsInRange(productCategory,min,max);
+		return product4;
+	}
+
+	@Override
+	public List<ProductImage> getProductImageId(int productId) {
+		
+		 List<ProductImage> imageId =productDao.getProductImageId(productId);
+	  return imageId;
+		
+	}
+
+	@Override
+	public ProductImage getImage(int productId) {
+		ProductImage image=productDao.getImage(productId);
+		return image;
+	}
+
+	@Override
+	public List<Product> getFilteredProducts(String productCategory) {
+		return productDao.findByproductCategoryOrderByProductViewDesc(productCategory);
+	}
+
+	@Override
+	public Product getProductfromProductId(int productId) {
+	
+		return productDao.getProductfromProductId(productId);
+	}
+
+	@Override
+	public List<Product> getSimilarProducts(String brand, String productCategory) {
+		return productDao.getSimilarProducts(brand,productCategory);
 	}
 }
