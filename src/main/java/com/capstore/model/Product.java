@@ -25,11 +25,11 @@ public class Product {
 	private Inventory inventory;
 	
 	private double productPrice;
-	
-/*	@Column(name="merchantId")
+	/*
+	@Column(name="merchantId")
 	@OneToOne(targetEntity=Merchant.class)
-	private Merchant merchant;*/
-	
+	private Merchant merchant;
+	*/
 	@OneToOne(targetEntity=Promos.class)
 	private Promos promo;
 	private int productsSold;
