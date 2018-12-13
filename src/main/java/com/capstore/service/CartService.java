@@ -34,7 +34,7 @@ public class CartService implements ICartService {
 		
 		Customer customer=customerDao.getByEmailId(customerEmailId);
 		
-		
+		System.out.println("1"+cartProduct);
 		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
 		if(cart==null)
@@ -47,30 +47,33 @@ public class CartService implements ICartService {
 			
 			cart.getCartProducts().add(cartProduct);
 			cart.setMinimumAmount(100);
-			
+			System.out.println("cart"+cart);
 			cartDao.save(cart);
 		}
 		else
 		{
+			boolean flag=false;
 			List<CartProduct> cartProducts=cart.getCartProducts();
-			
+			System.out.println("2"+cartProducts);
 			for(CartProduct cartProduct1:cartProducts)
 			{
-				
+				System.out.println("3"+cartProduct1);
 				//if the product already exists
-				if(cartProduct1.getProduct().equals(cartProduct.getProduct()))
+				
+				if(cartProduct1.getProduct().getProductId()==(cartProduct.getProduct().getProductId()))
 				{
+					flag=true;
 					return cart;
 				}
 			}
-			
+			if(!flag) {
 			//save the product in table if it new product is added
-			cartProductDao.save(cartProduct);
+			//cartProductDao.save(cartProduct);
 			
 			//add the product to cart table
 			cart.getCartProducts().add(cartProduct);
 			
-			cartDao.save(cart);
+			cartDao.save(cart);}
 			
 		}
 		return cart;
