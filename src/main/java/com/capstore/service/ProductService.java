@@ -228,4 +228,10 @@ public class ProductService implements IProductService{
 	public List<Product> getSimilarProducts(String brand, String productCategory) {
 		return productDao.getSimilarProducts(brand,productCategory);
 	}
+
+	/*@Override
+	public List<Product> getProductToUpload() {
+		
+		return productDao.getProductToUpload();
+	}*/
 }
