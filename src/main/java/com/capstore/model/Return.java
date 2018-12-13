@@ -31,9 +31,6 @@ public class Return {
 	@OneToOne(targetEntity=Product.class)
 	private Product product;
 	
-	public Return() {
-		super();
-	}
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date pickupDate;
 	
@@ -69,9 +66,9 @@ public class Return {
 	public void setReturnStatus(String returnStatus) {
 		this.returnStatus = returnStatus;
 	}
-	
-	public Return()	{}
-	
+	public Return() {
+		super();
+	}
 	@Override
 	public String toString() {
 		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
