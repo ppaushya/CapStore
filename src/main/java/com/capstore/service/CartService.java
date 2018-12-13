@@ -142,5 +142,12 @@ public class CartService implements ICartService {
 		
 		return totalAmount;
 	}
+	
+	@Override
+	public int getCount() {
+		return cartProductDao.getCount();
+	}
+
+
 
 }

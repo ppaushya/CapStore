@@ -19,6 +19,8 @@ public interface ICartService {
 
 	Cart updateCartProductQuantity(CartProduct cartProduct, String customerEmailId);
 
+	public int getCount();
+
 
 
 	
