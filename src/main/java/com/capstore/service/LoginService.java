@@ -71,4 +71,9 @@ public class LoginService implements ILoginService{
 		 loginDao.save(login);
 		
 	}
+
+	@Override
+	public void remove(String emailId) {
+		loginDao.deleteByEmailId(emailId);
+	}
 }

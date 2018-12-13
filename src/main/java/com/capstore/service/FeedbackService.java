@@ -35,7 +35,7 @@ public class FeedbackService implements IFeedbackService{
 		}
 		
 		if(feedbacksNumber!=0) {
-			averageRating = (double)(sum/feedbacksNumber);
+			averageRating = (double)((double)sum/feedbacksNumber);
 		}
 		
 		return averageRating;
@@ -57,9 +57,16 @@ public class FeedbackService implements IFeedbackService{
 		}
 		
 		if(feedbacksNumber!=0) {
-			averageRating = (double)(sum/feedbacksNumber);
+			averageRating = (double)((double)sum/feedbacksNumber);
 		}
 		
 		return averageRating;
 	}
+	
+	public List<Feedback> getAllFeedbacks(int productId){
+		
+		 return feedbackDao.getAllFeedbacks(productId);
+			
+		}
+
 }

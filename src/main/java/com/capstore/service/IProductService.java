@@ -1,9 +1,10 @@
 package com.capstore.service;
 
 import java.util.List;
-
 import com.capstore.model.Customer;
+import com.capstore.model.Inventory;
 import com.capstore.model.Product;
+import com.capstore.model.ProductImage;
 
 public interface IProductService {
 
@@ -19,6 +20,24 @@ public interface IProductService {
 	public List<Product> getSimilarProducts(int productId);
 	
 	public double getDiscountedPrice(Product product);
+
+	public void addNewProduct(Inventory inventory);
+
+	public void editProduct(Inventory inventory);
 	
 	public List<Object[]> getBestSellerId();
+	
+	public List<Product> getProductsAsc(String productCategory);
+	public List<Product> getProductsDesc(String productCategory);
+	public List<Product> getMostViewed(String productCategory);
+	public List<Product> getBestSeller(String productCategory);
+	public List<Product> getProductsInRange(String productCategory, double min, double max);
+	public List<ProductImage> getProductImageId(int productId);
+	public ProductImage getImage(int productId);
+
+	public List<Product> getFilteredProducts(String productCategory);
+
+	public List<Product> getProductfromProductId(int productId);
+
+	public List<Product> getSimilarProducts(String brand, String productCategory);
 }

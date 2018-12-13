@@ -35,7 +35,7 @@ public class AddressController {
 		List<Address> list = addressService.getAllAddresses();
 		System.out.println("Controller"+list);
 		if (list==null) {
-			new ResponseEntity("No account found", HttpStatus.NOT_FOUND);
+			new ResponseEntity("No address found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Address>>(list, HttpStatus.OK);
 	}
@@ -48,12 +48,14 @@ public class AddressController {
 		List<Address> list = customerService.getAddressesOfCustomer(customerMail);
 		System.out.println("Controller"+list);
 		if (list==null) {
-			new ResponseEntity("No account found", HttpStatus.NOT_FOUND);
+			new ResponseEntity("No address found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Address>>(list, HttpStatus.OK);
 	}
 
+
 	
+
 	@PostMapping(value = "/address/{customerMail}")
 	public ResponseEntity<List<Address>> createAddress(@RequestBody Address address ,@PathVariable("customerMail") String customerMail) {
 		System.out.println(address+"i am here");
@@ -62,8 +64,24 @@ public class AddressController {
 		
 		System.out.println("Controller"+address);
 		if (address1.isEmpty()) {
-			new ResponseEntity("No account found", HttpStatus.NOT_FOUND);
+			new ResponseEntity("No address found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Address>>(address1, HttpStatus.OK);
 	}
 }
+
+//	@PostMapping(value = "/address")
+//	public ResponseEntity<Address> createAddress(@RequestBody Address address) {
+//		//System.out.println(address+"i am here");
+//		Address address1 = addressService.createAddress(address);
+//		//System.out.println("Controller"+address);
+//		if (address==null) {
+//			new ResponseEntity("No account found", HttpStatus.NOT_FOUND);
+//		}
+//		return new ResponseEntity<List<Address>>(address1, HttpStatus.OK);
+//	}
+//		
+//
+//	}		
+		
+

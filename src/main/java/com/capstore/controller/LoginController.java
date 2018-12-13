@@ -48,7 +48,7 @@ public class LoginController {
 		}
 		/*this.emailId=loginbean.getEmailId();*/
 		session.setAttribute("emailId", loginbean.getEmailId());
-		System.out.println(session);
+		System.out.println(loginbean);
 		
 		
 		return new ResponseEntity<Login>(loginbean,HttpStatus.OK);	

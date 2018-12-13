@@ -16,5 +16,7 @@ public interface ILoginDao extends JpaRepository<Login,Integer>{
 	public Login getByEmailIdAndPassword(String emailId, String password);
 
 	public Login getByEmailId(String emailId);
+
+	public void deleteByEmailId(String emailId);
 	
 }

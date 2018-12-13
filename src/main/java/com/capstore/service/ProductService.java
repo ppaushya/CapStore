@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IProductDao;
+import com.capstore.model.Inventory;
 import com.capstore.model.Product;
+import com.capstore.model.ProductImage;
 
 @Service("productService")
 public class ProductService implements IProductService{
@@ -23,7 +25,29 @@ public class ProductService implements IProductService{
 		return productDao.findAll();
 	}
 	
-	
+	/*@Override
+	public List<SalesAnalysis> getSalesAnalysis() {
+		double salesPercentage=0.00;
+		List<Object[]> bestSellerDetails=productDao.getBestSellerId();
+		List<Object[]> productSales=productDao.getProductSold();
+		List<SalesAnalysis> salesAnalysis=new ArrayList<>();
+		for(Object[] object:productSales)	{
+			SalesAnalysis sales=new SalesAnalysis();
+			sales.setProductCategory(((String)object[0]).toUpperCase());
+			sales.setProductQuantity((Double)object[1]);
+			sales.setProductSales((Double)object[2]);
+			for(Object[] object1:bestSellerDetails)	{
+				if(((String)object[0]).equals((String)object1[0]))
+					sales.setMerchant(merchantService.getMerchantName((Integer)object1[1]).toUpperCase());
+			}
+			salesPercentage=(sales.getProductSales()*100)/sales.getProductQuantity();
+			sales.setSalesPercent(salesPercentage);
+			
+			salesAnalysis.add(sales);
+		}
+		return salesAnalysis;
+	}
+*/
 	@Override
 	public Product getProduct(int productId) {
 		Optional<Product> optional = productDao.findById(productId);
@@ -97,7 +121,111 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+	public void addNewProduct(Inventory inventory) {
+		Product product=new Product();//getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.save(product);
+		
+		
+	}
+
+	private Product getProductByInventory(Inventory inventory) {
+		
+		return productDao.getProductByInventory(inventory);
+		
+	}
+
+	@Override
+	public void editProduct(Inventory inventory) {
+		Product product=getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.save(product);
+		
+	}
+	
+	@Override
 	public List<Object[]> getBestSellerId() {
 		return productDao.getBestSellerId();
+	}
+	
+	@Override
+	public List<Product> getProductsAsc(String productCategory) {
+		List<Product> products=productDao.findByProductCategoryOrderByProductPrice(productCategory);
+		
+		return products;
+	}
+
+	@Override
+	public List<Product> getProductsDesc(String productCategory) {
+		List<Product> products1=productDao.findByProductCategoryOrderByProductPriceDesc(productCategory);
+		return products1;
+	}
+
+	@Override
+	public List<Product> getMostViewed(String productCategory) {
+	
+		 List<Product> product2=productDao.findByproductCategoryOrderByProductViewDesc(productCategory);
+		return product2;
+	
+	}
+
+	@Override
+	public List<Product> getBestSeller(String productCategory) {
+		 List<Product> product3=productDao.findByproductCategoryOrderByProductsSoldDesc(productCategory);
+		return product3;
+	}
+
+	@Override
+	public List<Product> getProductsInRange(String productCategory, double min, double max) {
+		List<Product> product4 = productDao.getProductsInRange(productCategory,min,max);
+		return product4;
+	}
+
+	@Override
+	public List<ProductImage> getProductImageId(int productId) {
+		
+		 List<ProductImage> imageId =productDao.getProductImageId(productId);
+	  return imageId;
+		
+	}
+
+	@Override
+	public ProductImage getImage(int productId) {
+		ProductImage image=productDao.getImage(productId);
+		return image;
+	}
+
+	@Override
+	public List<Product> getFilteredProducts(String productCategory) {
+		return productDao.findByproductCategoryOrderByProductViewDesc(productCategory);
+	}
+
+	@Override
+	public List<Product> getProductfromProductId(int productId) {
+	
+		return productDao.getProductfromProductId(productId);
+	}
+
+	@Override
+	public List<Product> getSimilarProducts(String brand, String productCategory) {
+		return productDao.getSimilarProducts(brand,productCategory);
 	}
 }
