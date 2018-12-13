@@ -271,10 +271,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/viewInventories")
-	public ResponseEntity<List<Inventory>> getAllInventories(){
+	public ResponseEntity<List<Inventory>> getInventoriesList(){
 		
 		
-		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
+		List<Inventory> inventories=inventoryMerchantService.getInventoriesList();
 		if(inventories.isEmpty())
 			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
 		

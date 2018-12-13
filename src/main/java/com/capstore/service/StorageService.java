@@ -31,11 +31,20 @@ public class StorageService {
 	  IProductService productService;
 		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
+<<<<<<< HEAD
 
 
 		private final Path rootLocation = Paths.get("D:\\FinalBackendLocalRepo\\CapStore\\src\\main\\resources\\static\\upload-dir");
 
 		//private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
+=======
+		
+
+		private final Path rootLocation = Paths.get("C:\\Users\\poojha\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
+
+
+		
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 
 		
 
