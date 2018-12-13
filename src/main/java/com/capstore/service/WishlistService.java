@@ -105,4 +105,10 @@ public class WishlistService implements IWishlistService{
 		
 		return true;
 	}
+
+	@Override
+	public int getWishlistCount() {
+	int	wishlistcount=wishlistDao.getCount();
+		return wishlistcount;
+	}
 }
