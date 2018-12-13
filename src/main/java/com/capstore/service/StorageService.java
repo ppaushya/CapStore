@@ -32,7 +32,7 @@ public class StorageService {
 		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
 
-		private final Path rootLocation = Paths.get("C:\\Users\\vjain7\\Documents\\GitIN\\CapStore\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("C:\\Users\\shivans\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
 
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
