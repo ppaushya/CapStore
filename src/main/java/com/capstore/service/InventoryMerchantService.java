@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IInventoryMerchantDao;
+import com.capstore.dao.IProductDao;
 import com.capstore.model.Inventory;
 import com.capstore.model.Promos;
 
@@ -16,6 +17,8 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 	@Autowired
 	private IInventoryMerchantDao inventoryMerchantDao;
 	
+	@Autowired
+	private IProductService productService;
 	
 	@Override
 	public List<Inventory> getAllInventories(int merchantId) {
@@ -43,7 +46,16 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 	@Override
 	public List<Inventory> updateInventory(Inventory inventory) {
 		System.out.println(inventory);
-		inventoryMerchantDao.save(inventory);
+		if(inventory.getStatus().equals("accepted")) {
+			productService.editProduct(inventory);
+			inventoryMerchantDao.save(inventory);	
+		}else if(inventory.getStatus().equals("rejected")) {
+			inventoryMerchantDao.delete(inventory);	
+			productService.deleteProduct(inventory);
+		}else if(inventory.getStatus().equals("pending")) {
+			productService.editProduct(inventory);
+			inventoryMerchantDao.save(inventory);			
+		}
 		return null;
 	}
 

@@ -32,7 +32,9 @@ public class StorageService {
 		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
 
-		private final Path rootLocation = Paths.get("C:\\Users\\shivans\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("C:\\Users\\poojha\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
+
+		//private final Path rootLocation = Paths.get("C:\\Users\\bannapoo\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 
 		//private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 
