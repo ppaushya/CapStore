@@ -93,7 +93,9 @@ public class ValidationOfUserController {
 	@PostMapping("/emailVerificationDone")
 	public ResponseEntity<Boolean> emailVerificationDone(@RequestBody Email email){
 
-
+		try {
+			
+		System.out.println(email);
 		Customer customer=customerService.getCustomerByEmail(email.getReceiverEmailId());
 
 		customer.setVerified(true);
@@ -104,10 +106,17 @@ public class ValidationOfUserController {
 		login.setEmailId(customer.getEmailId());
 		login.setPassword(customer.getPassword());
 		login.setUserTypes("CUSTOMER");
-
+		
+		loginService.updateLogin(login);
 		System.out.println(customerService.getAllCustomers());
 
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+			
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		}
 	}
 
 		//merchant validation!!
@@ -121,20 +130,12 @@ public class ValidationOfUserController {
 			Login login=new Login();
 			login.setEmailId(merchant.getEmailId());
 			login.setPassword(merchant.getMerchantPassword());
-			login.setUserTypes("Merchant");
-			
+			login.setUserTypes("MERCHANT");
+			loginService.updateLogin(login);
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}*/
 
 
-	@PostMapping("/youMail/email")
-	public ResponseEntity<List<Email>> sendVerificationToMail(@RequestBody Email email)
-	{
-		String emailId=email.getReceiverEmailId();
-		System.out.println(emailId);
-		List<Email> emails=emailService.getEmails(emailId);
-		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
-
-	}
+	
 
 }

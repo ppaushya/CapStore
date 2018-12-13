@@ -48,7 +48,7 @@ public class LoginService implements ILoginService{
 		   else
 		   {
 		   login1.setPassword(login.getPassword());
-			
+			System.out.println(login1);
 		   loginDao.save(login1);
 		   return true;
 		   }

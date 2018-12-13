@@ -23,6 +23,8 @@ public class AddressService implements IAddressService{
 	ICustomerDao customerDao;
 
 	//Get all addresses
+	
+	@Override
 	public List<Address> getAllAddresses() {
 
 		List<Address> add=addressDao.findAll();
@@ -31,6 +33,8 @@ public class AddressService implements IAddressService{
 
 	}
 
+	
+	@Override
 	public List<Address> createAddress(Address address ,String customerMail) {
 		
 		List<Customer> customers=customerDao.findAll();
@@ -47,10 +51,19 @@ public class AddressService implements IAddressService{
 		 return customer.getAddresses();
 	}
 	
-public Address createAddress(Address address) {
+	
+	@Override
+	public Address createAddress(Address address) {
 		
 		return addressDao.save(address) ;
 	}
+
+		@Override
+		public List<Address> updateAddress(Address address) {
+		addressDao.save(address);
+		
+		return addressDao.findAll();
+		}
 
 	
 
