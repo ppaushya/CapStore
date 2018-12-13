@@ -16,8 +16,10 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 	
 	
 	@Override
-	public List<Inventory> getAllInventories() {
-		return inventoryMerchantDao.findAll();
+	public List<Inventory> getAllInventories(int merchantId) {
+		List<Inventory> inventories=inventoryMerchantDao.getAllInventoryByMerchantId(merchantId);
+		
+		return inventories;
 	}
 
 	@Override
@@ -26,21 +28,29 @@ public class InventoryMerchantService implements IInventoryMerchantService{
 		
 		inventoryMerchantDao.save(inventory);
 		System.out.println("service after "+inventory);
-		return getAllInventories();
+		return null;
 		
 	}
 
 	@Override
 	public List<Inventory> deleteInventory(int inventoryId) {
 		inventoryMerchantDao.deleteById(inventoryId);
-		return getAllInventories();
+		return null;
 	}
 
 	@Override
 	public List<Inventory> updateInventory(Inventory inventory) {
 		System.out.println(inventory);
 		inventoryMerchantDao.save(inventory);
-		return getAllInventories();
+		return null;
 	}
+
+	@Override
+	public List<Inventory> getInventoriesList() {
+		
+		return inventoryMerchantDao.findAll();
+	}
+
+
 
 }

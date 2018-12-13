@@ -8,11 +8,15 @@ public interface IInventoryMerchantService {
 
 	
 	
-	public List<Inventory> getAllInventories();
+	public List<Inventory> getAllInventories(int merchantId);
 
     public List<Inventory> addNewInventory(Inventory inventory);
 
 	public List<Inventory> deleteInventory(int inventoryId);
 
 	public List<Inventory> updateInventory(Inventory inventory);
+
+	public List<Inventory> getInventoriesList();
+
+
 }
