@@ -193,6 +193,7 @@ public class AdminController {
 		
 		String message = "";
 		try {
+			System.out.println(productId);
 			storageService.store(file,productId);
 			files.add(file.getOriginalFilename());
            // System.out.println(files);
@@ -208,7 +209,7 @@ public class AdminController {
 	@GetMapping("/viewProducts")
 	public ResponseEntity<List<Product>> getAllProducts(){
 		
-		System.out.println("VIEWproducts");
+		//System.out.println("VIEWproducts");
 		List<Product> products=productService.getAllProducts();
 		if(products.isEmpty())
 			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
