@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.dao.IAddressDao;
+import com.capstore.dao.ICustomerDao;
 import com.capstore.model.Address;
 import com.capstore.model.Customer;
 
@@ -17,6 +18,9 @@ public class AddressService implements IAddressService{
 	@Autowired
 
 	IAddressDao addressDao;
+	@Autowired
+	
+	ICustomerDao customerDao;
 
 	//Get all addresses
 	public List<Address> getAllAddresses() {
@@ -27,7 +31,23 @@ public class AddressService implements IAddressService{
 
 	}
 
-	public Address createAddress(Address address) {
+	public List<Address> createAddress(Address address ,String customerMail) {
+		
+		List<Customer> customers=customerDao.findAll();
+		Customer customer=customerDao.getByEmailId(customerMail);
+		
+		
+		customer=customerDao.getByEmailId(customerMail);
+		//addressDao.save(address) ;
+		customer.getAddresses().add(address);
+		//System.out.println(customer);
+		customerDao.save(customer);
+		
+		
+		 return customer.getAddresses();
+	}
+	
+public Address createAddress(Address address) {
 		
 		return addressDao.save(address) ;
 	}

@@ -1,7 +1,6 @@
 package com.capstore.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class WishlistService implements IWishlistService{
 		
 		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
 		
-		if(myWishlist.equals(null)) {
+		if(myWishlist == null) {
 			myWishlist=new Wishlist();
 			List<Product> products = new ArrayList<>();
 			products.add(product);
@@ -56,10 +55,7 @@ public class WishlistService implements IWishlistService{
 			myWishlist.getProducts().add(product);
 			wishlistDao.save(myWishlist);
 			return true;
-			
-			}
-			
-		
+		}
 	}
 
 	@Override
@@ -68,10 +64,6 @@ public class WishlistService implements IWishlistService{
 		Product product = productService.getProduct(productId);
 		
 		Wishlist myWishList = wishlistDao.getWishlistByCustomerId(customerId);
-		
-		
-		
-		List<Product> products = myWishList.getProducts();
 		
 		myWishList.getProducts().remove(product);
 		
@@ -88,7 +80,9 @@ public class WishlistService implements IWishlistService{
 		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
 		System.out.println("Printing 2");
 		
-		if(myWishlist.equals(null)) {
+		if(myWishlist == null) {
+			myWishlist = new Wishlist();
+			System.out.println(myWishlist);
 			return null;
 		}
 		
