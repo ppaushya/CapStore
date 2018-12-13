@@ -73,14 +73,17 @@ public class BankAccountService implements IBankAccountService {
 	@Override
 	public boolean withdrawAmount(double amount, BankAccount bankAccount) {
 		BankAccount account = getBankAccount(bankAccount.getAccountNumber());
+		System.out.println(account);
 		if(account!=null) {
 			double balance = account.getBalance();
 			if (amount > balance) {
+				System.out.println("insu");
 				return false;
 			}
 			double finalAmount = balance - amount;
 			account.setBalance(finalAmount);
 			bankAccountDao.save(account);
+			System.out.println("sccc");
 			return true;
 		}
 		return false;

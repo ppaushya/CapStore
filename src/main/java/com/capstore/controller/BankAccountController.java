@@ -44,6 +44,13 @@ public class BankAccountController {
 		}
 	}
 
+	@GetMapping("/bankaccount/credential")
+	public ResponseEntity<BankAccount> getBankAccountsByCredintial(@RequestBody BankAccount bankAccount) {
+		BankAccount account = bankAccountService.getBankAccountFromUserNamePassword(bankAccount.getUserName(), bankAccount.getUserPassword());
+
+		return new ResponseEntity<BankAccount>(account, HttpStatus.OK);
+	}
+	
 	/*
 	 * @PostMapping("/bankaccount/credential") public ResponseEntity<BankAccount>
 	 * getBankAccountFromUserNamePassword(@RequestBody String userName,

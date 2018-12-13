@@ -51,16 +51,19 @@ public class OrderController {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("/placeOrder")//
-	public ResponseEntity<Boolean> placeOrder(@RequestBody Order order) {
+	public ResponseEntity<Order> placeOrder(@RequestBody Order order) {
+		Order nullOrder = null;
 		if (!orderService.checkAvailabilityInInventory(order)) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Order>(nullOrder, HttpStatus.OK);
 		}
-		if (orderService.placeOrder(order)) {
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		Order newOrder = orderService.placeOrder(order);
+		if (newOrder!=null) {
+			return new ResponseEntity<Order>(newOrder, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Order>(nullOrder, HttpStatus.NOT_FOUND);
 		}
 	}
 

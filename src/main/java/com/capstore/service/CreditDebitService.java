@@ -37,19 +37,21 @@ public class CreditDebitService implements ICreditDebitService {
 
 	@Override
 	public boolean isValidCard(CreditDebit creditDebit) {
+		System.out.println(creditDebit);
 		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
+		System.out.println(card);
 		if(!creditDebit.getCardHolderName().equalsIgnoreCase(card.getCardHolderName())) {
 			return false;
 		}
 		if(creditDebit.getCvv()!=card.getCvv()) {
 			return false;
 		}
-		if(creditDebit.getExpiryDate().getMonth()!=card.getExpiryDate().getMonth()) {
+		/*if(creditDebit.getExpiryDate().getMonth()!=card.getExpiryDate().getMonth()) {
 			return false;
 		}
 		if(creditDebit.getExpiryDate().getYear()!=card.getExpiryDate().getYear()) {
 			return false;
-		}
+		}*/
 		if(creditDebit.getPinNumber()!=card.getPinNumber()) {
 			return false;
 		}
@@ -71,17 +73,21 @@ public class CreditDebitService implements ICreditDebitService {
 	@Override
 	public boolean withdrawAmount(double amount, CreditDebit creditDebit) {
 		if(!isValidCard(creditDebit)) {
+			System.out.println("inval card");
 			return false;
 		}
 		CreditDebit card = getCardFromCardNumber(creditDebit.getCardNumber());
 		if(card!=null) {
+			System.out.println("card sc");
 			double balance = card.getBalance();
 			if (amount > balance) {
+				System.out.println("insu null");
 				return false;
 			}
 			double finalAmount = balance - amount;
 			card.setBalance(finalAmount);
 			creditDebitDao.save(card);
+			System.out.println("sc");
 			return true;
 		}
 		return false;

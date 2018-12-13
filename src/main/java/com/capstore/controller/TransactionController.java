@@ -86,49 +86,55 @@ public class TransactionController {
 		}
 	}
 
-	@PostMapping("/transaction/order/{orderId}/pay/bankaccount") //
-	public ResponseEntity<Boolean> payByNetBanking(@RequestBody BankAccount account,@PathVariable int orderId) {// Team 6
+	@PostMapping("/transaction/pay/bankaccount/order/{orderId}") //
+	public ResponseEntity<Invoice> payByNetBanking(@RequestBody BankAccount account,@PathVariable int orderId) {// Team 6
+		Invoice nullInvoice = null;
 		BankAccount bankAccount = bankAccountService.getBankAccountFromUserNamePassword(account.getUserName(),
 				account.getUserPassword());
 		if (bankAccount == null) {
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.NOT_FOUND);
 		}
 		
 		Order order = orderService.findOrderById(orderId);
 		if(order==null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.NOT_FOUND);
 		}
 		
 		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
 		double finalAmount = transactionService.calculateFinalAmountForPayment(order);
 		
-		if (!bankAccountService.withdrawAmount(finalAmount, account)) {
+		if (!bankAccountService.withdrawAmount(finalAmount, bankAccount)) {
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 
 		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 
 		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
 		addNetBankingTransaction(account,invoice);
+
+		System.out.println(invoice);
 		
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		return new ResponseEntity<Invoice>(invoice, HttpStatus.OK);
 	}
 
-	@PostMapping("/transaction/order/{orderId}/pay/card")//
-	public ResponseEntity<Boolean> payByCard(@RequestBody CreditDebit creditDebit, @PathVariable int orderId) {// Team 6
+	@PostMapping("/transaction/pay/card/order/{orderId}")//
+	public ResponseEntity<Invoice> payByCard(@RequestBody CreditDebit creditDebit, @PathVariable int orderId) {// Team 6
+		Invoice nullInvoice = null;
 		if (!creditDebitService.isValidCard(creditDebit)) {
+			System.out.println("card invalid");
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 		
 		Order order = orderService.findOrderById(orderId);
 		if(order==null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			System.out.println("order null");
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.NOT_FOUND);
 		}
 		
 		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
@@ -136,30 +142,36 @@ public class TransactionController {
 		
 		CreditDebit card = creditDebitService.getCardFromCardNumber(creditDebit.getCardNumber());
 		if (card == null) {
+			System.out.println("card null");
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 		if (!creditDebitService.withdrawAmount(finalAmount, card)) {
+			System.out.println("wd null");
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 
 		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
+			System.out.println("deposirt null");
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 
 		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
 		addCardTransaction(card,invoice);
+		
+		System.out.println(invoice);
 
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		return new ResponseEntity<Invoice>(invoice, HttpStatus.OK);
 	}
 
-	@PostMapping("/transaction/order/{orderId}/pay/cash")//
-	public ResponseEntity<Boolean> payByCard(@PathVariable int orderId) {// Team 6
+	@PostMapping("/transaction/pay/cash/order/{orderId}")//
+	public ResponseEntity<Invoice> payByCard(@PathVariable int orderId) {// Team 6
+		Invoice nullInvoice = null;
 		Order order = orderService.findOrderById(orderId);
 		if(order==null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.NOT_FOUND);
 		}
 		
 		double totalAmount = cartService.calculateTotalCartAmount(order.getCart());
@@ -167,13 +179,13 @@ public class TransactionController {
 		
 		if (!bankAccountService.depositAmount(finalAmount, bankAccountService.getCapstoreBankAccount())) {
 			orderService.deleteOrder(orderId);
-			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return new ResponseEntity<Invoice>(nullInvoice, HttpStatus.OK);
 		}
 
 		Invoice invoice = generateInvoice(order,totalAmount,finalAmount);
 		addCashTransaction(invoice);
 
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		return new ResponseEntity<Invoice>(invoice, HttpStatus.OK);
 	}
 
 	private Invoice generateInvoice(Order order,double totalAmount,double finalAmount) {
