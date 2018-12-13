@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstore.dao.IInventoryMerchantDao;
 import com.capstore.dao.IProductDao;
 import com.capstore.model.Inventory;
+import com.capstore.model.Merchant;
 import com.capstore.model.Product;
 import com.capstore.model.ProductImage;
 
@@ -19,7 +21,8 @@ public class ProductService implements IProductService{
 	private IProductDao productDao;
 	@Autowired
 	private IMerchantService merchantService;
-	
+	@Autowired
+	private IInventoryMerchantDao inventoryDao;
 	@Override
 	public List<Product> getAllProducts() {
 		return productDao.findAll();
@@ -147,7 +150,9 @@ public class ProductService implements IProductService{
 	@Override
 	public void editProduct(Inventory inventory) {
 		Product product=getProductByInventory(inventory);
-		
+		if(product==null) {
+			product=new Product();
+		}
 		product.setInventory(inventory);
 		product.setProductName(inventory.getProductName());
 		product.setProductPrice(inventory.getProductPrice());
@@ -230,9 +235,44 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+
+	public void deleteProduct(Inventory inventory) {
+		Product product=getProductByInventory(inventory);
+		
+		product.setInventory(inventory);
+		product.setProductName(inventory.getProductName());
+		product.setProductPrice(inventory.getProductPrice());
+		product.setProductCategory(inventory.getProductCategory());
+		product.setPromo(inventory.getPromo());
+		product.setProductDescription(inventory.getProductDescription());
+		product.setBrand(inventory.getProductBrand());
+		product.setImageUrl(inventory.getImageUrl());
+		
+		productDao.delete(product);
+	}
 	public Product postProductView(Product product) {
 		     Product product5=productDao.save(product);
 			return product5;
+
+	}
+
+	@Override
+	public List<Product> getMerchantProducts(String emailId) {
+		Merchant merchant=merchantService.getMerchantByMail(emailId);
+		//List<Inventory> inventories=inventoryDao.getAllInventoryByMerchantId(merchant.getMerchantId());
+		//productDao
+		List<Product> products=getAllProducts();
+		List<Product> products1=new ArrayList<Product>();
+	
+			for(Product product:products)
+			{
+				if(product.getInventory().getMerchant().getEmailId().equals(emailId))
+				{
+					products1.add(product);
+				}
+			}
+			System.out.println(products1);
+		return products1;
 	}
 	
 	/*@Override

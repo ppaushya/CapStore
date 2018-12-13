@@ -4,12 +4,11 @@ server:
     context-path: /capstore
 spring:
   datasource:
-  
     url: jdbc:mysql://localhost:3306/capstore
     username: root
     password: India123
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     show-sql: true
     
     

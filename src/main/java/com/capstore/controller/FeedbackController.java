@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstore.model.Feedback;
+import com.capstore.model.Merchant;
 import com.capstore.service.ICustomerService;
 import com.capstore.service.IFeedbackService;
 import com.capstore.service.IMerchantService;
@@ -68,10 +69,38 @@ public class FeedbackController {
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable int productId){
 		List<Feedback> feedback=feedbackService.getAllFeedbacks(productId);
 		if(feedback.isEmpty())
-			return new ResponseEntity("Sorry! No Feedbacks Found!",HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<Feedback>>(feedback,HttpStatus.OK);
 		else
 		return new ResponseEntity<List<Feedback>>(feedback,HttpStatus.OK);
+	
+	}
+	
+	@GetMapping("/merchantFeedback/{mailId}")
+	public ResponseEntity<List<Feedback>> getMerchantFeedbacks(@PathVariable("mailId") String mailId){
 		
+		Merchant merchant=merchantService.getMerchantByMail(mailId);
 		
+		List<Feedback> feedbacks=feedbackService.getAllFeedbacksOfMerchant(merchant.getMerchantId());
+		
+		if(feedbacks.isEmpty())
+			return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
+		else
+		return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
+
+	}
+	
+	
+	//average rating function
+	@GetMapping("/averageRating/{mailId}")
+	public ResponseEntity<Double> averageMerchantRating(@PathVariable("mailId") String mailId){
+		
+		Merchant merchant=merchantService.getMerchantByMail(mailId);
+	
+		Double averageRating=feedbackService.calculateMerchantRating(merchant.getMerchantId());
+		if(averageRating==null)
+			return new ResponseEntity<Double>(averageRating,HttpStatus.OK);
+		else
+			return new ResponseEntity<Double>(averageRating,HttpStatus.OK);
+
 	}
 }

@@ -17,6 +17,8 @@ public interface IInventoryMerchantDao extends JpaRepository<Inventory,Integer> 
 
 	@Query("from Inventory where merchant.merchantId=:merchantId")
 	List<Inventory> getAllInventoryByMerchantId(int merchantId);
+	
+	
 
 	
 
