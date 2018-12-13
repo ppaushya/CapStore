@@ -37,7 +37,7 @@ public interface IProductService {
 
 	public List<Product> getFilteredProducts(String productCategory);
 
-	public List<Product> getProductfromProductId(int productId);
+	public Product getProductfromProductId(int productId);
 
 	public List<Product> getSimilarProducts(String brand, String productCategory);
 

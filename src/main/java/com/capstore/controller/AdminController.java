@@ -368,13 +368,14 @@ public class AdminController {
 	@GetMapping("/salesAnalysis/{fromDate}/to/{toDate}")
 	public ResponseEntity<List<SalesAnalysis>> getSalesAnalysis(@PathVariable("fromDate") @DateTimeFormat(pattern="yyyy-MM-dd")
 	Date fromDate, @PathVariable("toDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate)	{
-		
-		List<SalesAnalysis> salesAnalysis=businessAnalysisService.getSalesAnalysis(fromDate, toDate);
-		
-		if(salesAnalysis.isEmpty())
-			return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
-		return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis,HttpStatus.OK);
-		
+		if(fromDate.before(toDate))	{
+			List<SalesAnalysis> salesAnalysis=businessAnalysisService.getSalesAnalysis(fromDate, toDate);
+			
+			if(salesAnalysis.isEmpty())
+				return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<SalesAnalysis>>(salesAnalysis,HttpStatus.OK);
+		}
+		return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
 	}
 	
 

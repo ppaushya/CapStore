@@ -146,12 +146,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("/product/{productId}")
-	public ResponseEntity<List<Product>> getProduct(@PathVariable int productId){
-		List<Product> product=productService.getProductfromProductId(productId);
+	public ResponseEntity<Product> getProduct(@PathVariable int productId){
+		Product product=productService.getProductfromProductId(productId);
 		if(product==null)
 			return new ResponseEntity("Sorry! Product can't fetch!",HttpStatus.NOT_FOUND);
 		else
-		return new ResponseEntity<List<Product>>(product,HttpStatus.OK);
+		return new ResponseEntity<Product>(product,HttpStatus.OK);
 	}
 	
 	

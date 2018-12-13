@@ -219,7 +219,7 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public List<Product> getProductfromProductId(int productId) {
+	public Product getProductfromProductId(int productId) {
 	
 		return productDao.getProductfromProductId(productId);
 	}

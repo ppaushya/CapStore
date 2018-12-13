@@ -76,9 +76,7 @@ public class WishlistService implements IWishlistService{
 	@Override
 	public List<Product> wishListForSpecificCustomer(int customerId) {
 		
-		System.out.println("Printing 1");
 		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
-		System.out.println("Printing 2");
 		
 		if(myWishlist == null) {
 			myWishlist = new Wishlist();

@@ -49,7 +49,7 @@ public interface IProductDao extends JpaRepository<Product,Integer> {
 	public ProductImage getImage(int productId);
 
 	@Query("from Product WHERE product_id=:productId")
-	public List<Product> getProductfromProductId(int productId);
+	public Product getProductfromProductId(int productId);
     
 	@Query("from Product WHERE brand=:brand AND productCategory=:productCategory")
 	public List<Product> getSimilarProducts(String brand, String productCategory);
