@@ -1,5 +1,13 @@
 server:
+<<<<<<< HEAD
   port: 8086
+=======
+<<<<<<< HEAD
+  port: 8085
+=======
+  port: 8086
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
   servlet:
     context-path: /capstore
 spring:
@@ -10,9 +18,5 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: true
-  
-
     
-
-   
     

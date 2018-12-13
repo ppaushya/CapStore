@@ -63,17 +63,15 @@ public class FeedbackController {
 		return new ResponseEntity<List<Long>>(feedbacks,HttpStatus.OK);
 	}
 	
+
+	@GetMapping("/feedback/{productId}")
+	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable int productId){
+		List<Feedback> feedback=feedbackService.getAllFeedbacks(productId);
+		if(feedback.isEmpty())
+			return new ResponseEntity("Sorry! No Feedbacks Found!",HttpStatus.NOT_FOUND);
+		else
+		return new ResponseEntity<List<Feedback>>(feedback,HttpStatus.OK);
+		
+		
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

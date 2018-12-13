@@ -75,8 +75,12 @@ public class FeedbackService implements IFeedbackService{
 		List<Long> numberOfFeedbacksPerMerchant=feedbackDao.numberOfFeedbacksPerMerchant();//new LinkedList<Integer>();
 		return numberOfFeedbacksPerMerchant;
 	}
+
+	
+	public List<Feedback> getAllFeedbacks(int productId){
+		
+		 return feedbackDao.getAllFeedbacks(productId);
+			
+		}
+
 }
-
-
-
-

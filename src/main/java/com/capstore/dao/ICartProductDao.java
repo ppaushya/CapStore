@@ -22,6 +22,8 @@ public interface ICartProductDao extends JpaRepository<CartProduct, Integer> {
 	@Query("update CartProduct set quantity=:quantity where customer_customer_id=:customerId and product_product_id=:productId")
 	public void updateQuantity(@Param("quantity")Integer quantity, @Param("productId") Integer productId,
 																				@Param("customerId") Integer customerId);
-	
+
+	@Query("SELECT MAX(serialNo) FROM CartProduct")
+	public int getCount();
 }
 	

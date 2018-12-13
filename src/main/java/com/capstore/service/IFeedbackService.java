@@ -11,6 +11,7 @@ public interface IFeedbackService {
 	public double calculateProductRating(int productId);
 	
 	public double calculateMerchantRating(int merchantId);
+	public List<Feedback> getAllFeedbacks(int productId);
 
 	public List<Feedback> getAllFeedbacksOrderByMerchantId();
 
