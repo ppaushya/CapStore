@@ -33,13 +33,13 @@ public class CartService implements ICartService {
 	public Cart addProductToCart(CartProduct cartProduct, String customerEmailId) {
 		
 		Customer customer=customerDao.getByEmailId(customerEmailId);
-<<<<<<< HEAD
+
 		
 		System.out.println("1"+cartProduct);
-=======
+
 		System.out.println(customer);
 		
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
+
 		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
 		if(cart==null)
