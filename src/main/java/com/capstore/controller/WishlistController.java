@@ -34,7 +34,6 @@ public class WishlistController {
 	public ResponseEntity<Boolean> addToWishlist(@PathVariable("productId") Integer productId,
 			@PathVariable("customerMail") String customerEmail ){
 		
-		
 		Customer customer=customerService.getCustomerByEmail(customerEmail);
 		
 		Boolean success = wishlistService.addToWishlist(customer.getCustomerId(), productId);
