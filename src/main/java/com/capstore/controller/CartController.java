@@ -116,7 +116,7 @@ public class CartController {
 		return new ResponseEntity<List<CartProduct>>(cartProducts, HttpStatus.OK);
 		
 	}
-<<<<<<< HEAD
+
 	@GetMapping("/getallfiles/{productId}")
 	public ResponseEntity<List<String>> getListFiles(Model model,@PathVariable("productId") String productId) {
 		
@@ -143,7 +143,7 @@ public class CartController {
 	}
 	
 	
-=======
+
 	
 	@GetMapping("/cartcount")
 	public ResponseEntity<Integer> getCount(){
@@ -154,5 +154,5 @@ public class CartController {
 				
 		
 	}
->>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
+
 }
