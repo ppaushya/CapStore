@@ -20,6 +20,8 @@ public interface ICustomerService {
 	public List<Customer> deleteCustomer(int customerId);
 
 	public List<Address> getAddressesOfCustomer(String customerMail);
+
+	Boolean updateMobile(Customer customer);
 	
 	
 }

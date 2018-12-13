@@ -68,6 +68,19 @@ public class AddressController {
 		}
 		return new ResponseEntity<List<Address>>(address1, HttpStatus.OK);
 	}
+	
+	
+	
+	@PostMapping("/updateAddresses")
+	public ResponseEntity<List<Address>> updateAddress(@RequestBody Address address){
+	System.out.println("in sts");
+	
+	List<Address> addresses= addressService.updateAddress(address);
+	if(addresses.isEmpty())
+	return new ResponseEntity
+	("invalid insertion", HttpStatus.NOT_FOUND);
+	return new ResponseEntity<List<Address>>(addresses, HttpStatus.OK);
+	} 
 }
 
 //	@PostMapping(value = "/address")
@@ -82,6 +95,9 @@ public class AddressController {
 //	}
 //		
 //
-//	}		
+//	}	
+
+		
+
 		
 
