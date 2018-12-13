@@ -30,11 +30,12 @@ public class CartService implements ICartService {
 	
 
 	@Override
-	public Cart addProductToCart(CartProduct cartProduct, Integer custId) {
+	public Cart addProductToCart(CartProduct cartProduct, String customerEmailId) {
 		
-		Customer customer=customerDao.getOne(custId);
+		Customer customer=customerDao.getByEmailId(customerEmailId);
+		System.out.println(customer);
 		
-		Cart cart=cartDao.findByCustomer(custId);
+		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
 		if(cart==null)
 		{
@@ -76,20 +77,21 @@ public class CartService implements ICartService {
 	}
 	
 	@Override
-	public Cart deleteProductFromCart(Integer customerId, Integer productId) {
+	public Cart deleteProductFromCart(String customerEmailId, Integer productId) {
 		
-		Cart cart=cartDao.findByCustomer(customerId);
+		Customer customer=customerDao.getByEmailId(customerEmailId);
+		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
 		if(cart==null)
 			return null;
 		else
 		{
 			
-			CartProduct cartProduct=cartProductDao.findByProduct(productId,customerId);
+			CartProduct cartProduct=cartProductDao.findByProduct(productId,customer.getCustomerId());
 			
 			//cart.getCartProducts().remove(cartProduct);
 			cartProductDao.delete(cartProduct);
-			cart=cartDao.findByCustomer(customerId);
+			cart=cartDao.findByCustomer(customer.getCustomerId());
 			
 			return cart;
 		}
@@ -97,22 +99,24 @@ public class CartService implements ICartService {
 	}
 	
 	@Override
-	public Cart getCartProducts(Integer customerId) {
+	public Cart getCartProducts(String customerEmailId) {
+		Customer customer=customerDao.getByEmailId(customerEmailId);
 		
-		Cart cart=cartDao.findByCustomer(customerId);
+		Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		return cart;
 	}
 
 	@Override
-	public Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId) {
+	public Cart updateCartProductQuantity(CartProduct cartProduct, String customerEmailId) {
 		
 		//Cart cart=cartDao.findByCustomer(customerId);
+		Customer customer=customerDao.getByEmailId(customerEmailId);
 		
 		int quantity=cartProduct.getQuantity();
 		
-		cartProductDao.updateQuantity(quantity,cartProduct.getProduct().getProductId(),customerId);
+		cartProductDao.updateQuantity(quantity,cartProduct.getProduct().getProductId(),customer.getCustomerId());
 		
-		 Cart cart=cartDao.findByCustomer(customerId);
+		 Cart cart=cartDao.findByCustomer(customer.getCustomerId());
 		
 		return cart;
 	}
@@ -138,5 +142,12 @@ public class CartService implements ICartService {
 		
 		return totalAmount;
 	}
+	
+	@Override
+	public int getCount() {
+		return cartProductDao.getCount();
+	}
+
+
 
 }

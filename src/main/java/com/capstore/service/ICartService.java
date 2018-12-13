@@ -7,10 +7,22 @@ import com.capstore.model.CartProduct;
 
 public interface ICartService {
 
-	Cart addProductToCart(CartProduct cartProduct, Integer custId);
-	Cart deleteProductFromCart(Integer customerId, Integer productId);
-	Cart getCartProducts(Integer customerId);
-	Cart updateCartProductQuantity(CartProduct cartProduct, Integer customerId);
+
+	
+	
+	
+	Cart addProductToCart(CartProduct cartProduct, String customerEmailId);
+
+	Cart deleteProductFromCart(String customerEmailId, Integer productId);
+
+	Cart getCartProducts(String customerEmailId);
+
+	Cart updateCartProductQuantity(CartProduct cartProduct, String customerEmailId);
+
+	public int getCount();
+
+
+
 	
 	public double calculateTotalCartAmount(Cart cart);
 	

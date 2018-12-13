@@ -22,12 +22,16 @@ import com.capstore.model.Merchant;
 import com.capstore.model.Promos;
 import com.capstore.service.IInventoryMerchantService;
 import com.capstore.service.IMerchantService;
+import com.capstore.service.IProductService;
 import com.capstore.service.IPromoService;
 
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/v1")
 public class ManageInventoryController {
+	
+	@Autowired
+	IProductService productService;
 	
 	@Autowired
 	IInventoryMerchantService inventoryMerchantService;
@@ -41,11 +45,11 @@ public class ManageInventoryController {
 	Merchant merchant;
 	
 
-	@GetMapping("/inventories")
-	public ResponseEntity<List<Inventory>> getAllInventories(){
+	@GetMapping("/inventories/{mailId}")
+	public ResponseEntity<List<Inventory>> getAllInventories(@PathVariable("mailId") String mailId){
 		
-		
-		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
+		merchant=merchantService.getMerchantByMail(mailId);
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		System.out.println(inventories);
 		if(inventories.isEmpty())
 			 return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
@@ -57,24 +61,51 @@ public class ManageInventoryController {
 	
 	
 
-	@PostMapping("/inventories/{mailId}")
-	public ResponseEntity<List<Inventory>> addNewInventory(@RequestBody Inventory inventory,
+	@PostMapping("/editInventories/{mailId}")
+	public ResponseEntity<Boolean> editInventory(@RequestBody Inventory inventory,
 		 @PathVariable("mailId") String mailId){
 		
 		System.out.println(inventory);
-		 
 		
-		//com.capstore.controller.ManageInventoryController.addNewInventory(ManageInventoryController.java:66)
 		merchant=merchantService.getMerchantByMail(mailId);
 		System.out.println("this"+merchant);
 		inventory.setMerchant(merchant);
+		inventory.setInventoryType("MERCHANT");
 		System.out.println(merchant);
-		List<Inventory> inventories=inventoryMerchantService.addNewInventory(inventory);
+		
+		
+		inventoryMerchantService.addNewInventory(inventory);
+		productService.editProduct(inventory);
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		
 		if(inventories.isEmpty())
-			 return new ResponseEntity("Sorry!! Inventory List not available!",HttpStatus.NOT_FOUND);
+			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		
-		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/addInventories/{mailId}")
+	public ResponseEntity<Boolean> addNewInventory(@RequestBody Inventory inventory,
+		 @PathVariable("mailId") String mailId){
+		
+		System.out.println(inventory);
+		
+		merchant=merchantService.getMerchantByMail(mailId);
+		System.out.println("this"+merchant);
+		inventory.setMerchant(merchant);
+		inventory.setInventoryType("MERCHANT");
+		System.out.println(merchant);
+		
+		
+		inventoryMerchantService.addNewInventory(inventory);
+		productService.addNewProduct(inventory);
+		
+		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
+		if(inventories.isEmpty())
+			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		
 	}
 	
@@ -83,7 +114,9 @@ public class ManageInventoryController {
 	@DeleteMapping(value="/inventories/{inventoryId}")
     public ResponseEntity<Boolean>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
-	   List<Inventory> inventories=inventoryMerchantService.deleteInventory(inventoryId);
+		
+	   inventoryMerchantService.deleteInventory(inventoryId);
+	   //List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchantId);
 	
 /*//	   if(inventories==null)
 //		  return new ResponseEntity("Sorry!! Inventory Id not available!",HttpStatus.NOT_FOUND);
@@ -93,7 +126,7 @@ public class ManageInventoryController {
 }
 	
 
-	@PutMapping(value="/inventories")
+	@PutMapping("/inventories")
 	public ResponseEntity<List<Inventory>>updateInventory(@RequestBody Inventory inventory){
 		List<Inventory> inventories=inventoryMerchantService.updateInventory(inventory);
 		

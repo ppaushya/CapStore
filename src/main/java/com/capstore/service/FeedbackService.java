@@ -1,5 +1,6 @@
 package com.capstore.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class FeedbackService implements IFeedbackService{
 		}
 		
 		if(feedbacksNumber!=0) {
-			averageRating = (double)(sum/feedbacksNumber);
+			averageRating = (double)((double)sum/feedbacksNumber);
 		}
 		
 		return averageRating;
@@ -57,9 +58,29 @@ public class FeedbackService implements IFeedbackService{
 		}
 		
 		if(feedbacksNumber!=0) {
-			averageRating = (double)(sum/feedbacksNumber);
+			averageRating = (double)((double)sum/feedbacksNumber);
 		}
 		
 		return averageRating;
 	}
+
+	@Override
+	public List<Feedback> getAllFeedbacksOrderByMerchantId() {
+		return feedbackDao.findAllOrderByMerchantId();
+	}
+
+	@Override
+	public List<Long> getNumberOfFeedbacksPerMerchant() {
+		//List<Feedback> feedbacks=feedbackDao.findAllOrderByMerchantId();
+		List<Long> numberOfFeedbacksPerMerchant=feedbackDao.numberOfFeedbacksPerMerchant();//new LinkedList<Integer>();
+		return numberOfFeedbacksPerMerchant;
+	}
+
+	
+	public List<Feedback> getAllFeedbacks(int productId){
+		
+		 return feedbackDao.getAllFeedbacks(productId);
+			
+		}
+
 }

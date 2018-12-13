@@ -66,6 +66,9 @@ public class Return {
 	public void setReturnStatus(String returnStatus) {
 		this.returnStatus = returnStatus;
 	}
+	
+	public Return()	{}
+	
 	@Override
 	public String toString() {
 		return "Return [returnId=" + returnId + ", order=" + order + ", product=" + product + ", pickupDate="
@@ -79,4 +82,5 @@ public class Return {
 		this.pickupDate = pickupDate;
 		this.returnStatus = returnStatus;
 	}
+	
 }
