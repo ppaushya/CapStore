@@ -75,9 +75,9 @@ public class ManageMerchantController {
 	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session, @PathVariable("email") String mail) {
 
 		
-		Merchant merchant=merchantService.getMerchantByMail(mail);
-		System.out.println(merchant);
-		if(merchant.getMerchantPassword().equals(pasword)) {
+		Login login=loginService.getLoginByEmailId(mail);
+		System.out.println(login);
+		if(login.getPassword().equals(pasword)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
 		else {

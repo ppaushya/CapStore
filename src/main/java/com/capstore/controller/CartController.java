@@ -72,6 +72,7 @@ public class CartController {
 	{
 		Cart cart = cartService.addProductToCart(cartProduct, customerEmailId);
 	
+		
 		if (cart == null)
 			return new ResponseEntity("Sorry! Cart is not available", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);

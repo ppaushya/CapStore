@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,13 @@ public class RegisterController {
 		if(customers.isEmpty())
 			return new ResponseEntity("Sorry! No customers available!",HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getCustomer/{emailId}")
+	public ResponseEntity<Customer> getCustomerFromEmailId(@PathVariable("emailId") String emailId){
+		Customer customer = customerService.getCustomerByEmail(emailId);
+		
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
 
 }
