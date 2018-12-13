@@ -32,11 +32,14 @@ public class StorageService {
 		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
 
+		private final Path rootLocation = Paths.get("C:\\Users\\shivans\\git\\CapStore\\src\\main\\resources\\static\\upload-dir");
 
 		private final Path rootLocation = Paths.get("C:\\Users\\bannapoo\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 
 		//private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
 
+		//private final Path rootLocation = Paths.get("C:\\Users\\mycharis\\git\\C\\apStores\\src\\main\\resources\\static\\upload-dir");
+		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
 		public void store(MultipartFile file,String productId) {

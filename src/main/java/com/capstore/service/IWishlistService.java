@@ -15,4 +15,6 @@ public interface IWishlistService {
 	public List<Product> wishListForSpecificCustomer(int customerId);
 	
 	public boolean moveFromWishlistToCart(int customerId, int productId);
+
+	public int getWishlistCount();
 }

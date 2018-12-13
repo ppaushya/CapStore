@@ -34,7 +34,6 @@ public class WishlistController {
 	public ResponseEntity<Boolean> addToWishlist(@PathVariable("productId") Integer productId,
 			@PathVariable("customerMail") String customerEmail ){
 		
-		
 		Customer customer=customerService.getCustomerByEmail(customerEmail);
 		
 		Boolean success = wishlistService.addToWishlist(customer.getCustomerId(), productId);
@@ -73,4 +72,15 @@ public class WishlistController {
 		
 		return new ResponseEntity<Boolean>(success, HttpStatus.OK);
 	}
+	
+	@GetMapping("/wishlistcount")
+	public ResponseEntity<Integer> getCount(){
+		int count=wishlistService.getWishlistCount();
+				if(count==0)
+					return new ResponseEntity("Sorry",HttpStatus.NOT_FOUND);
+				return new ResponseEntity<Integer>(count,HttpStatus.OK);
+				
+		
+	}
+
 }

@@ -232,6 +232,7 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteProduct(Inventory inventory) {
 		Product product=getProductByInventory(inventory);
 		
@@ -245,6 +246,11 @@ public class ProductService implements IProductService{
 		product.setImageUrl(inventory.getImageUrl());
 		
 		productDao.delete(product);
+=======
+	public Product postProductView(Product product) {
+		     Product product5=productDao.save(product);
+			return product5;
+>>>>>>> branch 'master' of https://github.com/ppaushya/CapStore.git
 	}
 	
 	/*@Override
