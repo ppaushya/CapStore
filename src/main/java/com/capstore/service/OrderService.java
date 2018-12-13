@@ -133,4 +133,16 @@ public class OrderService implements IOrderService {
 		return orderDao.getOrdersBetween(fromDate, toDate);
 	}
 
+	
+
+
+	@Override
+	public List<Order> getAllOrders() {
+		// TODO Auto-generated method stub
+		return orderDao.findAll();
+	}
 }
+
+
+
+

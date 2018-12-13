@@ -229,6 +229,12 @@ public class ProductService implements IProductService{
 		return productDao.getSimilarProducts(brand,productCategory);
 	}
 
+	@Override
+	public Product postProductView(Product product) {
+		     Product product5=productDao.save(product);
+			return product5;
+	}
+	
 	/*@Override
 	public List<Product> getProductToUpload() {
 		
