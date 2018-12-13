@@ -29,7 +29,7 @@ public class StorageService {
 	  IProductService productService;
 		Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
-		private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
+		private final Path rootLocation = Paths.get("D:\\Users\\gjagnani\\Desktop\\Gaurav\\FinalProject\\CapStore\\src\\main\\resources\\static\\upload-dir");
 		
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();

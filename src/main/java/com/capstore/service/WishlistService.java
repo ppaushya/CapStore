@@ -36,15 +36,17 @@ public class WishlistService implements IWishlistService{
 		
 		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
 		
-		if(myWishlist.equals(null)) {
+		if(myWishlist == null) {
 			
 			List<Product> products = new ArrayList<>();
 			products.add(product);
+			myWishlist = new Wishlist();
 			
 			myWishlist.setCustomer(customer);
 			myWishlist.setProducts(products);
 			
 			wishlistDao.save(myWishlist);
+			System.out.println(myWishlist);
 			
 			return true;
 		}else {
@@ -57,6 +59,9 @@ public class WishlistService implements IWishlistService{
 					return true;
 				}
 			}
+			products.add(product);
+			myWishlist.setProducts(products);
+			wishlistDao.save(myWishlist);
 		}
 		
 		return false;
@@ -90,7 +95,7 @@ public class WishlistService implements IWishlistService{
 		
 		Wishlist myWishlist = wishlistDao.getWishlistByCustomerId(customerId);
 		
-		if(myWishlist.equals(null)) {
+		if(myWishlist == null) {
 			return null;
 		}
 		
