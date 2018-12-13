@@ -12,4 +12,6 @@ public interface IAddressService {
 	
 	public Address createAddress(Address address);
 
+	List<Address> updateAddress(Address address);
+
 }

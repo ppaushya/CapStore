@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,14 +50,16 @@ public class CustomerProfileController {
 	public ResponseEntity<Boolean> passwordMatch(@RequestBody String password,HttpSession session, @PathVariable("email") String mail) {
 
 
-		Customer customer=customerService.getCustomerByEmail(mail);
-		System.out.println(customer);
-		if(customer.getPassword().equals(password)) {
+		Login login=loginService.getLoginByEmailId(mail);
+		System.out.println(login);
+		if(login.getPassword().equals(password)) {
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		}
+		
+		
 
 
 
@@ -80,6 +83,15 @@ public class CustomerProfileController {
 
 
 	}
+	
+	@PutMapping("/updatemobile/{mail}")
+	public ResponseEntity<Boolean> updateMobile(@RequestBody Customer customer,  @PathVariable("mail") String mail){
+		Customer cust=customerService.getCustomerByEmail(mail);
+		cust.setMobileNumber(customer.getMobileNumber());
+	Boolean flag= customerService.updateMobile(cust);
+	
+	return new ResponseEntity<Boolean>(flag, HttpStatus.OK);
+	} 
 	
 	
 	
