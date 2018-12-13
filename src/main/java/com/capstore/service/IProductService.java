@@ -40,4 +40,6 @@ public interface IProductService {
 	public Product getProductfromProductId(int productId);
 
 	public List<Product> getSimilarProducts(String brand, String productCategory);
+
+//	public List<Product> getProductToUpload();
 }

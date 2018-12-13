@@ -208,7 +208,7 @@ public class AdminController {
 		
 		String message = "";
 		try {
-			System.out.println(productId);
+			//System.out.println(productId);
 			storageService.store(file,productId);
 			files.add(file.getOriginalFilename());
            // System.out.println(files);
@@ -219,6 +219,23 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
 	}
+	@PostMapping("/slider/{productId}/{Id}")
+	public ResponseEntity<String> handleSliderUpload(@PathVariable("productId") String productId,@PathVariable("Id") String Id,@RequestParam("file") MultipartFile file) {
+		
+		String message = "";
+		try {
+			System.out.println(productId);
+			storageService.storeSlider(file,productId,Id);
+			files.add(file.getOriginalFilename());
+           // System.out.println(files);
+			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			message = "FAIL to upload " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}
+	}
+	
 	
 	
 	@GetMapping("/viewProducts")
@@ -255,10 +272,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/viewInventories")
-	public ResponseEntity<List<Inventory>> getAllInventories(){
+	public ResponseEntity<List<Inventory>> getInventoriesList(){
 		
 		
-		List<Inventory> inventories=inventoryMerchantService.getAllInventories();
+		List<Inventory> inventories=inventoryMerchantService.getInventoriesList();
 		if(inventories.isEmpty())
 			 return new ResponseEntity("Sorry ! Inventories not available!",HttpStatus.NOT_FOUND);
 		
