@@ -2,6 +2,7 @@ package com.capstore.service;
 
 import java.util.List;
 
+import com.capstore.model.Coupons;
 import com.capstore.model.Email;
 import com.capstore.model.Product;
 import com.capstore.model.Promos;
@@ -17,4 +18,7 @@ public interface ISendPromoService {
 	
 	public Email getNewPromoEmail(Promos promo);
 	public boolean sendPromoEmailsToAllCustomer(Promos promo);
+	
+	public Email getNewCouponEmail(Coupons coupon);
+	public boolean sendCouponEmailsToAllCustomer(Coupons coupon);
 }

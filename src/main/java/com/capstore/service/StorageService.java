@@ -31,8 +31,12 @@ public class StorageService {
 	  IProductService productService;
 		//Logger log = LoggerFactory.getLogger(this.getClass().getName());
 		
-		private final Path rootLocation = Paths.get("D:\\Users\\gjagnani\\Desktop\\Gaurav\\FinalProject\\CapStore\\src\\main\\resources\\static\\upload-dir");
-		
+
+
+		private final Path rootLocation = Paths.get("D:\\FinalBackendLocalRepo\\CapStore\\src\\main\\resources\\static\\upload-dir");
+
+		//private final Path rootLocation = Paths.get("C:\\Users\\kalsuman\\git\\CapStore1\\src\\main\\resources\\static\\upload-dir");
+
 		ProductImage productImage=new ProductImage();
 		Product  product=new Product();
 		public void store(MultipartFile file,String productId) {
@@ -49,13 +53,37 @@ public class StorageService {
 			}
 		}
 		
+		public void storeSlider(MultipartFile file,String productId,String Id) {
+			product=productService.getProduct(Integer.parseInt(productId));
+			
+			try {
+				productId=productId+"_"+Id+".jpg";
+				Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename().replace(file.getOriginalFilename(), productId)));
+				
+				//dbStore(productId);
+				dbStoreSlider(this.rootLocation.resolve(file.getOriginalFilename().replace(file.getOriginalFilename(), productId)).toString(),Id);
+			} catch (Exception e) {
+				throw new RuntimeException("FAIL!");
+			}
+		}
+		
 		public void dbStore(String string) {
+			
 			product.setImageUrl(string);
 			productImage.setImageUrl(string);
 			productImage.setImageStatus("main");
 			productImage.setProduct(product);
 			uploadDao.save(productImage);
 			productService.updateProduct(product);
+			
+		}
+		public void dbStoreSlider(String string,String Id) {
+			ProductImage productImage=new ProductImage();
+			productImage.setImageUrl(string);
+			productImage.setImageStatus("slider"+Id);
+			productImage.setProduct(product);
+			uploadDao.save(productImage);
+			
 			
 		}
 		
@@ -90,7 +118,7 @@ public class StorageService {
 				if(!Files.isDirectory(rootLocation))
 				    Files.createDirectories(rootLocation);
 			} catch (IOException e) {
-				throw new RuntimeException("Could not initialize storage!");
+				//throw new RuntimeException("Could not initialize storage!");
 			}
 		}
 		

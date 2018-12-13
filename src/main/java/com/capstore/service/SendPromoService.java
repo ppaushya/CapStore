@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstore.model.Coupons;
 import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Product;
@@ -111,6 +112,35 @@ public class SendPromoService implements ISendPromoService {
 		return true;
 	}
 
+	// new coupon
+
+	@Override
+	public Email getNewCouponEmail(Coupons coupon) {
+		// make email
+		Email email = new Email();
+		email.setImageUrl("no image");
+		email.setSenderEmailId("promotion@capstore.com");
+		email.setMessage(getEmailContentFromCoupon(coupon));
+
+		return email;
+	}
+
+	@Override
+	public boolean sendCouponEmailsToAllCustomer(Coupons coupon) {
+		List<Customer> customers = customerService.getAllCustomers();
+
+		Email email = getNewCouponEmail(coupon);
+
+		for (Customer customer : customers) {
+			Email customerEmail = new Email();
+			BeanUtils.copyProperties(email, customerEmail);
+			customerEmail.setReceiverEmailId(customer.getEmailId());
+			sendEmailToUser(customerEmail);
+		}
+
+		return true;
+	}
+
 	// email
 	private String getEmailContentFromProductList(List<Product> products) { // Team 6
 		StringBuilder stringBuilder = new StringBuilder();
@@ -131,7 +161,21 @@ public class SendPromoService implements ISendPromoService {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(getHeadingForEmail());
 		stringBuilder.append("\nWe have added a new promo. Let's have a look...!\n\n");
-		stringBuilder.append("Promo Code: " + promo.getPromoCode() + "\n" + "Discount: " + promo.getDiscount()+"\n\n");
+		stringBuilder
+				.append("Promo Code: " + promo.getPromoCode() + "\n" + "Discount: " + promo.getDiscount() + "\n\n");
+		stringBuilder.append("Hope you find them useful :)\n");
+		stringBuilder.append(getFooterForEmail());
+
+		return stringBuilder.toString();
+	}
+
+	private String getEmailContentFromCoupon(Coupons coupon) { // Team 6
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(getHeadingForEmail());
+		stringBuilder.append("\nWe have added a new promo. Let's have a look...!\n\n");
+		stringBuilder
+				.append("Coupon Code: " + coupon.getCouponCode() + "\n" + "Discount: " + coupon.getDiscountPercentage()
+						+ "\n" + "Maximum Discount Amount: " + coupon.getMaxDiscount() + "\n\n");
 		stringBuilder.append("Hope you find them useful :)\n");
 		stringBuilder.append(getFooterForEmail());
 

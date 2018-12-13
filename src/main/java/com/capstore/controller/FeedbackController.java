@@ -49,6 +49,21 @@ public class FeedbackController {
 
 	}
 	
+	@GetMapping("/allFeedbacks")
+	public ResponseEntity<List<Feedback>> getAllFeedbacks(){
+		List<Feedback> feedbacks=feedbackService.getAllFeedbacksOrderByMerchantId();
+		System.out.println(feedbacks);
+		return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getNumberOfFeedbacksPerMerchant")
+	public ResponseEntity<List<Long>> getNumberOfFeedbacksPerMerchant(){
+		List<Long> feedbacks=feedbackService.getNumberOfFeedbacksPerMerchant();
+		System.out.println("dsfs"+feedbacks);
+		return new ResponseEntity<List<Long>>(feedbacks,HttpStatus.OK);
+	}
+	
+
 	@GetMapping("/feedback/{productId}")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable int productId){
 		List<Feedback> feedback=feedbackService.getAllFeedbacks(productId);
