@@ -41,6 +41,7 @@ public interface IProductService {
 
 	public List<Product> getSimilarProducts(String brand, String productCategory);
 
-	//	public List<Product> getProductToUpload();
+	public void deleteProduct(Inventory inventory);
 	public Product postProductView(Product product);
+//	public List<Product> getProductToUpload();
 }
