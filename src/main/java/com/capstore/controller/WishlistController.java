@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,9 +47,7 @@ public class WishlistController {
 	
 		Customer customer=customerService.getCustomerByEmail(customerEmail);
 		System.out.println(customer);
-		List<Product> products=wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
-		if(products.isEmpty())
-			System.out.println("no entries");
+		List<Product> products = wishlistService.wishListForSpecificCustomer(customer.getCustomerId());
 		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
 	}
 	
@@ -76,4 +73,15 @@ public class WishlistController {
 		
 		return new ResponseEntity<Boolean>(success, HttpStatus.OK);
 	}
+	
+	@GetMapping("/wishlistcount")
+	public ResponseEntity<Integer> getCount(){
+		int count=wishlistService.getWishlistCount();
+				if(count==0)
+					return new ResponseEntity("Sorry",HttpStatus.NOT_FOUND);
+				return new ResponseEntity<Integer>(count,HttpStatus.OK);
+				
+		
+	}
+
 }

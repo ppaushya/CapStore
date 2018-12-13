@@ -8,6 +8,10 @@ public interface IAddressService {
 	
 	public List<Address> getAllAddresses();
 	
+	public List<Address> createAddress(Address address,String customerMail);
+	
 	public Address createAddress(Address address);
+
+	List<Address> updateAddress(Address address);
 
 }

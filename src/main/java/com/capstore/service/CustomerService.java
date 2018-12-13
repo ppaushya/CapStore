@@ -59,6 +59,15 @@ public class CustomerService implements ICustomerService{
 		List<Address> addresses=customer.getAddresses();
 		return addresses;
 	}
+	
+	
+	@Override
+	public Boolean updateMobile(Customer customer) {
+	
+	customerDao.save(customer);
+
+	return true;
+	}
 
 	
 }

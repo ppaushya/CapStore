@@ -19,6 +19,7 @@ import com.capstore.model.Customer;
 import com.capstore.model.Email;
 import com.capstore.model.Login;
 import com.capstore.service.ICustomerService;
+import com.capstore.service.IEmailService;
 import com.capstore.service.ILoginService;
 
 @CrossOrigin(origins="*")
@@ -34,6 +35,9 @@ public class LoginController {
 	@Autowired
 	private ICustomerService customerService;
 	
+	
+	@Autowired
+	private IEmailService emailService;
 	
 	@PostMapping("/validlogin")
 	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
@@ -62,10 +66,12 @@ public class LoginController {
 
 		if(flag)
 		{
+		
 		Email mail=new Email();
 		mail.setReceiverEmailId(login.getEmailId());
 		mail.setMessage("Your new password is capstore123");
 		mail.setImageUrl("");
+		emailService.sendEmail(mail);
 		return  new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		}
 		

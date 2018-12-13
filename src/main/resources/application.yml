@@ -5,9 +5,7 @@ server:
 spring:
   datasource:
   
-  
-  
-    url: jdbc:mysql://localhost:3306/kalyani
+    url: jdbc:mysql://localhost:3306/capstore
     username: root
     password: India123
   jpa:

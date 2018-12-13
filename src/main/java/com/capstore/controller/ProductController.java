@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -146,12 +147,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("/product/{productId}")
-	public ResponseEntity<List<Product>> getProduct(@PathVariable int productId){
-		List<Product> product=productService.getProductfromProductId(productId);
+	public ResponseEntity<Product> getProduct(@PathVariable int productId){
+		Product product=productService.getProductfromProductId(productId);
 		if(product==null)
 			return new ResponseEntity("Sorry! Product can't fetch!",HttpStatus.NOT_FOUND);
 		else
-		return new ResponseEntity<List<Product>>(product,HttpStatus.OK);
+		return new ResponseEntity<Product>(product,HttpStatus.OK);
 	}
 	
 	
@@ -164,4 +165,20 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(product1,HttpStatus.OK);
 	
 	}
+	
+	@PostMapping("/productViewCount/{productId}")
+	public ResponseEntity<Product> postProductView(@PathVariable int productId){
+		Product product=productService.getProductfromProductId(productId);
+		product.setProductView(product.getProductView()+1);
+		Product product5= productService.postProductView(product);
+		if(product5==null) 
+			return new ResponseEntity("Sorry! Product can't fetch!",HttpStatus.NOT_FOUND);
+			else
+		return new ResponseEntity<Product>(product5,HttpStatus.OK);
+		
+			
+		
+	}
+	
+	
 }

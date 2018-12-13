@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capstore.model.Coupons;
 import com.capstore.model.Product;
 import com.capstore.model.Promos;
 import com.capstore.service.IProductService;
@@ -53,5 +54,12 @@ public class SendPromoController {
 		return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 
 	}
+	@PostMapping("/sendemail/coupon")
+	public ResponseEntity<Boolean> sendNewCouponEmails(@RequestBody Coupons coupon) {
+		if (sendPromoService.sendCouponEmailsToAllCustomer(coupon)) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
+		return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 
+	}
 }
