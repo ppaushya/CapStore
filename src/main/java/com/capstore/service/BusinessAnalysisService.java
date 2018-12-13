@@ -1,6 +1,7 @@
 package com.capstore.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstore.model.CartProduct;
+import com.capstore.model.DispatchAnalysis;
 import com.capstore.model.Invoice;
 import com.capstore.model.Order;
 import com.capstore.model.Return;
 import com.capstore.model.SalesAnalysis;
+import com.capstore.model.Shipment;
 
 
 @Service("businessAnalysisService")
@@ -87,6 +90,7 @@ public class BusinessAnalysisService implements IBusinessAnalysisService {
 		List<Object[]> bestSellerDetails=productService.getBestSellerId();
 		System.out.println(bestSellerDetails);
 		
+		
 		//for each product category, check sales details
 		for(Object[] object:bestSellerDetails)	{
 			String productCategory=(String)object[0];
@@ -138,7 +142,38 @@ public class BusinessAnalysisService implements IBusinessAnalysisService {
 		return salesAnalysisDetails;
 	}
 	
+	//this method retrieves dispatch details for business analysis by admin
+	@Override
+	public List<DispatchAnalysis> getDispatchDetailsBetween(Date fromDate, Date toDate)	{
+		
+		List<DispatchAnalysis> dispatchAnalysisDetails=new ArrayList<>();
+		DispatchAnalysis dispatchAnalysis=new DispatchAnalysis();
+		Calendar c = Calendar.getInstance();
 	
+		List<Order> orderDetails=orderService.getOrdersBetween(fromDate, toDate);
+		System.out.println(orderDetails);
+		//for each order placed, get shipment details
+		for(Order order:orderDetails)	{
+			List<Shipment> shipmentDetails=order.getShipments();
+			System.out.println(shipmentDetails);
+			
+			for(Shipment shipment:shipmentDetails)	{
+				
+				c.setTime(order.getOrderDate());
+				c.add(c.DAY_OF_MONTH, 1);
+				
+				dispatchAnalysis.setProductName(shipment.getProduct().getProductName());
+				dispatchAnalysis.setMerchantName(shipment.getProduct().getInventory().getMerchant().getMerchantName());
+				//expected dispatch date of the product is one day after order placed
+				dispatchAnalysis.setExpectedDispatchDate(c.getTime());
+				dispatchAnalysis.setActualDispatchDate(shipment.getDispatchDate());
+				dispatchAnalysis.setDeliveryDate(shipment.getDeliveryDate());
+				
+				dispatchAnalysisDetails.add(dispatchAnalysis);
+			}
+		}
+		return dispatchAnalysisDetails;
+	}
 	
 
 }

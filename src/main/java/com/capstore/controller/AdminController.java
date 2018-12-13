@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.capstore.model.Customer;
+import com.capstore.model.DispatchAnalysis;
 import com.capstore.model.Email;
 import com.capstore.model.Inventory;
 import com.capstore.model.Login;
@@ -348,6 +349,7 @@ public class AdminController {
 	
 	
 //	************************Generate Business Analysis**********************************************
+	//for getting sales analysis(category wise)
 	@GetMapping("/salesAnalysis/{fromDate}/to/{toDate}")
 	public ResponseEntity<List<SalesAnalysis>> getSalesAnalysis(@PathVariable("fromDate") @DateTimeFormat(pattern="yyyy-MM-dd")
 	Date fromDate, @PathVariable("toDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate)	{
@@ -361,7 +363,19 @@ public class AdminController {
 		return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
 	}
 	
-
+	//for getting dispatch details(for analyzing merchants)
+	@GetMapping("/dispatchAnalysis/{fromDate}/to/{toDate}")
+	public ResponseEntity<List<DispatchAnalysis>> getDispatchAnalysis(@PathVariable("fromDate") @DateTimeFormat(pattern="yyyy-MM-dd")
+	Date fromDate, @PathVariable("toDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate)	{
+		if(fromDate.before(toDate))	{
+			List<DispatchAnalysis> dispatchAnalysis=businessAnalysisService.getDispatchDetailsBetween(fromDate, toDate);
+			
+			if(dispatchAnalysis.isEmpty())
+				return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<DispatchAnalysis>>(dispatchAnalysis,HttpStatus.OK);
+		}
+		return new ResponseEntity("Sorry! No business during this time period!", HttpStatus.NOT_FOUND);
+	}
 	
 	
 	
