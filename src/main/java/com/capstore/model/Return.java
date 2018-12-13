@@ -70,7 +70,7 @@ public class Return {
 		this.returnStatus = returnStatus;
 	}
 	
-	public Return()	{}
+	
 	
 	@Override
 	public String toString() {
