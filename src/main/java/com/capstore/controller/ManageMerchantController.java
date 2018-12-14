@@ -69,13 +69,14 @@ public class ManageMerchantController {
 	
 	}
 
+	//for deleting a merchant
 	@DeleteMapping("/merchants/{merchantId}")
 	public ResponseEntity<Boolean> deleteMerchant(@PathVariable Integer merchantId){
 
 		merchantService.deleteMerchant(merchantId);
 		return new ResponseEntity<>(true,HttpStatus.OK);
 	}
-
+	//for retrieving merchant rating
 	@GetMapping("/merchants/{merchantId}")
 	public ResponseEntity<Double> getMerchantRating(@PathVariable int merchantId) {
 
@@ -84,7 +85,7 @@ public class ManageMerchantController {
 		return new ResponseEntity<Double>(avgMerchantRating,HttpStatus.OK);
 
 	}
-
+	
 	@PostMapping("/passwordMatch/{email}")
 	public ResponseEntity<Boolean> passwordMatch(@RequestBody String pasword,HttpSession session, @PathVariable("email") String mail) {
 

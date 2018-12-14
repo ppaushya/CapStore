@@ -44,15 +44,13 @@ public class ManageInventoryController {
 	
 	Merchant merchant;
 	
-
+	//To retrieve list of inventories of a particular merchant
 	@GetMapping("/inventories/{mailId}")
 	public ResponseEntity<List<Inventory>> getAllInventories(@PathVariable("mailId") String mailId){
 		
 		merchant=merchantService.getMerchantByMail(mailId);
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		System.out.println(inventories);
-		if(inventories.isEmpty())
-			 return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
 		
 		
 		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
@@ -60,7 +58,7 @@ public class ManageInventoryController {
 	}
 	
 	
-
+	//To edit a particular inventory of a particular merchant
 	@PostMapping("/editInventories/{mailId}")
 	public ResponseEntity<Boolean> editInventory(@RequestBody Inventory inventory,
 		 @PathVariable("mailId") String mailId){
@@ -78,13 +76,11 @@ public class ManageInventoryController {
 		productService.editProduct(inventory);
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
 		
-		if(inventories.isEmpty())
-			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		
 	}
-	
+	//To create an inventory for a particular merchant
 	@PostMapping("/addInventories/{mailId}")
 	public ResponseEntity<Boolean> addNewInventory(@RequestBody Inventory inventory,
 		 @PathVariable("mailId") String mailId){
@@ -101,40 +97,32 @@ public class ManageInventoryController {
 		inventoryMerchantService.addNewInventory(inventory);
 		
 		List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchant.getMerchantId());
-		if(inventories.isEmpty())
-			 return new ResponseEntity<Boolean>(false,HttpStatus.OK);
 		
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		
 	}
 	
 
-	
+	//To delete a particular inventory of a particular merchant
 	@DeleteMapping(value="/inventories/{inventoryId}")
     public ResponseEntity<Boolean>deleteInventory(@PathVariable("inventoryId")int inventoryId){
 	
 		
 	   inventoryMerchantService.deleteInventory(inventoryId);
-	   //List<Inventory> inventories=inventoryMerchantService.getAllInventories(merchantId);
-	
-/*//	   if(inventories==null)
-//		  return new ResponseEntity("Sorry!! Inventory Id not available!",HttpStatus.NOT_FOUND);
-*/	
+
 	return new ResponseEntity(true,HttpStatus.OK);
 	
 }
 	
-
+	//To edit a particular inventory of a particular merchant
 	@PutMapping("/inventories")
 	public ResponseEntity<List<Inventory>>updateInventory(@RequestBody Inventory inventory){
 		List<Inventory> inventories=inventoryMerchantService.updateInventory(inventory);
 		
-		if(inventories==null)
-			  return new ResponseEntity("Sorry!! Inventory Id not available",HttpStatus.NOT_FOUND);
-		
 		return new ResponseEntity<List<Inventory>>(inventories,HttpStatus.OK);
 	}
 	
+	//To create a promo for a particular merchant
 	@PostMapping("/inventories/promo")
 	public ResponseEntity<Boolean> addPromo(@RequestBody Promos promo)
 	{
