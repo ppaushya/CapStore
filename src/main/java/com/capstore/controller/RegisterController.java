@@ -49,7 +49,7 @@ public class RegisterController {
 		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
 	}
 	
-	@GetMapping("/getCustomer/{emailId}")
+	@GetMapping("/getcustomer/{emailId}")
 	public ResponseEntity<Customer> getCustomerFromEmailId(@PathVariable("emailId") String emailId){
 		Customer customer = customerService.getCustomerByEmail(emailId);
 		
