@@ -49,14 +49,14 @@ public class FeedbackController {
 		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
 	}
-	
+	//to get list of all feedbacks
 	@GetMapping("/allFeedbacks")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(){
 		List<Feedback> feedbacks=feedbackService.getAllFeedbacksOrderByMerchantId();
 		System.out.println(feedbacks);
 		return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
 	}
-	
+	//to get number of feedbacks per merchant
 	@GetMapping("/getNumberOfFeedbacksPerMerchant")
 	public ResponseEntity<List<Long>> getNumberOfFeedbacksPerMerchant(){
 		List<Long> feedbacks=feedbackService.getNumberOfFeedbacksPerMerchant();
@@ -64,17 +64,15 @@ public class FeedbackController {
 		return new ResponseEntity<List<Long>>(feedbacks,HttpStatus.OK);
 	}
 	
-
+	//to get all feedbacks coressponding to a particular product id
 	@GetMapping("/feedback/{productId}")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable int productId){
 		List<Feedback> feedback=feedbackService.getAllFeedbacks(productId);
-		if(feedback.isEmpty())
-			return new ResponseEntity<List<Feedback>>(feedback,HttpStatus.OK);
-		else
+		
 		return new ResponseEntity<List<Feedback>>(feedback,HttpStatus.OK);
 	
 	}
-	
+	//to get feedback list for a particular merchant
 	@GetMapping("/merchantFeedback/{mailId}")
 	public ResponseEntity<List<Feedback>> getMerchantFeedbacks(@PathVariable("mailId") String mailId){
 		
@@ -82,9 +80,6 @@ public class FeedbackController {
 		
 		List<Feedback> feedbacks=feedbackService.getAllFeedbacksOfMerchant(merchant.getMerchantId());
 		
-		if(feedbacks.isEmpty())
-			return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
-		else
 		return new ResponseEntity<List<Feedback>>(feedbacks,HttpStatus.OK);
 
 	}
@@ -97,10 +92,8 @@ public class FeedbackController {
 		Merchant merchant=merchantService.getMerchantByMail(mailId);
 	
 		Double averageRating=feedbackService.calculateMerchantRating(merchant.getMerchantId());
-		if(averageRating==null)
-			return new ResponseEntity<Double>(averageRating,HttpStatus.OK);
-		else
-			return new ResponseEntity<Double>(averageRating,HttpStatus.OK);
+		
+		return new ResponseEntity<Double>(averageRating,HttpStatus.OK);
 
 	}
 }

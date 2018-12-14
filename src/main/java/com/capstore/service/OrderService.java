@@ -10,11 +10,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstore.dao.ICartDao;
+import com.capstore.dao.ICartProductDao;
 import com.capstore.dao.IOrderDao;
 import com.capstore.model.Cart;
 import com.capstore.model.CartProduct;
 import com.capstore.model.Order;
 import com.capstore.model.Product;
+import com.capstore.model.Shipment;
 
 @Service("orderService")
 public class OrderService implements IOrderService {
@@ -23,7 +26,14 @@ public class OrderService implements IOrderService {
 	private IOrderDao orderDao;
 	@Autowired
 	private IProductService productService;
+	@Autowired
+	private IShipmentService shipmentService;
+	@Autowired
+	private ICartDao cartDao;
+	@Autowired
+	private ICartProductDao cartProductDao;
 	
+
 	public OrderService(IOrderDao orderDao, IProductService productService) {
 		super();
 		this.orderDao = orderDao;
@@ -79,9 +89,24 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public boolean placeOrder(Order order) {		
-		orderDao.save(order);
-		return true;
+	public Order placeOrder(Order order) {
+		/*System.out.println(order);
+		List<Shipment> shipments = order.getShipments();
+		for(Shipment shipment:shipments) {
+			shipmentService.insertshipment(shipment);
+		}
+		//System.out.println(order.getCart());
+		Cart cart = order.getCart();
+		List<CartProduct> cartProducts = cart.getCartProducts();
+		for(CartProduct cartProduct:cartProducts) {
+			cartProductDao.save(cartProduct);
+		}
+		cartDao.save(cart);
+		//cartService.
+		//order.setCart(cart);
+		order.setOrderDate(new Date());*/
+		Order newOrder = orderDao.save(order);
+		return newOrder;
 	}
 
 	@Override
