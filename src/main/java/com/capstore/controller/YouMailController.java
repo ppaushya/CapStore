@@ -45,7 +45,7 @@ public class YouMailController {
 	public ResponseEntity<List<Email>> sendVerificationToMail(@RequestBody String email)
 	{
 		
-		List<Email> emails=emailService.getEmails(email);
+		List<Email> emails= emailService.getEmails(email);
 		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
 
 	}

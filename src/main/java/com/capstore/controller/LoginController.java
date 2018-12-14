@@ -40,7 +40,7 @@ public class LoginController {
 	private IEmailService emailService;
 	
 	@PostMapping("/validlogin")
-	public ResponseEntity<Login> getLogin (@RequestBody Login login, HttpSession session){
+	public ResponseEntity<Login> getLogin (@RequestBody Login login){
 		
 		//(@RequestBody Login login,
 		
@@ -51,7 +51,7 @@ public class LoginController {
 			return new ResponseEntity<Login>(new Login(),HttpStatus.OK);	
 		}
 		/*this.emailId=loginbean.getEmailId();*/
-		session.setAttribute("emailId", loginbean.getEmailId());
+		
 		System.out.println(loginbean);
 		
 		

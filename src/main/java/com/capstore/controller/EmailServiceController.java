@@ -27,11 +27,8 @@ public class EmailServiceController {
 	
 	//This method can send email from admin to customer and from merchant to admin
 	@PostMapping("/emailService")
-	public ResponseEntity<Boolean> sendEmailToCustomer(@RequestBody Email email,
-			HttpSession session){
-		System.out.println(email);
-		email.setSenderEmailId(session.getAttribute("emailId").toString());
-		System.out.println(email);
+	public ResponseEntity<Boolean> sendEmailToCustomer(@RequestBody Email email){
+		
 		//Get customer list
 		List<Customer> customerList=emailService.getCustomerList();
 		//SEND TO MULTIPLE CUSTOMERS	
