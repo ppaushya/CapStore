@@ -98,7 +98,16 @@ public class CartController {
 
 	}
 	
+	@GetMapping("/getCart/{customerEmailId}")
+	public ResponseEntity<Cart> getCartOfCustomer(HttpSession sessison, @PathVariable("customerEmailId") String customerEmailId) {
 
+		
+		Cart cart=cartService.getCartProducts(customerEmailId);
+		
+		
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+
+	}
 
 
 	@PutMapping("/updateCartProductQuantity/{customerEmailId}")
