@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.capstore.model.Address;
 import com.capstore.model.Login;
 import com.capstore.model.Merchant;
 import com.capstore.model.Product;
@@ -38,7 +39,7 @@ import com.capstore.service.StorageService;
 public class ManageMerchantController {
 
 	
-	
+	Address address=new Address();
 	@Autowired
 	IMerchantService merchantService;
 	
@@ -51,24 +52,31 @@ public class ManageMerchantController {
 
 	public FeedbackService feedbackService;
 
+	
+	
+	@PostMapping("/addAddressMerchant")
+	public ResponseEntity<Boolean> AddAddress(@RequestBody Address address){
+	this.address=address;
+	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	}
 	@PostMapping("/merchantRegistration")
 	public ResponseEntity<Boolean> addMerchant(
-			@RequestBody Merchant merchant){
-		try
-		{
-		merchantService.addMerchant(merchant);
-		return new ResponseEntity<>(true, HttpStatus.OK);
-		
-		}
-		catch(Exception e)
-	
-		{
-			return new ResponseEntity<>(false, HttpStatus.OK);
+	@RequestBody Merchant merchant){
+	try
+	{
+	merchant.setMerchantAddress(address);
+	merchantService.addMerchant(merchant);
+	return new ResponseEntity<>(true, HttpStatus.OK);
 	}
-		
-	
+	catch(Exception e)
+	{
+	return new ResponseEntity<>(false, HttpStatus.OK);
 	}
-
+	// {
+	// return new ResponseEntity<>(false, HttpStatus.OK);
+	// }
+	}
+	
 	//for deleting a merchant
 	@DeleteMapping("/merchants/{merchantId}")
 	public ResponseEntity<Boolean> deleteMerchant(@PathVariable Integer merchantId){
